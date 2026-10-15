@@ -17,18 +17,13 @@
   }
   header h1 { font-size:15px; letter-spacing:1px; }
   header .meja {
-    margin-left:auto;
-    background:#f1c40f; color:#000;
-    padding:4px 12px; border-radius:16px;
-    font-weight:bold; font-size:12px;
-    display:flex; align-items:center; gap:4px;
-    cursor:pointer;
-    max-width:170px;
+    margin-left:auto; background:#f1c40f; color:#000;
+    padding:4px 12px; border-radius:16px; font-weight:bold; font-size:12px;
+    display:flex; align-items:center; gap:4px; cursor:pointer; max-width:170px;
   }
   header .meja:active { transform:scale(.95); }
   header .meja .meja-name {
-    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-    max-width:110px;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:110px;
   }
   header .meja .edit-ico { font-size:10px; opacity:.6; }
   header .logo { width:32px; height:32px; background:#f1c40f; border-radius:8px;
@@ -36,8 +31,7 @@
   
   .kategori-wrap {
     position:sticky; top:56px; background:#1a1a1a; z-index:99;
-    border-bottom:1px solid #2a2a2a;
-    overflow:hidden;
+    border-bottom:1px solid #2a2a2a; overflow:hidden;
   }
   .kategori {
     display:flex; gap:6px; padding:10px 12px; overflow-x:auto;
@@ -47,29 +41,17 @@
   .kategori button {
     background:#242424; color:#ddd; border:1px solid #333; padding:7px 14px;
     border-radius:18px; white-space:nowrap; cursor:pointer; font-size:12.5px;
-    transition:.15s;
   }
   .kategori button.active { background:#c0392b; border-color:#c0392b; color:#fff; font-weight:600; }
   .kategori-wrap::after {
-    content:'';
-    position:absolute;
-    top:0; right:0; bottom:0;
-    width:44px;
+    content:''; position:absolute; top:0; right:0; bottom:0; width:44px;
     background:linear-gradient(to right, rgba(26,26,26,0) 0%, rgba(26,26,26,.85) 60%, #1a1a1a 100%);
-    pointer-events:none;
-    z-index:1;
+    pointer-events:none; z-index:1;
   }
   .kategori-wrap::before {
-    content:'›';
-    position:absolute;
-    top:50%; right:8px;
-    transform:translateY(-50%);
-    font-size:24px;
-    font-weight:bold;
-    color:#f1c40f;
-    pointer-events:none;
-    z-index:2;
-    animation:arrowSlide 1.5s infinite;
+    content:'›'; position:absolute; top:50%; right:8px;
+    transform:translateY(-50%); font-size:24px; font-weight:bold; color:#f1c40f;
+    pointer-events:none; z-index:2; animation:arrowSlide 1.5s infinite;
   }
   @keyframes arrowSlide {
     0%,100% { opacity:.4; transform:translate(0, -50%); }
@@ -79,21 +61,14 @@
   .menu-grid { padding:10px 12px; display:grid; gap:8px; }
   .card {
     background:#242424; border-radius:10px; padding:10px; display:flex; gap:10px;
-    border:1px solid #2e2e2e;
-    transition:.15s;
-    position:relative;
+    border:1px solid #2e2e2e; transition:.15s; position:relative;
   }
   .card:active { background:#2a2a2a; }
-  .card.sold-out {
-    opacity:.45;
-    background:#1a1a1a;
-    border-color:#333;
-  }
+  .card.sold-out { opacity:.45; background:#1a1a1a; border-color:#333; }
   .card.sold-out .card img { filter:grayscale(1); }
   .card .img {
     width:64px; height:64px; background:#2e2e2e; border-radius:8px; flex-shrink:0;
-    display:flex; align-items:center; justify-content:center; font-size:28px;
-    overflow:hidden;
+    display:flex; align-items:center; justify-content:center; font-size:28px; overflow:hidden;
   }
   .card .img img { width:100%; height:100%; object-fit:cover; display:block; }
   .card .info { flex:1; display:flex; flex-direction:column; justify-content:space-between; min-width:0; }
@@ -106,26 +81,23 @@
   .card button {
     background:#c0392b; color:#fff; border:none; width:34px; height:34px;
     border-radius:50%; font-size:20px; cursor:pointer; font-weight:bold;
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
   }
   .card button:active { transform:scale(.9); background:#e74c3c; }
-  .card button:disabled {
-    background:#333; cursor:not-allowed; color:#666;
-  }
+  .card button:disabled { background:#333; cursor:not-allowed; color:#666; }
   .card button:disabled:active { transform:none; }
   
   .sold-badge {
-    position:absolute;
-    top:8px; right:8px;
-    background:#c0392b;
-    color:#fff;
-    font-size:10px;
-    font-weight:700;
-    padding:3px 8px;
-    border-radius:6px;
-    letter-spacing:.5px;
-    z-index:2;
+    position:absolute; top:8px; right:8px;
+    background:#c0392b; color:#fff; font-size:10px; font-weight:700;
+    padding:3px 8px; border-radius:6px; letter-spacing:.5px; z-index:2;
+    box-shadow:0 2px 6px rgba(0,0,0,.4);
+  }
+  
+  .custom-badge {
+    position:absolute; top:8px; right:8px;
+    background:#9b59b6; color:#fff; font-size:9px; font-weight:700;
+    padding:3px 8px; border-radius:6px; letter-spacing:.5px; z-index:2;
     box-shadow:0 2px 6px rgba(0,0,0,.4);
   }
   
@@ -136,8 +108,7 @@
     box-shadow:0 4px 14px rgba(243,156,18,.5);
     font-size:24px; cursor:pointer; z-index:150;
     display:flex; align-items:center; justify-content:center;
-    border:none; color:#fff;
-    animation:fabPulse 2.5s infinite;
+    border:none; color:#fff; animation:fabPulse 2.5s infinite;
   }
   .fab:active { transform:scale(.9); }
   @keyframes fabPulse {
@@ -148,8 +119,7 @@
   .cart-bar {
     position:fixed; bottom:0; left:0; right:0; background:#c0392b;
     padding:14px 16px; display:flex; justify-content:space-between; align-items:center;
-    cursor:pointer; box-shadow:0 -2px 10px rgba(0,0,0,.5);
-    z-index:140;
+    cursor:pointer; box-shadow:0 -2px 10px rgba(0,0,0,.5); z-index:140;
   }
   .cart-bar.hidden { display:none; }
   .cart-bar .info { font-size:12px; opacity:.9; }
@@ -158,8 +128,7 @@
   
   .modal {
     position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:200;
-    display:none; align-items:flex-end;
-    backdrop-filter:blur(2px);
+    display:none; align-items:flex-end; backdrop-filter:blur(2px);
   }
   .modal.show { display:flex; animation:fadeIn .2s; }
   @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -170,9 +139,15 @@
   }
   @keyframes slideUp { from { transform:translateY(30px); } to { transform:translateY(0); } }
   .modal-content h2 { margin-bottom:14px; font-size:16px; }
-  .cart-item { display:flex; justify-content:space-between; align-items:center;
-    padding:10px 0; border-bottom:1px solid #2a2a2a; }
-  .cart-item .qty { display:flex; align-items:center; gap:6px; }
+  .cart-item { display:flex; justify-content:space-between; align-items:flex-start;
+    padding:10px 0; border-bottom:1px solid #2a2a2a; gap:8px; }
+  .cart-item .cart-info { flex:1; min-width:0; }
+  .cart-item .cart-name { font-size:13.5px; font-weight:600; margin-bottom:2px; }
+  .cart-item .cart-addons {
+    font-size:11.5px; color:#9b59b6; line-height:1.4; margin-bottom:3px;
+  }
+  .cart-item .cart-price { color:#f1c40f; font-size:12.5px; font-weight:600; }
+  .cart-item .qty { display:flex; align-items:center; gap:6px; flex-shrink:0; }
   .cart-item .qty button { background:#2e2e2e; color:#fff; border:none;
     width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:15px;
     display:flex; align-items:center; justify-content:center; }
@@ -212,8 +187,7 @@
   .btn-wa {
     width:100%; background:#25D366; color:#fff; border:none; padding:16px;
     border-radius:12px; font-size:15.5px; font-weight:700; cursor:pointer;
-    margin-top:10px;
-    animation:waPulse 2s infinite;
+    margin-top:10px; animation:waPulse 2s infinite;
   }
   @keyframes waPulse {
     0%,100% { box-shadow:0 0 0 0 rgba(37,211,102,.5); }
@@ -221,6 +195,18 @@
   }
   .btn-close { background:#2e2e2e; color:#fff; border:none; padding:12px;
     border-radius:10px; width:100%; margin-top:8px; cursor:pointer; font-size:14px; }
+  .btn-clear-cart {
+    width:100%; background:transparent; color:#e74c3c;
+    border:1.5px solid #e74c3c; padding:11px; border-radius:10px;
+    font-size:13.5px; font-weight:600; cursor:pointer; margin-top:8px;
+  }
+  .btn-clear-cart:active { background:rgba(231,76,60,.15); }
+  .btn-cancel-cart {
+    width:100%; background:#2e2e2e; color:#fff; border:none;
+    padding:12px; border-radius:10px; font-size:14px;
+    font-weight:600; cursor:pointer; margin-top:8px;
+  }
+  .btn-cancel-cart:active { transform:scale(.97); }
   
   .empty { text-align:center; color:#666; padding:50px 20px; font-size:13px; }
   
@@ -269,15 +255,9 @@
   
   .warning-wa {
     background: linear-gradient(135deg, #f39c12, #e67e22);
-    color: #000;
-    border-radius: 10px;
-    padding: 12px 14px;
-    margin: 12px 0;
-    font-size: 12.5px;
-    line-height: 1.5;
-    text-align: left;
-    border-left: 4px solid #c0392b;
-    font-weight: 500;
+    color: #000; border-radius: 10px; padding: 12px 14px;
+    margin: 12px 0; font-size: 12.5px; line-height: 1.5;
+    text-align: left; border-left: 4px solid #c0392b; font-weight: 500;
   }
   
   .success-page { text-align:center; padding:16px 0 8px; }
@@ -290,11 +270,8 @@
   }
   
   .steps-guide {
-    background:#1e1e1e;
-    border:1px solid #2e2e2e;
-    border-radius:12px;
-    padding:14px;
-    margin:12px 0;
+    background:#1e1e1e; border:1px solid #2e2e2e; border-radius:12px;
+    padding:14px; margin:12px 0;
   }
   .steps-guide .step-title {
     font-size:12px; color:#f1c40f; font-weight:700;
@@ -309,9 +286,7 @@
     border-radius:50%; display:flex; align-items:center; justify-content:center;
     font-weight:700; font-size:14px; flex-shrink:0;
   }
-  .step-text {
-    font-size:13px; line-height:1.4; padding-top:3px; color:#eee;
-  }
+  .step-text { font-size:13px; line-height:1.4; padding-top:3px; color:#eee; }
   .step-text b { color:#f1c40f; }
   
   .call-options {
@@ -331,8 +306,7 @@
   .name-modal {
     position:fixed; inset:0;
     background:linear-gradient(135deg,#1a1a1a,#0a0a0a);
-    z-index:500; display:none;
-    align-items:center; justify-content:center; padding:20px;
+    z-index:500; display:none; align-items:center; justify-content:center; padding:20px;
   }
   .name-modal.show { display:flex; animation:fadeIn .25s; }
   .name-box {
@@ -369,6 +343,112 @@
   .name-box .name-info {
     font-size:11px; color:#666; margin-top:14px; line-height:1.4;
   }
+  
+  .addon-modal {
+    position:fixed; inset:0; background:rgba(0,0,0,.85);
+    z-index:400; display:none; align-items:flex-end;
+    backdrop-filter:blur(3px);
+  }
+  .addon-modal.show { display:flex; animation:fadeIn .2s; }
+.addon-content {
+    background:#1a1a1a; width:100%; max-height:90vh;
+    border-radius:18px 18px 0 0; padding:18px 16px 190px 16px;
+    overflow-y:auto; animation:slideUp .25s ease-out;
+  }
+  .addon-header {
+    display:flex; align-items:center; gap:12px;
+    padding-bottom:14px; border-bottom:1px solid #2a2a2a;
+    margin-bottom:14px;
+  }
+  .addon-header .emoji-box {
+    width:52px; height:52px; background:#2e2e2e; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px; flex-shrink:0;
+  }
+  .addon-header .info h3 { font-size:15px; font-weight:600; margin-bottom:2px; }
+  .addon-header .info .base-harga { color:#f1c40f; font-weight:700; font-size:13.5px; }
+  
+  .addon-group { margin-bottom:18px; }
+  .addon-group-title {
+    font-size:12.5px; font-weight:700; color:#f1c40f;
+    text-transform:uppercase; letter-spacing:.5px;
+    margin-bottom:10px; display:flex; align-items:center; gap:6px;
+  }
+  .addon-group-title .wajib {
+    background:#c0392b; color:#fff; font-size:9px; padding:2px 6px;
+    border-radius:4px; font-weight:700;
+  }
+  .addon-group-title .opsional {
+    background:#2e2e2e; color:#888; font-size:9px; padding:2px 6px;
+    border-radius:4px; font-weight:700;
+  }
+  
+  .addon-option {
+    display:flex; align-items:center; gap:10px;
+    padding:11px 12px; background:#242424;
+    border:2px solid #2e2e2e; border-radius:10px;
+    margin-bottom:8px; cursor:pointer; transition:.15s;
+  }
+  .addon-option:active { transform:scale(.98); }
+  .addon-option.selected {
+    border-color:#f1c40f; background:#2a2a2a;
+  }
+  .addon-option input { display:none; }
+  
+  .addon-radio {
+    width:20px; height:20px; border:2px solid #555;
+    border-radius:50%; flex-shrink:0; position:relative;
+    transition:.15s;
+  }
+  .addon-option.selected .addon-radio { border-color:#f1c40f; }
+  .addon-option.selected .addon-radio::after {
+    content:''; position:absolute; inset:3px;
+    background:#f1c40f; border-radius:50%;
+  }
+  
+  .addon-checkbox {
+    width:20px; height:20px; border:2px solid #555;
+    border-radius:5px; flex-shrink:0; position:relative;
+    transition:.15s;
+  }
+  .addon-option.selected .addon-checkbox {
+    border-color:#f1c40f; background:#f1c40f;
+  }
+  .addon-option.selected .addon-checkbox::after {
+    content:'✓'; position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    color:#000; font-weight:900; font-size:13px;
+  }
+  
+  .addon-option .opt-name { flex:1; font-size:13.5px; font-weight:500; }
+  .addon-option .opt-harga {
+    font-size:12.5px; color:#f1c40f; font-weight:700;
+  }
+  .addon-option .opt-harga.free { color:#666; font-weight:500; }
+  
+  .addon-error {
+    color:#e74c3c; font-size:12px; text-align:center;
+    margin-bottom:10px; min-height:16px;
+  }
+  
+  .addon-footer {
+    position:fixed; bottom:0; left:0; right:0;
+    background:#1a1a1a; padding:12px 16px 16px;
+    border-top:1px solid #2e2e2e;
+    box-shadow:0 -2px 12px rgba(0,0,0,.5);
+  }
+  .addon-footer .row {
+    display:flex; justify-content:space-between; align-items:center;
+    margin-bottom:10px;
+  }
+  .addon-footer .label { font-size:12.5px; color:#999; }
+  .addon-footer .total { font-size:18px; font-weight:700; color:#f1c40f; }
+  .btn-add-cart {
+    width:100%; background:#27ae60; color:#fff; border:none;
+    padding:14px; border-radius:10px; font-size:15px;
+    font-weight:700; cursor:pointer;
+  }
+  .btn-add-cart:disabled { background:#444; cursor:not-allowed; }
   
   .toast {
     position:fixed; bottom:200px; left:50%; transform:translateX(-50%);
@@ -427,6 +507,34 @@
   </div>
 </div>
 
+<!-- ADD-ON MODAL -->
+<div class="addon-modal" id="addonModal">
+  <div class="addon-content">
+    <div class="addon-header">
+      <div class="emoji-box" id="addonEmoji">🥤</div>
+      <div class="info">
+        <h3 id="addonNama">Chocolatos Matcha</h3>
+        <div class="base-harga" id="addonBaseHarga">Rp 7.000</div>
+      </div>
+    </div>
+    
+    <div id="addonGroups"></div>
+    
+    <div class="addon-error" id="addonError"></div>
+  </div>
+  
+  <div class="addon-footer">
+    <div class="row">
+      <div class="label">Total</div>
+      <div class="total" id="addonTotal">Rp 0</div>
+    </div>
+    <button class="btn-add-cart" id="btnAddCart" onclick="confirmAddon()">
+      Tambah ke Keranjang
+    </button>
+    <button class="btn-cancel-cart" onclick="closeAddonModal()">Batal</button>
+  </div>
+</div>
+
 <div class="modal" id="cartModal">
   <div class="modal-content">
     <h2>🛒 Pesanan Kamu</h2>
@@ -453,8 +561,9 @@
       <span>Subtotal</span>
       <span class="val" id="totalCart">Rp 0</span>
     </div>
-    <button class="btn-pesan" id="btnLanjut" onclick="kirimPesanan()">Pesan Sekarang →</button>
-    <button class="btn-close" onclick="closeCart()">Tambah Menu Lagi</button>
+    <button class="btn-pesan" id="btnLanjut" onclick="kirimPesanan()">Pesan Sekarang</button>
+    <button class="btn-close" onclick="closeCart()"> Tambah Menu Lagi</button>
+    <button class="btn-clear-cart" onclick="kosongkanKeranjang()">🗑️ Kosongkan Keranjang</button>
   </div>
 </div>
 
@@ -515,7 +624,6 @@
       
       <div class="catatan-bayar">
         💡 Pesananmu udah masuk ke kasir. Tinggal ke kasir & bayar cash.
-        Kasir bakal langsung proses pesananmu.
       </div>
     </div>
     
@@ -561,6 +669,29 @@ const WA_NUMBER = "6285177889565";
 const SUPABASE_URL = "https://fdxnjagtjirlylgdtlvj.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkeG5qYWd0amlybHlsZ2R0bHZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5NjI0NjEsImV4cCI6MjEwNzUzODQ2MX0.uFgD_vAVX8QuUrsOgM1on0pxYyW0KHkR5Wb0tTxaYOw";
 
+const ADDONS_CHOCOLATOS = [
+  {
+    grup: "Suhu",
+    tipe: "radio",
+    wajib: true,
+    opsi: [
+      { nama: "Hot", harga: 0 },
+      { nama: "Ice", harga: 0 },
+      { nama: "Es Extra", harga: 2000 }
+    ]
+  },
+  {
+    grup: "Tambahan",
+    tipe: "checkbox",
+    wajib: false,
+    opsi: [
+      { nama: "Susu", harga: 3000 },
+      { nama: "Extra Shot", harga: 5000 },
+      { nama: "Es Batu", harga: 2000 }
+    ]
+  }
+];
+
 
 const MENU = [
   { id:1,  nama:"Kopi Hitam Pahit",    desc:"Kopi tubruk pahit",         harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
@@ -586,8 +717,9 @@ const MENU = [
   { id:20, nama:"Fanta",               desc:"Fanta dingin",              harga:9000,  emoji:"🥤", kat:"Minuman Dingin" },
   { id:21, nama:"Soda Susu",           desc:"Soda + susu manis",         harga:12000, emoji:"🥤", kat:"Minuman Dingin" },
 
-  { id:22, nama:"Chocolatos",          desc:"Chocolatos hot/dingin",     harga:7000,  emoji:"🍫", kat:"Susu & Coklat" },
-  { id:23, nama:"Chocolatos Matcha",   desc:"Chocolatos rasa matcha",    harga:7000,  emoji:"🍫", kat:"Susu & Coklat" },
+  { id:22, nama:"Chocolatos",          desc:"Chocolatos hot/dingin",     harga:7000,  emoji:"🍫", kat:"Susu & Coklat", addons: ADDONS_CHOCOLATOS },
+  { id:23, nama:"Chocolatos Matcha",   desc:"Chocolatos rasa matcha",    harga:7000,  emoji:"🍫", kat:"Susu & Coklat", addons: ADDONS_CHOCOLATOS },
+
   { id:24, nama:"Ovaltine",            desc:"Ovaltine hot/dingin",       harga:7000,  emoji:"🥛", kat:"Susu & Coklat" },
   { id:25, nama:"Adem Sari",           desc:"Adem Sari segar",           harga:7000,  emoji:"🍋", kat:"Susu & Coklat" },
   { id:26, nama:"Nutrisari",           desc:"Nutrisari aneka rasa",      harga:6000,  emoji:"🍊", kat:"Susu & Coklat" },
@@ -656,12 +788,16 @@ let lastOrderData = null;
 let namaCustomer = localStorage.getItem('nama_customer') || '';
 let menuStatus = {};
 
+let addonState = {
+  menu: null,
+  selections: {}
+};
+
 function rupiah(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
 
 function hitungTotal() {
-  return Object.entries(cart).reduce((sum,[id,qty]) => {
-    const m = MENU.find(x => x.id == id);
-    return sum + m.harga * qty;
+  return Object.values(cart).reduce((sum, item) => {
+    return sum + item.hargaSatuan * item.qty;
   }, 0);
 }
 
@@ -671,40 +807,35 @@ function isTersedia(menuId) {
 
 
 async function loadMenuStatus() {
-  const { data, error } = await db
-    .from('menu_status')
-    .select('*');
-  
+  const { data, error } = await db.from('menu_status').select('*');
   if (error) { console.error('Error load menu status:', error); return; }
-  
   menuStatus = {};
-  (data || []).forEach(row => {
-    menuStatus[row.menu_id] = row.tersedia;
-  });
-  
+  (data || []).forEach(row => { menuStatus[row.menu_id] = row.tersedia; });
   renderMenu();
 }
 
 function subscribeMenuStatus() {
-  db
-    .channel('menu-status-ch')
+  db.channel('menu-status-ch')
     .on('postgres_changes',
       { event: 'UPDATE', schema: 'public', table: 'menu_status' },
       (payload) => {
-        console.log('Menu status updated:', payload.new);
         menuStatus[payload.new.menu_id] = payload.new.tersedia;
-        
-      
-        if (payload.new.tersedia === false && cart[payload.new.menu_id]) {
-          delete cart[payload.new.menu_id];
-          updateCartBar();
-          showToast(`⚠️ Menu baru saja habis, dihapus dari keranjang`, 'error');
+        if (payload.new.tersedia === false) {
+          let removed = false;
+          Object.keys(cart).forEach(key => {
+            if (cart[key].id === payload.new.menu_id) {
+              delete cart[key];
+              removed = true;
+            }
+          });
+          if (removed) {
+            updateCartBar();
+            showToast(`⚠️ Menu baru saja habis, dihapus dari keranjang`, 'error');
+          }
         }
-        
         renderMenu();
       }
-    )
-    .subscribe();
+    ).subscribe();
 }
 
 
@@ -714,19 +845,12 @@ function updateHeaderName() {
 }
 
 function openNameModal(isEdit = false) {
-  if (!nomorMeja) {
-    alert('Nomor meja tidak terdeteksi. Scan QR ulang ya.');
-    return;
-  }
+  if (!nomorMeja) { alert('Nomor meja tidak terdeteksi. Scan QR ulang ya.'); return; }
   const modal = document.getElementById('nameModal');
   const input = document.getElementById('nameInput');
   const errEl = document.getElementById('nameError');
-  
-  if (isEdit && namaCustomer) {
-    input.value = namaCustomer;
-  } else {
-    input.value = '';
-  }
+  if (isEdit && namaCustomer) input.value = namaCustomer;
+  else input.value = '';
   errEl.textContent = '';
   modal.classList.add('show');
   setTimeout(() => input.focus(), 200);
@@ -736,18 +860,8 @@ function submitName() {
   const input = document.getElementById('nameInput');
   const errEl = document.getElementById('nameError');
   const val = input.value.trim();
-  
-  if (!val) {
-    errEl.textContent = '❌ Nama wajib diisi';
-    input.focus();
-    return;
-  }
-  if (val.length < 2) {
-    errEl.textContent = '❌ Minimal 2 karakter';
-    input.focus();
-    return;
-  }
-  
+  if (!val) { errEl.textContent = '❌ Nama wajib diisi'; input.focus(); return; }
+  if (val.length < 2) { errEl.textContent = '❌ Minimal 2 karakter'; input.focus(); return; }
   namaCustomer = val;
   localStorage.setItem('nama_customer', namaCustomer);
   errEl.textContent = '';
@@ -772,10 +886,11 @@ function renderMenu() {
   const list = kategoriAktif === 'Semua' ? MENU : MENU.filter(m => m.kat === kategoriAktif);
   document.getElementById('menuGrid').innerHTML = list.map(m => {
     const tersedia = isTersedia(m.id);
-    
+    const hasAddons = m.addons && m.addons.length > 0;
     return `
       <div class="card ${tersedia ? '' : 'sold-out'}">
         ${tersedia ? '' : '<div class="sold-badge">HABIS</div>'}
+        ${tersedia && hasAddons ? '<div class="custom-badge">CUSTOM</div>' : ''}
         <div class="img">
           ${m.img 
             ? `<img src="${m.img}" alt="${m.nama}" onerror="this.outerHTML='${m.emoji || '🍽️'}'">`
@@ -788,7 +903,7 @@ function renderMenu() {
           </div>
           <div class="bottom">
             <div class="harga">${rupiah(m.harga)}</div>
-            <button onclick="addToCart(${m.id})" ${tersedia ? '' : 'disabled'}>
+            <button onclick="handleAddClick(${m.id})" ${tersedia ? '' : 'disabled'}>
               ${tersedia ? '+' : '✕'}
             </button>
           </div>
@@ -798,19 +913,208 @@ function renderMenu() {
   }).join('');
 }
 
+function handleAddClick(id) {
+  const m = MENU.find(x => x.id === id);
+  if (!m) return;
+  if (!isTersedia(id)) { showToast('❌ Menu ini sedang habis', 'error'); return; }
+  
+  if (m.addons && m.addons.length > 0) {
+    openAddonModal(m);
+  } else {
+    addToCart(id, null, m.harga);
+  }
+}
 
-function addToCart(id) {
+
+function openAddonModal(menu) {
+  addonState.menu = menu;
+  addonState.selections = {};
+  
+  menu.addons.forEach((grp, idx) => {
+    if (grp.tipe === 'radio' && grp.wajib) {
+      addonState.selections[idx] = grp.opsi[0].nama;
+    } else if (grp.tipe === 'checkbox') {
+      addonState.selections[idx] = [];
+    }
+  });
+  
+  document.getElementById('addonEmoji').textContent = menu.emoji || '🥤';
+  document.getElementById('addonNama').textContent = menu.nama;
+  document.getElementById('addonBaseHarga').textContent = rupiah(menu.harga);
+  document.getElementById('addonError').textContent = '';
+  
+  renderAddonGroups();
+  updateAddonTotal();
+  
+  document.getElementById('addonModal').classList.add('show');
+}
+
+function closeAddonModal() {
+  document.getElementById('addonModal').classList.remove('show');
+  addonState.menu = null;
+  addonState.selections = {};
+}
+
+document.getElementById('addonModal').addEventListener('click', function(e) {
+  if (e.target === this) closeAddonModal();
+});
+
+function renderAddonGroups() {
+  const menu = addonState.menu;
+  if (!menu) return;
+  
+  const html = menu.addons.map((grp, idx) => {
+    const badge = grp.wajib 
+      ? '<span class="wajib">WAJIB</span>' 
+      : '<span class="opsional">OPSIONAL</span>';
+    
+    const opsiHtml = grp.opsi.map(opt => {
+      const sel = addonState.selections[idx];
+      let selected = false;
+      if (grp.tipe === 'radio') {
+        selected = (sel === opt.nama);
+      } else {
+        selected = (Array.isArray(sel) && sel.includes(opt.nama));
+      }
+      
+      const indicatorClass = grp.tipe === 'radio' ? 'addon-radio' : 'addon-checkbox';
+      const hargaClass = opt.harga > 0 ? '' : 'free';
+      const hargaText = opt.harga > 0 ? `+${rupiah(opt.harga)}` : 'Gratis';
+      
+      return `
+        <div class="addon-option ${selected ? 'selected' : ''}" 
+             onclick="toggleAddonOption(${idx}, '${opt.nama}', '${grp.tipe}')">
+          <div class="${indicatorClass}"></div>
+          <div class="opt-name">${opt.nama}</div>
+          <div class="opt-harga ${hargaClass}">${hargaText}</div>
+        </div>
+      `;
+    }).join('');
+    
+    return `
+      <div class="addon-group">
+        <div class="addon-group-title">
+          ${grp.grup} ${badge}
+        </div>
+        ${opsiHtml}
+      </div>
+    `;
+  }).join('');
+  
+  document.getElementById('addonGroups').innerHTML = html;
+}
+
+function toggleAddonOption(groupIdx, opsiNama, tipe) {
+  const menu = addonState.menu;
+  const grp = menu.addons[groupIdx];
+  
+  if (tipe === 'radio') {
+    addonState.selections[groupIdx] = opsiNama;
+  } else {
+    const arr = addonState.selections[groupIdx] || [];
+    const idx = arr.indexOf(opsiNama);
+    if (idx >= 0) arr.splice(idx, 1);
+    else arr.push(opsiNama);
+    addonState.selections[groupIdx] = arr;
+  }
+  
+  renderAddonGroups();
+  updateAddonTotal();
+}
+
+function hitungHargaAddon() {
+  const menu = addonState.menu;
+  if (!menu) return 0;
+  
+  let total = menu.harga;
+  menu.addons.forEach((grp, idx) => {
+    const sel = addonState.selections[idx];
+    if (grp.tipe === 'radio') {
+      const found = grp.opsi.find(o => o.nama === sel);
+      if (found) total += found.harga;
+    } else {
+      (sel || []).forEach(nama => {
+        const found = grp.opsi.find(o => o.nama === nama);
+        if (found) total += found.harga;
+      });
+    }
+  });
+  return total;
+}
+
+function updateAddonTotal() {
+  const total = hitungHargaAddon();
+  document.getElementById('addonTotal').textContent = rupiah(total);
+}
+
+function confirmAddon() {
+  const menu = addonState.menu;
+  if (!menu) return;
+  
+  for (let i = 0; i < menu.addons.length; i++) {
+    const grp = menu.addons[i];
+    if (grp.tipe === 'radio' && grp.wajib) {
+      if (!addonState.selections[i]) {
+        document.getElementById('addonError').textContent = `⚠️ Pilih ${grp.grup} dulu ya`;
+        return;
+      }
+    }
+  }
+  
+  const addonsArr = [];
+  menu.addons.forEach((grp, idx) => {
+    const sel = addonState.selections[idx];
+    if (grp.tipe === 'radio') {
+      const found = grp.opsi.find(o => o.nama === sel);
+      if (found) {
+        addonsArr.push({ grup: grp.grup, nama: found.nama, harga: found.harga });
+      }
+    } else {
+      (sel || []).forEach(nama => {
+        const found = grp.opsi.find(o => o.nama === nama);
+        if (found) addonsArr.push({ grup: grp.grup, nama: found.nama, harga: found.harga });
+      });
+    }
+  });
+  
+  const hargaSatuan = hitungHargaAddon();
+  addToCart(menu.id, addonsArr, hargaSatuan);
+  closeAddonModal();
+}
+
+
+function buatCartKey(menuId, addonsArr) {
+  if (!addonsArr || addonsArr.length === 0) return String(menuId);
+  const sig = addonsArr.map(a => a.nama).join(',');
+  return `${menuId}|${sig}`;
+}
+
+function addToCart(id, addonsArr, hargaSatuan) {
   if (!isTersedia(id)) {
     showToast('❌ Menu ini sedang habis', 'error');
     return;
   }
-  cart[id] = (cart[id] || 0) + 1;
+  
+  const key = buatCartKey(id, addonsArr);
+  
+  if (cart[key]) {
+    cart[key].qty += 1;
+  } else {
+    cart[key] = {
+      id: id,
+      qty: 1,
+      addons: addonsArr || [],
+      hargaSatuan: hargaSatuan
+    };
+  }
+  
   updateCartBar();
+  showToast('✅ Ditambahkan ke keranjang', 'success');
 }
 
 function updateCartBar() {
   const total = hitungTotal();
-  const count = Object.values(cart).reduce((a,b)=>a+b,0);
+  const count = Object.values(cart).reduce((a,b) => a + b.qty, 0);
   const bar = document.getElementById('cartBar');
   if (count > 0) {
     bar.classList.remove('hidden');
@@ -830,18 +1134,23 @@ function renderCartList() {
   if (entries.length === 0) {
     document.getElementById('cartList').innerHTML = '<div class="empty">Keranjang kosong</div>';
   } else {
-    document.getElementById('cartList').innerHTML = entries.map(([id,qty]) => {
-      const m = MENU.find(x => x.id == id);
+    document.getElementById('cartList').innerHTML = entries.map(([key, item]) => {
+      const m = MENU.find(x => x.id == item.id);
+      const addonText = item.addons.length > 0
+        ? item.addons.map(a => a.harga > 0 ? `+${a.nama}` : a.nama).join(', ')
+        : '';
+      
       return `
         <div class="cart-item">
-          <div>
-            <div style="font-size:13.5px">${m.nama}</div>
-            <div style="color:#f1c40f;font-size:12.5px">${rupiah(m.harga*qty)}</div>
+          <div class="cart-info">
+            <div class="cart-name">${m.nama}</div>
+            ${addonText ? `<div class="cart-addons">└ ${addonText}</div>` : ''}
+            <div class="cart-price">${rupiah(item.hargaSatuan * item.qty)}</div>
           </div>
           <div class="qty">
-            <button onclick="ubahQty(${id},-1)">−</button>
-            <span>${qty}</span>
-            <button onclick="ubahQty(${id},1)">+</button>
+            <button onclick="ubahQty('${key}',-1)">−</button>
+            <span>${item.qty}</span>
+            <button onclick="ubahQty('${key}',1)">+</button>
           </div>
         </div>`;
     }).join('');
@@ -849,11 +1158,25 @@ function renderCartList() {
   document.getElementById('totalCart').textContent = rupiah(hitungTotal());
 }
 
-function ubahQty(id, delta) {
-  cart[id] += delta;
-  if (cart[id] <= 0) delete cart[id];
+function ubahQty(key, delta) {
+  if (!cart[key]) return;
+  cart[key].qty += delta;
+  if (cart[key].qty <= 0) delete cart[key];
   renderCartList();
   updateCartBar();
+}
+
+function kosongkanKeranjang() {
+  if (Object.keys(cart).length === 0) {
+    showToast('Keranjang udah kosong', 'error');
+    return;
+  }
+  const yakin = confirm('⚠️ Yakin kosongkan keranjang?\n\nSemua item akan dihapus dari keranjang.');
+  if (!yakin) return;
+  cart = {};
+  updateCartBar();
+  closeCart();
+  showToast('🗑️ Keranjang dikosongkan', 'success');
 }
 
 function pilihMetode(m) {
@@ -869,25 +1192,24 @@ function pilihMetode(m) {
 async function kirimPesanan() {
   if (Object.keys(cart).length === 0) return alert('Keranjang masih kosong');
   if (!nomorMeja) return alert('Nomor meja tidak terdeteksi. Scan QR ulang di meja ya.');
-  if (!namaCustomer) {
-    openNameModal();
-    return;
-  }
+  if (!namaCustomer) { openNameModal(); return; }
   
   const btn = document.getElementById('btnLanjut');
   btn.disabled = true;
   btn.innerHTML = '<span class="loading"></span> Mengirim...';
   
-  const items = Object.entries(cart).map(([id, qty]) => {
-    const m = MENU.find(x => x.id == id);
+  const items = Object.entries(cart).map(([key, item]) => {
+    const m = MENU.find(x => x.id == item.id);
     return { 
       id: m.id, 
       nama: m.nama, 
-      qty, 
-      harga: m.harga, 
+      qty: item.qty, 
+      harga: m.harga,
+      hargaSatuan: item.hargaSatuan,
       emoji: m.emoji, 
       kat: m.kat,
-      sewa: m.sewa || false
+      sewa: m.sewa || false,
+      addons: item.addons
     };
   });
   
@@ -923,7 +1245,6 @@ async function kirimPesanan() {
   showSuccess(data);
 }
 
-
 function showSuccess(order) {
   const isCash = metodeBayar === 'cash';
   
@@ -942,7 +1263,6 @@ function showSuccess(order) {
   cart = {};
   updateCartBar();
   document.getElementById('catatan').value = '';
-  
   document.getElementById('orderIdDisplay').textContent = '#' + order.id.slice(0, 8).toUpperCase();
   
   const btnWA = document.getElementById('btnWA');
@@ -963,14 +1283,18 @@ function showSuccess(order) {
   document.getElementById('successModal').classList.add('show');
 }
 
-
 function kabariKasir() {
   if (!lastOrderData) { alert('Data pesanan tidak ditemukan.'); return; }
-  
   const d = lastOrderData;
+  
   let itemLines = '';
   d.items.forEach(it => {
-    itemLines += `- ${it.qty}x ${it.nama} = ${rupiah(it.harga * it.qty)}\n`;
+    const hargaSatuan = it.hargaSatuan || it.harga;
+    itemLines += `- ${it.qty}x ${it.nama} = ${rupiah(hargaSatuan * it.qty)}\n`;
+    if (it.addons && it.addons.length > 0) {
+      const addonStr = it.addons.map(a => a.harga > 0 ? `+${a.nama}` : a.nama).join(', ');
+      itemLines += `    └ ${addonStr}\n`;
+    }
   });
   
   const pesan =
@@ -995,41 +1319,24 @@ Terima kasih!`;
   window.open(url, '_blank');
 }
 
-
 function openCallModal() {
-  if (!nomorMeja) {
-    alert('Nomor meja tidak terdeteksi. Scan QR ulang ya.');
-    return;
-  }
+  if (!nomorMeja) { alert('Nomor meja tidak terdeteksi. Scan QR ulang ya.'); return; }
   document.getElementById('callModal').classList.add('show');
 }
-function closeCall() {
-  document.getElementById('callModal').classList.remove('show');
-}
+function closeCall() { document.getElementById('callModal').classList.remove('show'); }
 
 async function panggilPelayan(jenis) {
   if (!nomorMeja) return alert('Nomor meja tidak terdeteksi.');
-  
   const labelMap = {
-    asbak: '🚬 Minta Asbak',
-    tisu: '🧻 Minta Tisu',
-    sendok: '🥄 Minta Sendok',
-    kasir: '💳 Panggil Kasir'
+    asbak: '🚬 Minta Asbak', tisu: '🧻 Minta Tisu',
+    sendok: '🥄 Minta Sendok', kasir: '💳 Panggil Kasir'
   };
-  
   closeCall();
   showToast(`✅ ${labelMap[jenis]} terkirim! Pelayan menuju Meja ${nomorMeja}`, 'success');
-  
-  db.from('calls').insert({
-    meja: nomorMeja,
-    jenis: jenis,
-    status: 'pending'
-  }).then(({ error }) => {
-    if (error) {
-      console.error('Error panggil:', error);
-      showToast('❌ Gagal kirim panggilan. Coba lagi.', 'error');
-    }
-  });
+  db.from('calls').insert({ meja: nomorMeja, jenis: jenis, status: 'pending' })
+    .then(({ error }) => {
+      if (error) { console.error(error); showToast('❌ Gagal kirim panggilan', 'error'); }
+    });
 }
 
 let toastTimeout = null;
@@ -1038,13 +1345,9 @@ function showToast(msg, type = 'success') {
   t.textContent = msg;
   t.style.background = type === 'error' ? '#e74c3c' : '#27ae60';
   t.classList.add('show');
-  
   if (toastTimeout) clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => {
-    t.classList.remove('show');
-  }, 3500);
+  toastTimeout = setTimeout(() => { t.classList.remove('show'); }, 2500);
 }
-
 
 renderKategori();
 renderMenu();
@@ -1053,9 +1356,7 @@ updateHeaderName();
 loadMenuStatus();
 subscribeMenuStatus();
 
-if (!namaCustomer) {
-  openNameModal();
-}
+if (!namaCustomer) openNameModal();
 </script>
 </body>
 </html>
