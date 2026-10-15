@@ -231,6 +231,20 @@
   .method-badge.cash { background:#f39c12; color:#000; }
   .method-badge.qris { background:#3498db; color:#fff; }
   
+  .nama-customer {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f1c40f;
+    background: rgba(241,196,15,.12);
+    padding: 3px 9px;
+    border-radius: 6px;
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+  }
+  
   .order-items { font-size:12.5px; line-height:1.55; margin:6px 0; }
   .order-items .item { display:flex; justify-content:space-between; gap:8px; }
   .order-items .item .qty { color:#f1c40f; font-weight:700; flex-shrink:0; }
@@ -650,6 +664,10 @@ function renderOrderCard(o) {
     ? '<span class="method-badge cash">💵 CASH</span>'
     : '<span class="method-badge qris">📱 QRIS</span>';
   
+  const namaHtml = o.nama_customer 
+    ? `<span class="nama-customer">👤 ${o.nama_customer}</span>`
+    : '';
+  
   const timerHtml = (isSewa && !isCancelled) ? renderTimerBox(o) : '';
   
   let footerHtml;
@@ -671,7 +689,12 @@ function renderOrderCard(o) {
   return `
     <div class="order-card ${cardClass}">
       <div class="order-header">
-        <div class="meja-badge">MEJA ${o.meja}${methodBadge}</div>
+        <div style="display:flex; flex-direction:column; gap:4px; min-width:0; flex:1;">
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <div class="meja-badge">MEJA ${o.meja}${methodBadge}</div>
+            ${namaHtml}
+          </div>
+        </div>
         <div class="time">🕐 ${waktu}</div>
       </div>
       <div class="order-items">${items}</div>
@@ -733,11 +756,12 @@ async function tandaiLunas(orderId) {
 async function batalkanPesanan(orderId) {
   const order = orders.find(o => o.id === orderId);
   const meja = order ? order.meja : '?';
+  const nama = order && order.nama_customer ? ` (${order.nama_customer})` : '';
   const total = order ? rupiah(order.total) : '';
   
   const yakin = confirm(
     `⚠️ YAKIN BATALKAN PESANAN?\n\n` +
-    `Meja: ${meja}\n` +
+    `Meja: ${meja}${nama}\n` +
     `Total: ${total}\n\n` +
     `Pesanan akan hilang dari daftar aktif.\n` +
     `Tindakan ini tidak bisa dibatalkan!`
@@ -766,6 +790,7 @@ async function selesaikanCall(callId) {
       }
     });
 }
+
 
 function subscribeRealtime() {
   db
@@ -835,6 +860,7 @@ function flashTitle(msg) {
     document.title = original;
   }, 10000);
 }
+
 
 checkPinSession();
 </script>
