@@ -11,64 +11,29 @@
   .pin-screen {
     position:fixed; inset:0;
     background:linear-gradient(135deg,#1a1a1a,#0a0a0a);
-    z-index:1000;
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
+    z-index:1000; display:none;
+    flex-direction:column; align-items:center; justify-content:center; padding:20px;
   }
   .pin-screen.show { display:flex; }
   .pin-box {
-    background:#1e1e1e;
-    border-radius:20px;
-    padding:30px 24px;
-    width:100%;
-    max-width:340px;
-    text-align:center;
-    border:1px solid #2e2e2e;
+    background:#1e1e1e; border-radius:20px; padding:30px 24px;
+    width:100%; max-width:340px; text-align:center; border:1px solid #2e2e2e;
   }
   .pin-box .pin-icon { font-size:56px; margin-bottom:12px; }
   .pin-box h2 { font-size:18px; margin-bottom:6px; }
   .pin-box .pin-sub { font-size:12.5px; color:#999; margin-bottom:20px; }
   .pin-box input {
-    width:100%;
-    background:#2a2a2a;
-    border:2px solid #333;
-    color:#fff;
-    padding:14px;
-    border-radius:10px;
-    font-size:24px;
-    text-align:center;
-    font-family:monospace;
-    letter-spacing:12px;
-    font-weight:700;
-    margin-bottom:12px;
+    width:100%; background:#2a2a2a; border:2px solid #333; color:#fff;
+    padding:14px; border-radius:10px; font-size:24px; text-align:center;
+    font-family:monospace; letter-spacing:12px; font-weight:700; margin-bottom:12px;
   }
   .pin-box input:focus { outline:none; border-color:#f1c40f; }
   .pin-box button {
-    width:100%;
-    background:#27ae60;
-    color:#fff;
-    border:none;
-    padding:14px;
-    border-radius:10px;
-    font-size:15px;
-    font-weight:700;
-    cursor:pointer;
+    width:100%; background:#27ae60; color:#fff; border:none;
+    padding:14px; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer;
   }
-  .pin-box button:active { transform:scale(.97); }
-  .pin-box .pin-error {
-    color:#e74c3c;
-    font-size:12px;
-    margin-bottom:10px;
-    min-height:16px;
-  }
-  .pin-box .pin-hint {
-    font-size:11px;
-    color:#666;
-    margin-top:14px;
-  }
+  .pin-box .pin-error { color:#e74c3c; font-size:12px; margin-bottom:10px; min-height:16px; }
+  .pin-box .pin-hint { font-size:11px; color:#666; margin-top:14px; }
   
   .dashboard { display:none; }
   .dashboard.show { display:block; }
@@ -91,22 +56,14 @@
   }
   @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.3; } }
   header .logout-btn {
-    margin-left:auto;
-    background:rgba(0,0,0,.3);
-    color:#fff;
-    border:none;
-    padding:5px 10px;
-    border-radius:16px;
-    font-size:11px;
-    cursor:pointer;
-    font-weight:600;
+    margin-left:auto; background:rgba(0,0,0,.3); color:#fff;
+    border:none; padding:5px 10px; border-radius:16px;
+    font-size:11px; cursor:pointer; font-weight:600;
   }
-  header .logout-btn:active { background:rgba(0,0,0,.5); }
   
   .toolbar {
     padding:10px 12px 6px; display:flex; gap:6px; align-items:center;
-    background:#1a1a1a;
-    position:sticky; top:48px; z-index:9;
+    background:#1a1a1a; position:sticky; top:48px; z-index:9;
     border-bottom:1px solid #222;
   }
   .toolbar button {
@@ -120,21 +77,24 @@
     padding:6px 11px; border-radius:18px; cursor:pointer; font-size:11px;
   }
   .toolbar .sound-btn.on { background:#27ae60; border-color:#27ae60; }
+  .toolbar .kelola-btn {
+    background:#2980b9; color:#fff; border:1px solid #2980b9;
+    padding:6px 11px; border-radius:18px; cursor:pointer; font-size:11px;
+    font-weight:600;
+  }
+  .toolbar .kelola-btn.active { background:#1abc9c; border-color:#1abc9c; }
   
   .toolbar-2 {
     padding:6px 12px 10px; display:flex; gap:6px; align-items:center;
-    background:#1a1a1a;
-    position:sticky; top:96px; z-index:9;
+    background:#1a1a1a; position:sticky; top:96px; z-index:9;
     border-bottom:1px solid #222;
-    overflow-x:auto;
-    scrollbar-width:none;
+    overflow-x:auto; scrollbar-width:none;
   }
   .toolbar-2::-webkit-scrollbar { display:none; }
   .toolbar-2 button {
     background:#242424; color:#ddd; border:1px solid #333;
     padding:6px 12px; border-radius:16px; cursor:pointer; font-size:11.5px;
-    white-space:nowrap;
-    transition:.15s;
+    white-space:nowrap; transition:.15s;
   }
   .toolbar-2 button.active { background:#2980b9; border-color:#2980b9; color:#fff; font-weight:600; }
   
@@ -150,10 +110,8 @@
   
   .calls-section {
     margin:10px 12px 0;
-    background:#2a1f00;
-    border:1px solid #f39c12;
-    border-radius:10px;
-    padding:10px 12px;
+    background:#2a1f00; border:1px solid #f39c12;
+    border-radius:10px; padding:10px 12px;
     animation:pulseCall 2s infinite;
   }
   @keyframes pulseCall {
@@ -161,29 +119,18 @@
     50% { box-shadow:0 0 0 8px rgba(243,156,18,0); }
   }
   .calls-header {
-    font-size:12px;
-    font-weight:700;
-    color:#f39c12;
-    margin-bottom:8px;
+    font-size:12px; font-weight:700; color:#f39c12; margin-bottom:8px;
   }
   #callsList {
-    max-height: 220px;
-    overflow-y: auto;
-    padding-right: 4px;
+    max-height: 220px; overflow-y:auto; padding-right:4px;
   }
-  #callsList::-webkit-scrollbar { width: 4px; }
-  #callsList::-webkit-scrollbar-thumb { background: #f39c12; border-radius: 2px; }
-  #callsList::-webkit-scrollbar-track { background: #1a1a1a; }
+  #callsList::-webkit-scrollbar { width:4px; }
+  #callsList::-webkit-scrollbar-thumb { background:#f39c12; border-radius:2px; }
   
   .call-item {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:8px 10px;
-    background:#1a1a1a;
-    border-radius:8px;
-    margin-bottom:6px;
-    border-left:3px solid #f39c12;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:8px 10px; background:#1a1a1a; border-radius:8px;
+    margin-bottom:6px; border-left:3px solid #f39c12;
   }
   .call-item:last-child { margin-bottom:0; }
   .call-item .info { font-size:12.5px; }
@@ -193,7 +140,6 @@
     background:#27ae60; color:#fff; border:none; padding:6px 12px;
     border-radius:6px; font-size:11px; font-weight:600; cursor:pointer;
   }
-  .call-item .btn-selesai:active { transform:scale(.95); }
   
   .orders { padding:12px; display:grid; gap:10px; }
   
@@ -232,16 +178,11 @@
   .method-badge.qris { background:#3498db; color:#fff; }
   
   .nama-customer {
-    font-size: 12px;
-    font-weight: 600;
-    color: #f1c40f;
+    font-size: 12px; font-weight: 600; color: #f1c40f;
     background: rgba(241,196,15,.12);
-    padding: 3px 9px;
-    border-radius: 6px;
-    max-width: 130px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    padding: 3px 9px; border-radius: 6px;
+    max-width: 130px; overflow: hidden;
+    text-overflow: ellipsis; white-space: nowrap;
     display: inline-block;
   }
   
@@ -257,36 +198,26 @@
   
   .timer-box {
     background:linear-gradient(135deg,#9b59b6,#8e44ad);
-    border-radius:8px;
-    padding:8px 12px;
-    margin:6px 0;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    border-radius:8px; padding:8px 12px; margin:6px 0;
+    display:flex; justify-content:space-between; align-items:center;
     font-size:12.5px;
   }
   .timer-box .label { font-weight:600; }
   .timer-box .countdown {
-    font-family:monospace;
-    font-size:16px;
-    font-weight:700;
-    letter-spacing:1px;
+    font-family:monospace; font-size:16px; font-weight:700; letter-spacing:1px;
   }
   .timer-box.warning { background:linear-gradient(135deg,#e67e22,#d35400); }
   .timer-box.danger { 
     background:linear-gradient(135deg,#e74c3c,#c0392b);
     animation:blinkDanger 1s infinite;
   }
-  .timer-box.expired {
-    background:linear-gradient(135deg,#7f0000,#4d0000);
-  }
+  .timer-box.expired { background:linear-gradient(135deg,#7f0000,#4d0000); }
   @keyframes blinkDanger { 50% { opacity:.6; } }
   
   .order-footer {
     display:flex; justify-content:space-between; align-items:center;
     border-top:1px solid #2a2a2a; padding-top:8px; margin-top:6px;
-    flex-wrap:wrap;
-    gap:6px;
+    flex-wrap:wrap; gap:6px;
   }
   .order-footer .total { font-size:14.5px; font-weight:700; color:#f1c40f; }
   .order-footer .actions { display:flex; gap:14px; }
@@ -298,11 +229,95 @@
     background:#c0392b; color:#fff; border:none; padding:8px 14px;
     border-radius:7px; font-weight:600; cursor:pointer; font-size:12.5px;
   }
-  .order-footer .btn-lunas:active, .order-footer .btn-batal:active { transform:scale(.95); }
   .order-footer .status-paid { color:#27ae60; font-weight:700; font-size:12px; }
   .order-footer .status-cancelled { color:#e74c3c; font-weight:700; font-size:12px; }
   
   .empty { text-align:center; color:#555; padding:50px 20px; font-size:13px; }
+  
+  /* ===== KELOLA MENU ===== */
+  .kelola-view { display:none; padding:12px; }
+  .kelola-view.show { display:block; }
+  
+  .kelola-header {
+    background:#1a1a1a; border-radius:10px; padding:12px 14px;
+    margin-bottom:12px;
+    border-left:4px solid #1abc9c;
+  }
+  .kelola-header h2 { font-size:15px; margin-bottom:4px; }
+  .kelola-header p { font-size:11.5px; color:#999; line-height:1.4; }
+  
+  .kelola-search {
+    width:100%; background:#242424; border:1px solid #333; color:#fff;
+    padding:10px 14px; border-radius:10px; margin-bottom:12px;
+    font-size:13px; font-family:inherit;
+  }
+  .kelola-search:focus { outline:none; border-color:#1abc9c; }
+  
+  .kelola-list { display:grid; gap:8px; }
+  
+  .kelola-item {
+    background:#1e1e1e; border-radius:10px; padding:10px 12px;
+    display:flex; align-items:center; gap:12px;
+    border:1px solid #2e2e2e;
+    transition:.15s;
+  }
+  .kelola-item.habis { opacity:.55; background:#151515; }
+  
+  .kelola-item .emoji-box {
+    width:44px; height:44px; background:#2e2e2e; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; flex-shrink:0;
+  }
+  
+  .kelola-item .info { flex:1; min-width:0; }
+  .kelola-item .info h4 {
+    font-size:13px; font-weight:600; margin-bottom:2px;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .kelola-item .info .kat {
+    font-size:10.5px; color:#888;
+  }
+  .kelola-item .info .harga {
+    font-size:11.5px; color:#f1c40f; font-weight:600; margin-top:2px;
+  }
+  
+  .toggle-switch {
+    position:relative;
+    width:50px; height:28px;
+    flex-shrink:0;
+  }
+  .toggle-switch input { display:none; }
+  .toggle-switch label {
+    position:absolute; inset:0;
+    background:#444; border-radius:14px; cursor:pointer;
+    transition:.2s;
+  }
+  .toggle-switch label::after {
+    content:''; position:absolute;
+    width:22px; height:22px; background:#fff;
+    border-radius:50%; top:3px; left:3px;
+    transition:.2s;
+  }
+  .toggle-switch input:checked + label {
+    background:#27ae60;
+  }
+  .toggle-switch input:checked + label::after {
+    left:25px;
+  }
+  .toggle-switch label.busy {
+    opacity:.5; pointer-events:none;
+  }
+  
+  .kelola-footer {
+    position:sticky; bottom:0;
+    background:#0f0f0f;
+    padding:10px 0;
+    margin-top:12px;
+    border-top:1px solid #222;
+    text-align:center;
+    font-size:11px;
+    color:#666;
+  }
 </style>
 </head>
 <body>
@@ -329,41 +344,59 @@
   <div class="toolbar">
     <button id="tab-aktif" class="active" onclick="setFilter('aktif')">Aktif</button>
     <button id="tab-semua" onclick="setFilter('semua')">Semua</button>
+    <button class="kelola-btn" id="kelolaBtn" onclick="toggleKelola()">⚙️ Kelola Menu</button>
     <button class="sound-btn" id="soundBtn" onclick="toggleSound()">🔕 Suara OFF</button>
   </div>
 
-  <div class="toolbar-2">
-    <button id="metode-semua" class="active" onclick="setMetode('semua')">📋 Semua</button>
-    <button id="metode-qris" onclick="setMetode('qris')">📱 QRIS</button>
-    <button id="metode-cash" onclick="setMetode('cash')">💵 Cash</button>
-  </div>
+  <div id="viewDashboard">
+    <div class="toolbar-2">
+      <button id="metode-semua" class="active" onclick="setMetode('semua')">📋 Semua</button>
+      <button id="metode-qris" onclick="setMetode('qris')">📱 QRIS</button>
+      <button id="metode-cash" onclick="setMetode('cash')">💵 Cash</button>
+    </div>
 
-  <div class="stats">
-    <div class="stat">
-      <div class="label">Menunggu Bayar</div>
-      <div class="val yellow" id="statPending">0</div>
-    </div>
-    <div class="stat">
-      <div class="label">Sudah Bayar</div>
-      <div class="val green" id="statPaid">0</div>
-    </div>
-    <div class="stat">
-      <div class="label">Total Hari Ini</div>
-      <div class="val" id="statRevenue">Rp 0</div>
-    </div>
-  </div>
-
-  <div id="callsSection" style="display:none;">
-    <div class="calls-section">
-      <div class="calls-header">
-        🔔 PANGGILAN PELAYAN (<span id="callsCount">0</span>)
+    <div class="stats">
+      <div class="stat">
+        <div class="label">Menunggu Bayar</div>
+        <div class="val yellow" id="statPending">0</div>
       </div>
-      <div id="callsList"></div>
+      <div class="stat">
+        <div class="label">Sudah Bayar</div>
+        <div class="val green" id="statPaid">0</div>
+      </div>
+      <div class="stat">
+        <div class="label">Total Hari Ini</div>
+        <div class="val" id="statRevenue">Rp 0</div>
+      </div>
+    </div>
+
+    <div id="callsSection" style="display:none;">
+      <div class="calls-section">
+        <div class="calls-header">
+          🔔 PANGGILAN PELAYAN (<span id="callsCount">0</span>)
+        </div>
+        <div id="callsList"></div>
+      </div>
+    </div>
+
+    <div class="orders" id="ordersList">
+      <div class="empty">Menunggu pesanan masuk...</div>
     </div>
   </div>
 
-  <div class="orders" id="ordersList">
-    <div class="empty">Menunggu pesanan masuk...</div>
+  <div class="kelola-view" id="viewKelola">
+    <div class="kelola-header">
+      <h2>⚙️ Kelola Ketersediaan Menu</h2>
+      <p>Toggle ON/OFF untuk menandai menu habis. Perubahan langsung terlihat oleh customer. Klik tombol <b>Save</b> di kanan atas setelah selesai.</p>
+    </div>
+
+    <input type="text" class="kelola-search" id="kelolaSearch" placeholder="🔍 Cari menu..." oninput="renderKelolaMenu()">
+
+    <div class="kelola-list" id="kelolaList"></div>
+
+    <div class="kelola-footer">
+      ✅ Perubahan tersimpan otomatis
+    </div>
   </div>
 </div>
 
@@ -374,6 +407,78 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const KASIR_PIN = "1234";
 
+
+const MENU = [
+  { id:1,  nama:"Kopi Hitam Pahit",    harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:2,  nama:"Kopi Kapal Api",      harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:3,  nama:"Kopi Liong",          harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:4,  nama:"Kopi Luwak Hot",      harga:6000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:5,  nama:"Indocafe Hot",        harga:6000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:6,  nama:"ABC Susu Hot",        harga:6000,  emoji:"🥛", kat:"Kopi & Teh" },
+  { id:7,  nama:"ABC Klepon",          harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
+  { id:8,  nama:"Good Day Cappucino",  harga:7000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:9,  nama:"Good Day Freeze",     harga:7000,  emoji:"🧊", kat:"Kopi & Teh" },
+  { id:10, nama:"Good Day Series",     harga:7000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:11, nama:"Creamy Latte",        harga:7000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:12, nama:"Teh Tarik",           harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
+  { id:13, nama:"Bonteh Matcha",       harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
+  { id:14, nama:"Bonteh Teh Tarik",    harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
+  { id:15, nama:"Teh Hangat",          harga:5000,  emoji:"🍵", kat:"Kopi & Teh" },
+  { id:16, nama:"Es Batu",             harga:2000,  emoji:"🧊", kat:"Minuman Dingin" },
+  { id:17, nama:"Air Mineral",         harga:5000,  emoji:"💧", kat:"Minuman Dingin" },
+  { id:18, nama:"Es Teh Manis",        harga:5000,  emoji:"🧊", kat:"Minuman Dingin" },
+  { id:19, nama:"Es Jeruk",            harga:8000,  emoji:"🍊", kat:"Minuman Dingin" },
+  { id:20, nama:"Fanta",               harga:9000,  emoji:"🥤", kat:"Minuman Dingin" },
+  { id:21, nama:"Soda Susu",           harga:12000, emoji:"🥤", kat:"Minuman Dingin" },
+  { id:22, nama:"Chocolatos",          harga:7000,  emoji:"🍫", kat:"Susu & Coklat" },
+  { id:23, nama:"Chocolatos Matcha",   harga:7000,  emoji:"🍫", kat:"Susu & Coklat" },
+  { id:24, nama:"Ovaltine",            harga:7000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:25, nama:"Adem Sari",           harga:7000,  emoji:"🍋", kat:"Susu & Coklat" },
+  { id:26, nama:"Nutrisari",           harga:6000,  emoji:"🍊", kat:"Susu & Coklat" },
+  { id:27, nama:"Drink Beng Beng",     harga:7000,  emoji:"🍫", kat:"Susu & Coklat" },
+  { id:28, nama:"Milo",                harga:8000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:29, nama:"Dancow Coklat",       harga:9000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:30, nama:"Dancow Putih",        harga:9000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:31, nama:"Energen Vanilla",     harga:7000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:32, nama:"Energen Coklat",      harga:7000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:33, nama:"Kukubima",            harga:6000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:34, nama:"Extrajoss",           harga:6000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:35, nama:"Roti Blueberry",      harga:10000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:36, nama:"Roti Tiramisu",       harga:10000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:37, nama:"Roti Susu",           harga:10000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:38, nama:"Roti Coklat Meses",   harga:10000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:39, nama:"Roti Strawberry",     harga:10000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:40, nama:"Roti Cappucino",      harga:12000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:41, nama:"Roti Green Tea",      harga:12000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:42, nama:"Roti Keju",           harga:12000, emoji:"🧀", kat:"Roti Bakar" },
+  { id:43, nama:"Roti Keju Spread",    harga:12000, emoji:"🧀", kat:"Roti Bakar" },
+  { id:44, nama:"Roti Hazelnut",       harga:12000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:45, nama:"Roti Coklat Klasik",  harga:12000, emoji:"🍫", kat:"Roti Bakar" },
+  { id:46, nama:"Roti Coklat Crunchy", harga:15000, emoji:"🍫", kat:"Roti Bakar" },
+  { id:47, nama:"Roti Keju Crunchy",   harga:15000, emoji:"🧀", kat:"Roti Bakar" },
+  { id:48, nama:"Roti Nutella",        harga:17000, emoji:"🍫", kat:"Roti Bakar" },
+  { id:49, nama:"Pancong Original",    harga:8000,  emoji:"🥮", kat:"Pancong" },
+  { id:50, nama:"Pancong Coklat",      harga:10000, emoji:"🥮", kat:"Pancong" },
+  { id:51, nama:"Pancong Bluberi",     harga:10000, emoji:"🥮", kat:"Pancong" },
+  { id:52, nama:"Pancong Strawberry",  harga:10000, emoji:"🥮", kat:"Pancong" },
+  { id:53, nama:"Pancong Selai Susu",  harga:10000, emoji:"🥮", kat:"Pancong" },
+  { id:54, nama:"Pancong Oreo",        harga:10000, emoji:"🥮", kat:"Pancong" },
+  { id:55, nama:"Pancong Keju",        harga:12000, emoji:"🧀", kat:"Pancong" },
+  { id:56, nama:"Pancong Hazelnut",    harga:12000, emoji:"🥮", kat:"Pancong" },
+  { id:57, nama:"Pancong Green Tea",   harga:12000, emoji:"🥮", kat:"Pancong" },
+  { id:58, nama:"Baso Goreng",         harga:10000, emoji:"🍢", kat:"Gorengan" },
+  { id:59, nama:"Kentang Goreng",      harga:10000, emoji:"🍟", kat:"Gorengan" },
+  { id:60, nama:"Otak Otak",           harga:10000, emoji:"🍢", kat:"Gorengan" },
+  { id:61, nama:"Omlet",               harga:12000, emoji:"🍳", kat:"Gorengan" },
+  { id:62, nama:"Nugget",              harga:15000, emoji:"🍗", kat:"Gorengan" },
+  { id:63, nama:"Sosis Goreng",        harga:15000, emoji:"🌭", kat:"Gorengan" },
+  { id:64, nama:"Chikenwings",         harga:20000, emoji:"🍗", kat:"Gorengan" },
+  { id:65, nama:"Mixplatter",          harga:20000, emoji:"🍽️", kat:"Gorengan" },
+  { id:66, nama:"Mahjong 1 Jam",       harga:40000, emoji:"🀄", kat:"Sewa Meja", sewa:true },
+  { id:67, nama:"Mahjong 2 Jam",       harga:75000, emoji:"🀄", kat:"Sewa Meja", sewa:true },
+  { id:68, nama:"Mahjong 3 Jam",       harga:100000,emoji:"🀄", kat:"Sewa Meja", sewa:true },
+];
+
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let orders = [];
@@ -383,6 +488,8 @@ let metodeFilter = 'semua';
 let soundOn = false;
 let knownOrderIds = new Set();
 let knownCallIds = new Set();
+let menuStatus = {};
+let viewKelola = false;
 
 function rupiah(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
 
@@ -401,7 +508,6 @@ function checkPinSession() {
 function submitPin() {
   const input = document.getElementById('pinInput').value.trim();
   const errEl = document.getElementById('pinError');
-  
   if (input === KASIR_PIN) {
     localStorage.setItem('kasir_pin_ok', 'yes');
     errEl.textContent = '';
@@ -423,6 +529,7 @@ function showDashboard() {
   document.getElementById('dashboard').classList.add('show');
   loadOrders();
   loadCalls();
+  loadMenuStatus();
   subscribeRealtime();
   setInterval(loadOrders, 15000);
   setInterval(loadCalls, 3000);
@@ -456,36 +563,27 @@ function playBeep(freq1 = 880, freq2 = 1200) {
   if (!soundOn || !audioCtx) return;
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  osc.type = 'sine';
-  osc.frequency.value = freq1;
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  osc.type = 'sine'; osc.frequency.value = freq1;
   gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
   gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-  osc.start();
-  osc.stop(audioCtx.currentTime + 0.3);
+  osc.start(); osc.stop(audioCtx.currentTime + 0.3);
   setTimeout(() => {
     const osc2 = audioCtx.createOscillator();
     const gain2 = audioCtx.createGain();
-    osc2.connect(gain2);
-    gain2.connect(audioCtx.destination);
-    osc2.type = 'sine';
-    osc2.frequency.value = freq2;
+    osc2.connect(gain2); gain2.connect(audioCtx.destination);
+    osc2.type = 'sine'; osc2.frequency.value = freq2;
     gain2.gain.setValueAtTime(0.3, audioCtx.currentTime);
     gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-    osc2.start();
-    osc2.stop(audioCtx.currentTime + 0.3);
+    osc2.start(); osc2.stop(audioCtx.currentTime + 0.3);
   }, 200);
 }
 
 
 async function loadOrders() {
   const { data, error } = await db
-    .from('orders')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(100);
-  
+    .from('orders').select('*')
+    .order('created_at', { ascending: false }).limit(100);
   if (error) { console.error('Error load orders:', error); return; }
   orders = data || [];
   knownOrderIds = new Set(orders.map(o => o.id));
@@ -494,15 +592,109 @@ async function loadOrders() {
 
 async function loadCalls() {
   const { data, error } = await db
-    .from('calls')
-    .select('*')
-    .eq('status', 'pending')
-    .order('created_at', { ascending: true });
-  
+    .from('calls').select('*')
+    .eq('status', 'pending').order('created_at', { ascending: true });
   if (error) { console.error('Error load calls:', error); return; }
   calls = data || [];
   knownCallIds = new Set(calls.map(c => c.id));
   renderCalls();
+}
+
+async function loadMenuStatus() {
+  const { data, error } = await db.from('menu_status').select('*');
+  if (error) { console.error('Error load menu status:', error); return; }
+  menuStatus = {};
+  (data || []).forEach(row => {
+    menuStatus[row.menu_id] = row.tersedia;
+  });
+  renderKelolaMenu();
+}
+
+
+function toggleKelola() {
+  viewKelola = !viewKelola;
+  const btn = document.getElementById('kelolaBtn');
+  const viewDash = document.getElementById('viewDashboard');
+  const viewKel = document.getElementById('viewKelola');
+  
+  if (viewKelola) {
+    btn.classList.add('active');
+    btn.textContent = '← Balik ke Pesanan';
+    viewDash.style.display = 'none';
+    viewKel.classList.add('show');
+    renderKelolaMenu();
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '⚙️ Kelola Menu';
+    viewDash.style.display = 'block';
+    viewKel.classList.remove('show');
+  }
+}
+
+function renderKelolaMenu() {
+  const search = (document.getElementById('kelolaSearch').value || '').toLowerCase();
+  const list = document.getElementById('kelolaList');
+  
+  const filtered = MENU.filter(m => 
+    m.nama.toLowerCase().includes(search) || 
+    m.kat.toLowerCase().includes(search)
+  );
+  
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="empty">Menu tidak ditemukan</div>';
+    return;
+  }
+  
+  list.innerHTML = filtered.map(m => {
+    const tersedia = menuStatus[m.id] !== false;
+    return `
+      <div class="kelola-item ${tersedia ? '' : 'habis'}">
+        <div class="emoji-box">${m.emoji || '🍽️'}</div>
+        <div class="info">
+          <h4>${m.nama}</h4>
+          <div class="kat">${m.kat}</div>
+          <div class="harga">${rupiah(m.harga)}</div>
+        </div>
+        <div class="toggle-switch">
+          <input type="checkbox" id="toggle-${m.id}" 
+                 ${tersedia ? 'checked' : ''} 
+                 onchange="toggleMenuStatus(${m.id}, this)">
+          <label for="toggle-${m.id}" class="${tersedia ? '' : 'off'}"></label>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function toggleMenuStatus(menuId, checkbox) {
+  const tersediaBaru = checkbox.checked;
+  const label = document.querySelector(`label[for="toggle-${menuId}"]`);
+  
+
+  menuStatus[menuId] = tersediaBaru;
+  label.classList.add('busy');
+  
+
+  const item = checkbox.closest('.kelola-item');
+  if (item) item.classList.toggle('habis', !tersediaBaru);
+  
+  const { error } = await db
+    .from('menu_status')
+    .update({ 
+      tersedia: tersediaBaru,
+      updated_at: new Date().toISOString()
+    })
+    .eq('menu_id', menuId);
+  
+  label.classList.remove('busy');
+  
+  if (error) {
+    
+    menuStatus[menuId] = !tersediaBaru;
+    checkbox.checked = !tersediaBaru;
+    if (item) item.classList.toggle('habis', tersediaBaru);
+    alert('Gagal update: ' + error.message);
+  }
 }
 
 
@@ -526,17 +718,12 @@ function getDurasiSewa(order) {
   const sewaItems = (order.items || []).filter(it => 
     it.sewa === true || it.kat === 'Sewa Meja'
   );
-  
   if (sewaItems.length === 0) return null;
-  
   let totalMenit = 0;
   sewaItems.forEach(it => {
     const match = it.nama.match(/(\d+)\s*Jam/i);
-    if (match) {
-      totalMenit += parseInt(match[1]) * 60 * (it.qty || 1);
-    }
+    if (match) totalMenit += parseInt(match[1]) * 60 * (it.qty || 1);
   });
-  
   if (totalMenit === 0) return null;
   return totalMenit;
 }
@@ -544,15 +731,10 @@ function getDurasiSewa(order) {
 function renderTimerBox(order) {
   const durasiMenit = getDurasiSewa(order);
   if (!durasiMenit) return '';
-  
   const startTime = new Date(order.paid_at || order.created_at).getTime();
   const endTime = startTime + durasiMenit * 60 * 1000;
-  
   const timerId = `timer-${order.id}`;
-  const status = order.status;
-  
-  if (status === 'cancelled') return '';
-  
+  if (order.status === 'cancelled') return '';
   return `
     <div class="timer-box" id="${timerId}" data-end="${endTime}">
       <div>
@@ -574,7 +756,6 @@ function updateAllTimers() {
     const timerId = box.id;
     const valEl = document.getElementById(timerId + '-val');
     if (!valEl) return;
-    
     if (sisaMs <= 0) {
       valEl.textContent = 'HABIS';
       box.classList.remove('warning', 'danger');
@@ -584,17 +765,10 @@ function updateAllTimers() {
       const jam = Math.floor(sisaDetik / 3600);
       const menit = Math.floor((sisaDetik % 3600) / 60);
       const detik = sisaDetik % 60;
-      valEl.textContent = 
-        String(jam).padStart(2,'0') + ':' +
-        String(menit).padStart(2,'0') + ':' +
-        String(detik).padStart(2,'0');
-      
+      valEl.textContent = String(jam).padStart(2,'0') + ':' + String(menit).padStart(2,'0') + ':' + String(detik).padStart(2,'0');
       box.classList.remove('warning', 'danger', 'expired');
-      if (sisaDetik <= 300) {
-        box.classList.add('danger');
-      } else if (sisaDetik <= 600) {
-        box.classList.add('warning');
-      }
+      if (sisaDetik <= 300) box.classList.add('danger');
+      else if (sisaDetik <= 600) box.classList.add('warning');
     }
   });
 }
@@ -603,14 +777,9 @@ setInterval(updateAllTimers, 1000);
 
 function renderOrders() {
   const list = document.getElementById('ordersList');
-  
   let filtered = orders;
-  if (filterMode === 'aktif') {
-    filtered = filtered.filter(o => o.status === 'pending');
-  }
-  if (metodeFilter !== 'semua') {
-    filtered = filtered.filter(o => o.payment_method === metodeFilter);
-  }
+  if (filterMode === 'aktif') filtered = filtered.filter(o => o.status === 'pending');
+  if (metodeFilter !== 'semua') filtered = filtered.filter(o => o.payment_method === metodeFilter);
   
   const pendingCount = orders.filter(o => o.status === 'pending').length;
   const paidCount = orders.filter(o => o.status === 'paid').length;
@@ -627,14 +796,11 @@ function renderOrders() {
   document.getElementById('statRevenue').textContent = rupiah(revenue);
   
   if (filtered.length === 0) {
-    list.innerHTML = '<div class="empty">' + 
-      (filterMode === 'aktif' ? 'Tidak ada pesanan aktif 🎉' : 'Belum ada pesanan') + 
-      '</div>';
+    list.innerHTML = '<div class="empty">' + (filterMode === 'aktif' ? 'Tidak ada pesanan aktif 🎉' : 'Belum ada pesanan') + '</div>';
     return;
   }
   
   list.innerHTML = filtered.map(o => renderOrderCard(o)).join('');
-  
   updateAllTimers();
 }
 
@@ -651,23 +817,13 @@ function renderOrderCard(o) {
     </div>
   `).join('');
   
-  const waktu = new Date(o.created_at).toLocaleTimeString('id-ID', { 
-    hour:'2-digit', minute:'2-digit' 
-  });
-  
-  const catatanHtml = o.catatan 
-    ? `<div class="order-catatan">📝 ${o.catatan}</div>` 
-    : '';
-  
+  const waktu = new Date(o.created_at).toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+  const catatanHtml = o.catatan ? `<div class="order-catatan">📝 ${o.catatan}</div>` : '';
   const isCash = o.payment_method === 'cash';
   const methodBadge = isCash 
     ? '<span class="method-badge cash">💵 CASH</span>'
     : '<span class="method-badge qris">📱 QRIS</span>';
-  
-  const namaHtml = o.nama_customer 
-    ? `<span class="nama-customer">👤 ${o.nama_customer}</span>`
-    : '';
-  
+  const namaHtml = o.nama_customer ? `<span class="nama-customer">👤 ${o.nama_customer}</span>` : '';
   const timerHtml = (isSewa && !isCancelled) ? renderTimerBox(o) : '';
   
   let footerHtml;
@@ -711,12 +867,7 @@ function renderOrderCard(o) {
 function renderCalls() {
   const section = document.getElementById('callsSection');
   const list = document.getElementById('callsList');
-  
-  if (calls.length === 0) {
-    section.style.display = 'none';
-    return;
-  }
-  
+  if (calls.length === 0) { section.style.display = 'none'; return; }
   section.style.display = 'block';
   document.getElementById('callsCount').textContent = calls.length;
   
@@ -728,9 +879,7 @@ function renderCalls() {
   };
   
   list.innerHTML = calls.map(c => {
-    const waktu = new Date(c.created_at).toLocaleTimeString('id-ID', { 
-      hour:'2-digit', minute:'2-digit' 
-    });
+    const waktu = new Date(c.created_at).toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
     return `
       <div class="call-item">
         <div class="info">
@@ -749,7 +898,6 @@ async function tandaiLunas(orderId) {
     .from('orders')
     .update({ status: 'paid', paid_at: new Date().toISOString() })
     .eq('id', orderId);
-  
   if (error) { alert('Gagal update: ' + error.message); return; }
 }
 
@@ -769,32 +917,22 @@ async function batalkanPesanan(orderId) {
   if (!yakin) return;
   
   const { error } = await db
-    .from('orders')
-    .update({ status: 'cancelled' })
-    .eq('id', orderId);
-  
+    .from('orders').update({ status: 'cancelled' }).eq('id', orderId);
   if (error) { alert('Gagal batalkan: ' + error.message); return; }
 }
 
 async function selesaikanCall(callId) {
   calls = calls.filter(c => c.id !== callId);
   renderCalls();
-  
   db.from('calls')
     .update({ status: 'selesai', selesai_at: new Date().toISOString() })
     .eq('id', callId)
-    .then(({ error }) => {
-      if (error) {
-        console.error('Gagal update call:', error);
-        loadCalls();
-      }
-    });
+    .then(({ error }) => { if (error) loadCalls(); });
 }
 
 
 function subscribeRealtime() {
-  db
-    .channel('orders-ch')
+  db.channel('orders-ch')
     .on('postgres_changes', 
       { event: 'INSERT', schema: 'public', table: 'orders' },
       (payload) => {
@@ -810,15 +948,14 @@ function subscribeRealtime() {
       { event: 'UPDATE', schema: 'public', table: 'orders' },
       (payload) => {
         const idx = orders.findIndex(o => o.id === payload.new.id);
-        if (idx !== -1) { orders[idx] = payload.new; }
-        else { orders.unshift(payload.new); }
+        if (idx !== -1) orders[idx] = payload.new;
+        else orders.unshift(payload.new);
         renderOrders();
       }
     )
     .subscribe();
   
-  db
-    .channel('calls-ch')
+  db.channel('calls-ch')
     .on('postgres_changes',
       { event: 'INSERT', schema: 'public', table: 'calls' },
       (payload) => {
@@ -837,9 +974,19 @@ function subscribeRealtime() {
           calls = calls.filter(c => c.id !== payload.new.id);
         } else {
           const idx = calls.findIndex(c => c.id === payload.new.id);
-          if (idx !== -1) { calls[idx] = payload.new; }
+          if (idx !== -1) calls[idx] = payload.new;
         }
         renderCalls();
+      }
+    )
+    .subscribe();
+  
+  db.channel('menu-status-ch')
+    .on('postgres_changes',
+      { event: 'UPDATE', schema: 'public', table: 'menu_status' },
+      (payload) => {
+        menuStatus[payload.new.menu_id] = payload.new.tersedia;
+        renderKelolaMenu();
       }
     )
     .subscribe();
