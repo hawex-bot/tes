@@ -190,6 +190,15 @@
   .order-items .item { display:flex; justify-content:space-between; gap:8px; }
   .order-items .item .qty { color:#f1c40f; font-weight:700; flex-shrink:0; }
   
+  .order-addons {
+    font-size: 11.5px;
+    color: #9b59b6;
+    line-height: 1.4;
+    padding-left: 14px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+  }
+  
   .order-catatan {
     background:#2a2a2a; border-left:2px solid #f1c40f;
     padding:6px 10px; border-radius:4px; font-size:11.5px; color:#ddd;
@@ -239,8 +248,7 @@
   
   .kelola-header {
     background:#1a1a1a; border-radius:10px; padding:12px 14px;
-    margin-bottom:12px;
-    border-left:4px solid #1abc9c;
+    margin-bottom:12px; border-left:4px solid #1abc9c;
   }
   .kelola-header h2 { font-size:15px; margin-bottom:4px; }
   .kelola-header p { font-size:11.5px; color:#999; line-height:1.4; }
@@ -257,8 +265,7 @@
   .kelola-item {
     background:#1e1e1e; border-radius:10px; padding:10px 12px;
     display:flex; align-items:center; gap:12px;
-    border:1px solid #2e2e2e;
-    transition:.15s;
+    border:1px solid #2e2e2e; transition:.15s;
   }
   .kelola-item.habis { opacity:.55; background:#151515; }
   
@@ -273,49 +280,33 @@
     font-size:13px; font-weight:600; margin-bottom:2px;
     overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
   }
-  .kelola-item .info .kat {
-    font-size:10.5px; color:#888;
-  }
+  .kelola-item .info .kat { font-size:10.5px; color:#888; }
   .kelola-item .info .harga {
     font-size:11.5px; color:#f1c40f; font-weight:600; margin-top:2px;
   }
   
   .toggle-switch {
-    position:relative;
-    width:50px; height:28px;
-    flex-shrink:0;
+    position:relative; width:50px; height:28px; flex-shrink:0;
   }
   .toggle-switch input { display:none; }
   .toggle-switch label {
     position:absolute; inset:0;
-    background:#444; border-radius:14px; cursor:pointer;
-    transition:.2s;
+    background:#444; border-radius:14px; cursor:pointer; transition:.2s;
   }
   .toggle-switch label::after {
     content:''; position:absolute;
     width:22px; height:22px; background:#fff;
-    border-radius:50%; top:3px; left:3px;
-    transition:.2s;
+    border-radius:50%; top:3px; left:3px; transition:.2s;
   }
-  .toggle-switch input:checked + label {
-    background:#27ae60;
-  }
-  .toggle-switch input:checked + label::after {
-    left:25px;
-  }
-  .toggle-switch label.busy {
-    opacity:.5; pointer-events:none;
-  }
+  .toggle-switch input:checked + label { background:#27ae60; }
+  .toggle-switch input:checked + label::after { left:25px; }
+  .toggle-switch label.busy { opacity:.5; pointer-events:none; }
   
   .kelola-footer {
-    position:sticky; bottom:0;
-    background:#0f0f0f;
-    padding:10px 0;
-    margin-top:12px;
+    position:sticky; bottom:0; background:#0f0f0f;
+    padding:10px 0; margin-top:12px;
     border-top:1px solid #222;
-    text-align:center;
-    font-size:11px;
-    color:#666;
+    text-align:center; font-size:11px; color:#666;
   }
 </style>
 </head>
@@ -406,7 +397,6 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const KASIR_PIN = "1234";
 
-
 const MENU = [
   { id:1,  nama:"Kopi Hitam Pahit",    harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
   { id:2,  nama:"Kopi Kapal Api",      harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
@@ -492,12 +482,10 @@ let viewKelola = false;
 
 function rupiah(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
 
-
 function checkPinSession() {
   const saved = localStorage.getItem('kasir_pin_ok');
-  if (saved === 'yes') {
-    showDashboard();
-  } else {
+  if (saved === 'yes') showDashboard();
+  else {
     document.getElementById('pinScreen').classList.add('show');
     document.getElementById('dashboard').classList.remove('show');
     setTimeout(() => document.getElementById('pinInput').focus(), 200);
@@ -540,7 +528,6 @@ function logout() {
   location.reload();
 }
 
-
 let audioCtx = null;
 
 function toggleSound() {
@@ -578,10 +565,8 @@ function playBeep(freq1 = 880, freq2 = 1200) {
   }, 200);
 }
 
-
 async function loadOrders() {
-  const { data, error } = await db
-    .from('orders').select('*')
+  const { data, error } = await db.from('orders').select('*')
     .order('created_at', { ascending: false }).limit(100);
   if (error) { console.error('Error load orders:', error); return; }
   orders = data || [];
@@ -590,8 +575,7 @@ async function loadOrders() {
 }
 
 async function loadCalls() {
-  const { data, error } = await db
-    .from('calls').select('*')
+  const { data, error } = await db.from('calls').select('*')
     .eq('status', 'pending').order('created_at', { ascending: true });
   if (error) { console.error('Error load calls:', error); return; }
   calls = data || [];
@@ -603,19 +587,15 @@ async function loadMenuStatus() {
   const { data, error } = await db.from('menu_status').select('*');
   if (error) { console.error('Error load menu status:', error); return; }
   menuStatus = {};
-  (data || []).forEach(row => {
-    menuStatus[row.menu_id] = row.tersedia;
-  });
+  (data || []).forEach(row => { menuStatus[row.menu_id] = row.tersedia; });
   renderKelolaMenu();
 }
-
 
 function toggleKelola() {
   viewKelola = !viewKelola;
   const btn = document.getElementById('kelolaBtn');
   const viewDash = document.getElementById('viewDashboard');
   const viewKel = document.getElementById('viewKelola');
-  
   if (viewKelola) {
     btn.classList.add('active');
     btn.textContent = '← Balik ke Pesanan';
@@ -633,17 +613,13 @@ function toggleKelola() {
 function renderKelolaMenu() {
   const search = (document.getElementById('kelolaSearch').value || '').toLowerCase();
   const list = document.getElementById('kelolaList');
-  
   const filtered = MENU.filter(m => 
-    m.nama.toLowerCase().includes(search) || 
-    m.kat.toLowerCase().includes(search)
+    m.nama.toLowerCase().includes(search) || m.kat.toLowerCase().includes(search)
   );
-  
   if (filtered.length === 0) {
     list.innerHTML = '<div class="empty">Menu tidak ditemukan</div>';
     return;
   }
-  
   list.innerHTML = filtered.map(m => {
     const tersedia = menuStatus[m.id] !== false;
     return `
@@ -655,10 +631,9 @@ function renderKelolaMenu() {
           <div class="harga">${rupiah(m.harga)}</div>
         </div>
         <div class="toggle-switch">
-          <input type="checkbox" id="toggle-${m.id}" 
-                 ${tersedia ? 'checked' : ''} 
+          <input type="checkbox" id="toggle-${m.id}" ${tersedia ? 'checked' : ''} 
                  onchange="toggleMenuStatus(${m.id}, this)">
-          <label for="toggle-${m.id}" class="${tersedia ? '' : 'off'}"></label>
+          <label for="toggle-${m.id}"></label>
         </div>
       </div>
     `;
@@ -668,34 +643,23 @@ function renderKelolaMenu() {
 async function toggleMenuStatus(menuId, checkbox) {
   const tersediaBaru = checkbox.checked;
   const label = document.querySelector(`label[for="toggle-${menuId}"]`);
-  
-
   menuStatus[menuId] = tersediaBaru;
   label.classList.add('busy');
-  
-
   const item = checkbox.closest('.kelola-item');
   if (item) item.classList.toggle('habis', !tersediaBaru);
   
-  const { error } = await db
-    .from('menu_status')
-    .update({ 
-      tersedia: tersediaBaru,
-      updated_at: new Date().toISOString()
-    })
+  const { error } = await db.from('menu_status')
+    .update({ tersedia: tersediaBaru, updated_at: new Date().toISOString() })
     .eq('menu_id', menuId);
   
   label.classList.remove('busy');
-  
   if (error) {
-    
     menuStatus[menuId] = !tersediaBaru;
     checkbox.checked = !tersediaBaru;
     if (item) item.classList.toggle('habis', tersediaBaru);
     alert('Gagal update: ' + error.message);
   }
 }
-
 
 function setFilter(mode) {
   filterMode = mode;
@@ -712,11 +676,8 @@ function setMetode(m) {
   renderOrders();
 }
 
-
 function getDurasiSewa(order) {
-  const sewaItems = (order.items || []).filter(it => 
-    it.sewa === true || it.kat === 'Sewa Meja'
-  );
+  const sewaItems = (order.items || []).filter(it => it.sewa === true || it.kat === 'Sewa Meja');
   if (sewaItems.length === 0) return null;
   let totalMenit = 0;
   sewaItems.forEach(it => {
@@ -773,7 +734,6 @@ function updateAllTimers() {
 }
 setInterval(updateAllTimers, 1000);
 
-
 function renderOrders() {
   const list = document.getElementById('ordersList');
   let filtered = orders;
@@ -809,12 +769,21 @@ function renderOrderCard(o) {
   const durasiSewa = getDurasiSewa(o);
   const isSewa = durasiSewa !== null;
   
-  const items = (o.items || []).map(it => `
-    <div class="item">
-      <span><span class="qty">${it.qty}x</span> ${it.nama}</span>
-      <span>${rupiah(it.harga * it.qty)}</span>
-    </div>
-  `).join('');
+  const items = (o.items || []).map(it => {
+    const hargaSatuan = it.hargaSatuan || it.harga;
+    let addonHtml = '';
+    if (it.addons && it.addons.length > 0) {
+      const addonStr = it.addons.map(a => a.harga > 0 ? `+${a.nama}` : a.nama).join(', ');
+      addonHtml = `<div class="order-addons">└ ${addonStr}</div>`;
+    }
+    return `
+      <div class="item">
+        <span><span class="qty">${it.qty}x</span> ${it.nama}</span>
+        <span>${rupiah(hargaSatuan * it.qty)}</span>
+      </div>
+      ${addonHtml}
+    `;
+  }).join('');
   
   const waktu = new Date(o.created_at).toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
   const catatanHtml = o.catatan ? `<div class="order-catatan">📝 ${o.catatan}</div>` : '';
@@ -871,10 +840,8 @@ function renderCalls() {
   document.getElementById('callsCount').textContent = calls.length;
   
   const labelMap = {
-    asbak: '🚬 Minta Asbak',
-    tisu: '🧻 Minta Tisu',
-    sendok: '🥄 Minta Sendok',
-    kasir: '💳 Panggil Kasir'
+    asbak: '🚬 Minta Asbak', tisu: '🧻 Minta Tisu',
+    sendok: '🥄 Minta Sendok', kasir: '💳 Panggil Kasir'
   };
   
   list.innerHTML = calls.map(c => {
@@ -891,10 +858,8 @@ function renderCalls() {
   }).join('');
 }
 
-
 async function tandaiLunas(orderId) {
-  const { error } = await db
-    .from('orders')
+  const { error } = await db.from('orders')
     .update({ status: 'paid', paid_at: new Date().toISOString() })
     .eq('id', orderId);
   if (error) { alert('Gagal update: ' + error.message); return; }
@@ -905,7 +870,6 @@ async function batalkanPesanan(orderId) {
   const meja = order ? order.meja : '?';
   const nama = order && order.nama_customer ? ` (${order.nama_customer})` : '';
   const total = order ? rupiah(order.total) : '';
-  
   const yakin = confirm(
     `⚠️ YAKIN BATALKAN PESANAN?\n\n` +
     `Meja: ${meja}${nama}\n` +
@@ -914,9 +878,7 @@ async function batalkanPesanan(orderId) {
     `Tindakan ini tidak bisa dibatalkan!`
   );
   if (!yakin) return;
-  
-  const { error } = await db
-    .from('orders').update({ status: 'cancelled' }).eq('id', orderId);
+  const { error } = await db.from('orders').update({ status: 'cancelled' }).eq('id', orderId);
   if (error) { alert('Gagal batalkan: ' + error.message); return; }
 }
 
@@ -929,11 +891,9 @@ async function selesaikanCall(callId) {
     .then(({ error }) => { if (error) loadCalls(); });
 }
 
-
 function subscribeRealtime() {
   db.channel('orders-ch')
-    .on('postgres_changes', 
-      { event: 'INSERT', schema: 'public', table: 'orders' },
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' },
       (payload) => {
         if (knownOrderIds.has(payload.new.id)) return;
         orders.unshift(payload.new);
@@ -943,8 +903,7 @@ function subscribeRealtime() {
         flashTitle('🔔 PESANAN BARU!');
       }
     )
-    .on('postgres_changes',
-      { event: 'UPDATE', schema: 'public', table: 'orders' },
+    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders' },
       (payload) => {
         const idx = orders.findIndex(o => o.id === payload.new.id);
         if (idx !== -1) orders[idx] = payload.new;
@@ -955,8 +914,7 @@ function subscribeRealtime() {
     .subscribe();
   
   db.channel('calls-ch')
-    .on('postgres_changes',
-      { event: 'INSERT', schema: 'public', table: 'calls' },
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'calls' },
       (payload) => {
         if (knownCallIds.has(payload.new.id)) return;
         calls.push(payload.new);
@@ -966,8 +924,7 @@ function subscribeRealtime() {
         flashTitle('🔔 PANGGILAN!');
       }
     )
-    .on('postgres_changes',
-      { event: 'UPDATE', schema: 'public', table: 'calls' },
+    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'calls' },
       (payload) => {
         if (payload.new.status === 'selesai') {
           calls = calls.filter(c => c.id !== payload.new.id);
@@ -981,8 +938,7 @@ function subscribeRealtime() {
     .subscribe();
   
   db.channel('menu-status-ch')
-    .on('postgres_changes',
-      { event: 'UPDATE', schema: 'public', table: 'menu_status' },
+    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'menu_status' },
       (payload) => {
         menuStatus[payload.new.menu_id] = payload.new.tersedia;
         renderKelolaMenu();
@@ -1006,7 +962,6 @@ function flashTitle(msg) {
     document.title = original;
   }, 10000);
 }
-
 
 checkPinSession();
 </script>
