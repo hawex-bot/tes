@@ -30,9 +30,7 @@
     overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
     max-width:110px;
   }
-  header .meja .edit-ico {
-    font-size:10px; opacity:.6;
-  }
+  header .meja .edit-ico { font-size:10px; opacity:.6; }
   header .logo { width:32px; height:32px; background:#f1c40f; border-radius:8px;
     display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
   
@@ -83,8 +81,15 @@
     background:#242424; border-radius:10px; padding:10px; display:flex; gap:10px;
     border:1px solid #2e2e2e;
     transition:.15s;
+    position:relative;
   }
   .card:active { background:#2a2a2a; }
+  .card.sold-out {
+    opacity:.45;
+    background:#1a1a1a;
+    border-color:#333;
+  }
+  .card.sold-out .card img { filter:grayscale(1); }
   .card .img {
     width:64px; height:64px; background:#2e2e2e; border-radius:8px; flex-shrink:0;
     display:flex; align-items:center; justify-content:center; font-size:28px;
@@ -97,6 +102,7 @@
     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
   .card .bottom { display:flex; justify-content:space-between; align-items:center; margin-top:6px; }
   .card .harga { color:#f1c40f; font-weight:700; font-size:13.5px; }
+  .card.sold-out .harga { color:#666; }
   .card button {
     background:#c0392b; color:#fff; border:none; width:34px; height:34px;
     border-radius:50%; font-size:20px; cursor:pointer; font-weight:bold;
@@ -104,6 +110,24 @@
     flex-shrink:0;
   }
   .card button:active { transform:scale(.9); background:#e74c3c; }
+  .card button:disabled {
+    background:#333; cursor:not-allowed; color:#666;
+  }
+  .card button:disabled:active { transform:none; }
+  
+  .sold-badge {
+    position:absolute;
+    top:8px; right:8px;
+    background:#c0392b;
+    color:#fff;
+    font-size:10px;
+    font-weight:700;
+    padding:3px 8px;
+    border-radius:6px;
+    letter-spacing:.5px;
+    z-index:2;
+    box-shadow:0 2px 6px rgba(0,0,0,.4);
+  }
   
   .fab {
     position:fixed; bottom:130px; right:14px;
@@ -273,39 +297,25 @@
     margin:12px 0;
   }
   .steps-guide .step-title {
-    font-size:12px;
-    color:#f1c40f;
-    font-weight:700;
-    margin-bottom:12px;
-    text-align:center;
-    letter-spacing:1px;
+    font-size:12px; color:#f1c40f; font-weight:700;
+    margin-bottom:12px; text-align:center; letter-spacing:1px;
   }
   .step-item {
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
-    padding:8px 0;
+    display:flex; gap:12px; align-items:flex-start; padding:8px 0;
   }
   .step-item:not(:last-child) { border-bottom:1px dashed #2e2e2e; }
   .step-num {
-    width:28px; height:28px;
-    background:#f1c40f; color:#000;
-    border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    font-weight:700; font-size:14px;
-    flex-shrink:0;
+    width:28px; height:28px; background:#f1c40f; color:#000;
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:14px; flex-shrink:0;
   }
   .step-text {
-    font-size:13px;
-    line-height:1.4;
-    padding-top:3px;
-    color:#eee;
+    font-size:13px; line-height:1.4; padding-top:3px; color:#eee;
   }
   .step-text b { color:#f1c40f; }
   
   .call-options {
-    display:grid; grid-template-columns:1fr 1fr; gap:10px;
-    margin-top:6px;
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px;
   }
   .call-opt {
     background:#242424; border:2px solid #2e2e2e; border-radius:12px;
@@ -318,26 +328,17 @@
   .call-opt .ico { font-size:28px; }
   .call-opt .label { font-size:13px; font-weight:600; }
   
-  /* ===== NAMA MODAL ===== */
   .name-modal {
     position:fixed; inset:0;
     background:linear-gradient(135deg,#1a1a1a,#0a0a0a);
-    z-index:500;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
+    z-index:500; display:none;
+    align-items:center; justify-content:center; padding:20px;
   }
   .name-modal.show { display:flex; animation:fadeIn .25s; }
   .name-box {
-    background:#1e1e1e;
-    border-radius:20px;
-    padding:30px 24px;
-    width:100%;
-    max-width:360px;
-    text-align:center;
-    border:1px solid #2e2e2e;
-    animation:popIn .3s;
+    background:#1e1e1e; border-radius:20px; padding:30px 24px;
+    width:100%; max-width:360px; text-align:center;
+    border:1px solid #2e2e2e; animation:popIn .3s;
   }
   @keyframes popIn {
     from { transform:scale(.9); opacity:0; }
@@ -346,50 +347,27 @@
   .name-box .name-icon { font-size:56px; margin-bottom:10px; }
   .name-box h2 { font-size:19px; margin-bottom:6px; }
   .name-box .name-sub {
-    font-size:12.5px;
-    color:#999;
-    margin-bottom:20px;
-    line-height:1.5;
+    font-size:12.5px; color:#999; margin-bottom:20px; line-height:1.5;
   }
   .name-box input {
-    width:100%;
-    background:#2a2a2a;
-    border:2px solid #333;
-    color:#fff;
-    padding:14px 16px;
-    border-radius:12px;
-    font-size:16px;
-    text-align:center;
-    margin-bottom:8px;
-    font-family:inherit;
+    width:100%; background:#2a2a2a; border:2px solid #333; color:#fff;
+    padding:14px 16px; border-radius:12px; font-size:16px;
+    text-align:center; margin-bottom:8px; font-family:inherit;
   }
   .name-box input:focus { outline:none; border-color:#f1c40f; }
   .name-box input::placeholder { color:#555; }
   .name-error {
-    color:#e74c3c;
-    font-size:12px;
-    min-height:16px;
-    margin-bottom:8px;
-    text-align:center;
+    color:#e74c3c; font-size:12px; min-height:16px;
+    margin-bottom:8px; text-align:center;
   }
   .name-box button {
-    width:100%;
-    background:#27ae60;
-    color:#fff;
-    border:none;
-    padding:14px;
-    border-radius:12px;
-    font-size:15px;
-    font-weight:700;
-    cursor:pointer;
-    margin-top:6px;
+    width:100%; background:#27ae60; color:#fff; border:none;
+    padding:14px; border-radius:12px; font-size:15px;
+    font-weight:700; cursor:pointer; margin-top:6px;
   }
   .name-box button:active { transform:scale(.97); }
   .name-box .name-info {
-    font-size:11px;
-    color:#666;
-    margin-top:14px;
-    line-height:1.4;
+    font-size:11px; color:#666; margin-top:14px; line-height:1.4;
   }
   
   .toast {
@@ -437,7 +415,6 @@
   <div class="cta">Lihat Pesanan →</div>
 </div>
 
-<!-- MODAL NAMA (WAJIB) -->
 <div class="name-modal" id="nameModal">
   <div class="name-box">
     <div class="name-icon">👋</div>
@@ -677,6 +654,7 @@ let metodeBayar = 'qris';
 let lastOrderId = null;
 let lastOrderData = null;
 let namaCustomer = localStorage.getItem('nama_customer') || '';
+let menuStatus = {};
 
 function rupiah(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
 
@@ -685,6 +663,48 @@ function hitungTotal() {
     const m = MENU.find(x => x.id == id);
     return sum + m.harga * qty;
   }, 0);
+}
+
+function isTersedia(menuId) {
+  return menuStatus[menuId] !== false;
+}
+
+
+async function loadMenuStatus() {
+  const { data, error } = await db
+    .from('menu_status')
+    .select('*');
+  
+  if (error) { console.error('Error load menu status:', error); return; }
+  
+  menuStatus = {};
+  (data || []).forEach(row => {
+    menuStatus[row.menu_id] = row.tersedia;
+  });
+  
+  renderMenu();
+}
+
+function subscribeMenuStatus() {
+  db
+    .channel('menu-status-ch')
+    .on('postgres_changes',
+      { event: 'UPDATE', schema: 'public', table: 'menu_status' },
+      (payload) => {
+        console.log('Menu status updated:', payload.new);
+        menuStatus[payload.new.menu_id] = payload.new.tersedia;
+        
+      
+        if (payload.new.tersedia === false && cart[payload.new.menu_id]) {
+          delete cart[payload.new.menu_id];
+          updateCartBar();
+          showToast(`⚠️ Menu baru saja habis, dihapus dari keranjang`, 'error');
+        }
+        
+        renderMenu();
+      }
+    )
+    .subscribe();
 }
 
 
@@ -750,29 +770,40 @@ function pilihKat(k) { kategoriAktif = k; renderKategori(); renderMenu(); }
 
 function renderMenu() {
   const list = kategoriAktif === 'Semua' ? MENU : MENU.filter(m => m.kat === kategoriAktif);
-  document.getElementById('menuGrid').innerHTML = list.map(m => `
-    <div class="card">
-      <div class="img">
-        ${m.img 
-          ? `<img src="${m.img}" alt="${m.nama}" onerror="this.outerHTML='${m.emoji || '🍽️'}'">`
-          : (m.emoji || '🍽️')}
-      </div>
-      <div class="info">
-        <div>
-          <h3>${m.nama}</h3>
-          <div class="desc">${m.desc}</div>
+  document.getElementById('menuGrid').innerHTML = list.map(m => {
+    const tersedia = isTersedia(m.id);
+    
+    return `
+      <div class="card ${tersedia ? '' : 'sold-out'}">
+        ${tersedia ? '' : '<div class="sold-badge">HABIS</div>'}
+        <div class="img">
+          ${m.img 
+            ? `<img src="${m.img}" alt="${m.nama}" onerror="this.outerHTML='${m.emoji || '🍽️'}'">`
+            : (m.emoji || '🍽️')}
         </div>
-        <div class="bottom">
-          <div class="harga">${rupiah(m.harga)}</div>
-          <button onclick="addToCart(${m.id})">+</button>
+        <div class="info">
+          <div>
+            <h3>${m.nama}</h3>
+            <div class="desc">${m.desc}</div>
+          </div>
+          <div class="bottom">
+            <div class="harga">${rupiah(m.harga)}</div>
+            <button onclick="addToCart(${m.id})" ${tersedia ? '' : 'disabled'}>
+              ${tersedia ? '+' : '✕'}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 
 function addToCart(id) {
+  if (!isTersedia(id)) {
+    showToast('❌ Menu ini sedang habis', 'error');
+    return;
+  }
   cart[id] = (cart[id] || 0) + 1;
   updateCartBar();
 }
@@ -1019,7 +1050,8 @@ renderKategori();
 renderMenu();
 updateCartBar();
 updateHeaderName();
-
+loadMenuStatus();
+subscribeMenuStatus();
 
 if (!namaCustomer) {
   openNameModal();
