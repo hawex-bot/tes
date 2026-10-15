@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Kasir — Warkop Mahjong</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Segoe UI',system-ui,sans-serif; }
+  body { background:#0f0f0f; color:#fff; min-height:100vh; font-size:14px; -webkit-font-smoothing:antialiased; }
+  
+  .pin-screen {
+    position:fixed; inset:0;
+    background:linear-gradient(135deg,#1a1a1a,#0a0a0a);
+    z-index:1000;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .pin-screen.show { display:flex; }
+  .pin-box {
+    background:#1e1e1e;
+    border-radius:20px;
+    padding:30px 24px;
+    width:100%;
+    max-width:340px;
+    text-align:center;
+    border:1px solid #2e2e2e;
+  }
+  .pin-box .pin-icon { font-size:56px; margin-bottom:12px; }
+  .pin-box h2 { font-size:18px; margin-bottom:6px; }
+  .pin-box .pin-sub { font-size:12.5px; color:#999; margin-bottom:20px; }
+  .pin-box input {
+    width:100%;
+    background:#2a2a2a;
+    border:2px solid #333;
+    color:#fff;
+    padding:14px;
+    border-radius:10px;
+    font-size:24px;
+    text-align:center;
+    font-family:monospace;
+    letter-spacing:12px;
+    font-weight:700;
+    margin-bottom:12px;
+  }
+  .pin-box input:focus { outline:none; border-color:#f1c40f; }
+  .pin-box button {
+    width:100%;
+    background:#27ae60;
+    color:#fff;
+    border:none;
+    padding:14px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .pin-box button:active { transform:scale(.97); }
+  .pin-box .pin-error {
+    color:#e74c3c;
+    font-size:12px;
+    margin-bottom:10px;
+    min-height:16px;
+  }
+  .pin-box .pin-hint {
+    font-size:11px;
+    color:#666;
+    margin-top:14px;
+  }
+  
+  .dashboard { display:none; }
+  .dashboard.show { display:block; }
+  
+  header {
+    background:linear-gradient(135deg,#c0392b,#8e1f13);
+    padding:12px 14px; display:flex; align-items:center; gap:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,.5);
+    position:sticky; top:0; z-index:10;
+  }
+  header h1 { font-size:14.5px; letter-spacing:1px; }
+  header .live {
+    background:#27ae60; color:#fff; padding:4px 10px;
+    border-radius:20px; font-size:10.5px; font-weight:600;
+    display:flex; align-items:center; gap:5px;
+  }
+  header .live::before {
+    content:''; width:7px; height:7px; background:#fff; border-radius:50%;
+    animation:pulse 1.5s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.3; } }
+  header .logout-btn {
+    margin-left:auto;
+    background:rgba(0,0,0,.3);
+    color:#fff;
+    border:none;
+    padding:5px 10px;
+    border-radius:16px;
+    font-size:11px;
+    cursor:pointer;
+    font-weight:600;
+  }
+  header .logout-btn:active { background:rgba(0,0,0,.5); }
+  
+  .toolbar {
+    padding:10px 12px 6px; display:flex; gap:6px; align-items:center;
+    background:#1a1a1a;
+    position:sticky; top:48px; z-index:9;
+    border-bottom:1px solid #222;
+  }
+  .toolbar button {
+    background:#242424; color:#ddd; border:1px solid #333;
+    padding:7px 12px; border-radius:18px; cursor:pointer; font-size:12px;
+    transition:.15s;
+  }
+  .toolbar button.active { background:#c0392b; border-color:#c0392b; color:#fff; font-weight:600; }
+  .toolbar .sound-btn {
+    margin-left:auto; background:#242424; border:1px solid #444;
+    padding:6px 11px; border-radius:18px; cursor:pointer; font-size:11px;
+  }
+  .toolbar .sound-btn.on { background:#27ae60; border-color:#27ae60; }
+  
+  .toolbar-2 {
+    padding:6px 12px 10px; display:flex; gap:6px; align-items:center;
+    background:#1a1a1a;
+    position:sticky; top:96px; z-index:9;
+    border-bottom:1px solid #222;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .toolbar-2::-webkit-scrollbar { display:none; }
+  .toolbar-2 button {
+    background:#242424; color:#ddd; border:1px solid #333;
+    padding:6px 12px; border-radius:16px; cursor:pointer; font-size:11.5px;
+    white-space:nowrap;
+    transition:.15s;
+  }
+  .toolbar-2 button.active { background:#2980b9; border-color:#2980b9; color:#fff; font-weight:600; }
+  
+  .stats {
+    padding:10px 12px; display:flex; gap:8px; background:#151515;
+    border-bottom:1px solid #222;
+  }
+  .stat { background:#1e1e1e; border-radius:8px; padding:8px 12px; flex:1; min-width:0; }
+  .stat .label { font-size:10.5px; color:#888; margin-bottom:2px; }
+  .stat .val { font-size:16px; font-weight:700; }
+  .stat .val.yellow { color:#f1c40f; }
+  .stat .val.green { color:#27ae60; }
+  
+  .calls-section {
+    margin:10px 12px 0;
+    background:#2a1f00;
+    border:1px solid #f39c12;
+    border-radius:10px;
+    padding:10px 12px;
+    animation:pulseCall 2s infinite;
+  }
+  @keyframes pulseCall {
+    0%,100% { box-shadow:0 0 0 0 rgba(243,156,18,.4); }
+    50% { box-shadow:0 0 0 8px rgba(243,156,18,0); }
+  }
+  .calls-header {
+    font-size:12px;
+    font-weight:700;
+    color:#f39c12;
+    margin-bottom:8px;
+  }
+  #callsList {
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  #callsList::-webkit-scrollbar { width: 4px; }
+  #callsList::-webkit-scrollbar-thumb { background: #f39c12; border-radius: 2px; }
+  #callsList::-webkit-scrollbar-track { background: #1a1a1a; }
+  
+  .call-item {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 10px;
+    background:#1a1a1a;
+    border-radius:8px;
+    margin-bottom:6px;
+    border-left:3px solid #f39c12;
+  }
+  .call-item:last-child { margin-bottom:0; }
+  .call-item .info { font-size:12.5px; }
+  .call-item .meja-call { font-weight:700; color:#f1c40f; }
+  .call-item .time-call { font-size:10px; color:#888; margin-top:2px; }
+  .call-item .btn-selesai {
+    background:#27ae60; color:#fff; border:none; padding:6px 12px;
+    border-radius:6px; font-size:11px; font-weight:600; cursor:pointer;
+  }
+  .call-item .btn-selesai:active { transform:scale(.95); }
+  
+  .orders { padding:12px; display:grid; gap:10px; }
+  
+  .order-card {
+    background:#1e1e1e; border-radius:10px; padding:12px;
+    border-left:4px solid #f1c40f; position:relative;
+    animation:slideIn .3s ease;
+  }
+  @keyframes slideIn {
+    from { opacity:0; transform:translateX(-15px); }
+    to { opacity:1; transform:translateX(0); }
+  }
+  .order-card.paid { border-left-color:#27ae60; opacity:.65; }
+  .order-card.cancelled { border-left-color:#e74c3c; opacity:.5; }
+  .order-card.sewa { border-left-color:#9b59b6; }
+  
+  .order-header {
+    display:flex; justify-content:space-between; align-items:flex-start;
+    margin-bottom:8px; flex-wrap:wrap; gap:6px;
+  }
+  .order-header .meja-badge {
+    background:#c0392b; padding:4px 10px; border-radius:6px;
+    font-weight:700; font-size:12.5px;
+    display:inline-flex; align-items:center; gap:4px;
+  }
+  .order-card.paid .meja-badge { background:#27ae60; }
+  .order-card.cancelled .meja-badge { background:#7f1f1f; }
+  .order-card.sewa .meja-badge { background:#9b59b6; }
+  .order-header .time { font-size:10.5px; color:#888; }
+  
+  .method-badge {
+    font-size:9.5px; padding:3px 7px; border-radius:5px;
+    font-weight:700; margin-left:4px; letter-spacing:.4px;
+  }
+  .method-badge.cash { background:#f39c12; color:#000; }
+  .method-badge.qris { background:#3498db; color:#fff; }
+  
+  .order-items { font-size:12.5px; line-height:1.55; margin:6px 0; }
+  .order-items .item { display:flex; justify-content:space-between; gap:8px; }
+  .order-items .item .qty { color:#f1c40f; font-weight:700; flex-shrink:0; }
+  
+  .order-catatan {
+    background:#2a2a2a; border-left:2px solid #f1c40f;
+    padding:6px 10px; border-radius:4px; font-size:11.5px; color:#ddd;
+    margin:6px 0; line-height:1.4;
+  }
+  
+  .timer-box {
+    background:linear-gradient(135deg,#9b59b6,#8e44ad);
+    border-radius:8px;
+    padding:8px 12px;
+    margin:6px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:12.5px;
+  }
+  .timer-box .label { font-weight:600; }
+  .timer-box .countdown {
+    font-family:monospace;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:1px;
+  }
+  .timer-box.warning { background:linear-gradient(135deg,#e67e22,#d35400); }
+  .timer-box.danger { 
+    background:linear-gradient(135deg,#e74c3c,#c0392b);
+    animation:blinkDanger 1s infinite;
+  }
+  .timer-box.expired {
+    background:linear-gradient(135deg,#7f0000,#4d0000);
+  }
+  @keyframes blinkDanger { 50% { opacity:.6; } }
+  
+  .order-footer {
+    display:flex; justify-content:space-between; align-items:center;
+    border-top:1px solid #2a2a2a; padding-top:8px; margin-top:6px;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .order-footer .total { font-size:14.5px; font-weight:700; color:#f1c40f; }
+  .order-footer .actions { display:flex; gap:14px; }
+  .order-footer .btn-lunas {
+    background:#27ae60; color:#fff; border:none; padding:8px 16px;
+    border-radius:7px; font-weight:600; cursor:pointer; font-size:12.5px;
+  }
+  .order-footer .btn-batal {
+    background:#c0392b; color:#fff; border:none; padding:8px 14px;
+    border-radius:7px; font-weight:600; cursor:pointer; font-size:12.5px;
+  }
+  .order-footer .btn-lunas:active, .order-footer .btn-batal:active { transform:scale(.95); }
+  .order-footer .status-paid { color:#27ae60; font-weight:700; font-size:12px; }
+  .order-footer .status-cancelled { color:#e74c3c; font-weight:700; font-size:12px; }
+  
+  .empty { text-align:center; color:#555; padding:50px 20px; font-size:13px; }
+</style>
+</head>
+<body>
+
+<div class="pin-screen show" id="pinScreen">
+  <div class="pin-box">
+    <div class="pin-icon">🔒</div>
+    <h2>Dashboard Kasir</h2>
+    <div class="pin-sub">Masukkan PIN untuk melanjutkan</div>
+    <div class="pin-error" id="pinError"></div>
+    <input type="password" id="pinInput" maxlength="6" inputmode="numeric" placeholder="••••" autocomplete="off">
+    <button onclick="submitPin()">Masuk</button>
+    <div class="pin-hint">Default PIN: 1234</div>
+  </div>
+</div>
+
+<div class="dashboard" id="dashboard">
+  <header>
+    <h1>🀄 DASHBOARD KASIR</h1>
+    <div class="live">LIVE</div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </header>
+
+  <div class="toolbar">
+    <button id="tab-aktif" class="active" onclick="setFilter('aktif')">Aktif</button>
+    <button id="tab-semua" onclick="setFilter('semua')">Semua</button>
+    <button class="sound-btn" id="soundBtn" onclick="toggleSound()">🔕 Suara OFF</button>
+  </div>
+
+  <div class="toolbar-2">
+    <button id="metode-semua" class="active" onclick="setMetode('semua')">📋 Semua</button>
+    <button id="metode-qris" onclick="setMetode('qris')">📱 QRIS</button>
+    <button id="metode-cash" onclick="setMetode('cash')">💵 Cash</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="label">Menunggu Bayar</div>
+      <div class="val yellow" id="statPending">0</div>
+    </div>
+    <div class="stat">
+      <div class="label">Sudah Bayar</div>
+      <div class="val green" id="statPaid">0</div>
+    </div>
+    <div class="stat">
+      <div class="label">Total Hari Ini</div>
+      <div class="val" id="statRevenue">Rp 0</div>
+    </div>
+  </div>
+
+  <div id="callsSection" style="display:none;">
+    <div class="calls-section">
+      <div class="calls-header">
+        🔔 PANGGILAN PELAYAN (<span id="callsCount">0</span>)
+      </div>
+      <div id="callsList"></div>
+    </div>
+  </div>
+
+  <div class="orders" id="ordersList">
+    <div class="empty">Menunggu pesanan masuk...</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://fdxnjagtjirlylgdtlvj.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkeG5qYWd0amlybHlsZ2R0bHZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5NjI0NjEsImV4cCI6MjEwNzUzODQ2MX0.uFgD_vAVX8QuUrsOgM1on0pxYyW0KHkR5Wb0tTxaYOw";
+
+const KASIR_PIN = "1234";
+
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let orders = [];
+let calls = [];
+let filterMode = 'aktif';
+let metodeFilter = 'semua';
+let soundOn = false;
+let knownOrderIds = new Set();
+let knownCallIds = new Set();
+
+function rupiah(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
+
+
+function checkPinSession() {
+  const saved = localStorage.getItem('kasir_pin_ok');
+  if (saved === 'yes') {
+    showDashboard();
+  } else {
+    document.getElementById('pinScreen').classList.add('show');
+    document.getElementById('dashboard').classList.remove('show');
+    setTimeout(() => document.getElementById('pinInput').focus(), 200);
+  }
+}
+
+function submitPin() {
+  const input = document.getElementById('pinInput').value.trim();
+  const errEl = document.getElementById('pinError');
+  
+  if (input === KASIR_PIN) {
+    localStorage.setItem('kasir_pin_ok', 'yes');
+    errEl.textContent = '';
+    document.getElementById('pinInput').value = '';
+    showDashboard();
+  } else {
+    errEl.textContent = '❌ PIN salah. Coba lagi.';
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinInput').focus();
+  }
+}
+
+document.getElementById('pinInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitPin();
+});
+
+function showDashboard() {
+  document.getElementById('pinScreen').classList.remove('show');
+  document.getElementById('dashboard').classList.add('show');
+  loadOrders();
+  loadCalls();
+  subscribeRealtime();
+  setInterval(loadOrders, 15000);
+  setInterval(loadCalls, 3000);
+}
+
+function logout() {
+  if (!confirm('Logout dari dashboard kasir?')) return;
+  localStorage.removeItem('kasir_pin_ok');
+  location.reload();
+}
+
+
+let audioCtx = null;
+
+function toggleSound() {
+  soundOn = !soundOn;
+  const btn = document.getElementById('soundBtn');
+  if (soundOn) {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    btn.classList.add('on');
+    btn.textContent = '🔔 Suara ON';
+    playBeep(880, 1200);
+  } else {
+    btn.classList.remove('on');
+    btn.textContent = '🔕 Suara OFF';
+  }
+}
+
+function playBeep(freq1 = 880, freq2 = 1200) {
+  if (!soundOn || !audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.type = 'sine';
+  osc.frequency.value = freq1;
+  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.3);
+  setTimeout(() => {
+    const osc2 = audioCtx.createOscillator();
+    const gain2 = audioCtx.createGain();
+    osc2.connect(gain2);
+    gain2.connect(audioCtx.destination);
+    osc2.type = 'sine';
+    osc2.frequency.value = freq2;
+    gain2.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+    osc2.start();
+    osc2.stop(audioCtx.currentTime + 0.3);
+  }, 200);
+}
+
+
+async function loadOrders() {
+  const { data, error } = await db
+    .from('orders')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(100);
+  
+  if (error) { console.error('Error load orders:', error); return; }
+  orders = data || [];
+  knownOrderIds = new Set(orders.map(o => o.id));
+  renderOrders();
+}
+
+async function loadCalls() {
+  const { data, error } = await db
+    .from('calls')
+    .select('*')
+    .eq('status', 'pending')
+    .order('created_at', { ascending: true });
+  
+  if (error) { console.error('Error load calls:', error); return; }
+  calls = data || [];
+  knownCallIds = new Set(calls.map(c => c.id));
+  renderCalls();
+}
+
+
+function setFilter(mode) {
+  filterMode = mode;
+  document.getElementById('tab-aktif').classList.toggle('active', mode === 'aktif');
+  document.getElementById('tab-semua').classList.toggle('active', mode === 'semua');
+  renderOrders();
+}
+
+function setMetode(m) {
+  metodeFilter = m;
+  document.getElementById('metode-semua').classList.toggle('active', m === 'semua');
+  document.getElementById('metode-qris').classList.toggle('active', m === 'qris');
+  document.getElementById('metode-cash').classList.toggle('active', m === 'cash');
+  renderOrders();
+}
+
+
+function getDurasiSewa(order) {
+  const sewaItems = (order.items || []).filter(it => 
+    it.sewa === true || it.kat === 'Sewa Meja'
+  );
+  
+  if (sewaItems.length === 0) return null;
+  
+  let totalMenit = 0;
+  sewaItems.forEach(it => {
+    const match = it.nama.match(/(\d+)\s*Jam/i);
+    if (match) {
+      totalMenit += parseInt(match[1]) * 60 * (it.qty || 1);
+    }
+  });
+  
+  if (totalMenit === 0) return null;
+  return totalMenit;
+}
+
+function renderTimerBox(order) {
+  const durasiMenit = getDurasiSewa(order);
+  if (!durasiMenit) return '';
+  
+  const startTime = new Date(order.paid_at || order.created_at).getTime();
+  const endTime = startTime + durasiMenit * 60 * 1000;
+  
+  const timerId = `timer-${order.id}`;
+  const status = order.status;
+  
+  if (status === 'cancelled') return '';
+  
+  return `
+    <div class="timer-box" id="${timerId}" data-end="${endTime}">
+      <div>
+        <div class="label">⏱️ Sewa Meja ${durasiMenit/60} Jam</div>
+        <div style="font-size:10px; opacity:.8;">
+          Mulai: ${new Date(startTime).toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'})}
+        </div>
+      </div>
+      <div class="countdown" id="${timerId}-val">--:--:--</div>
+    </div>
+  `;
+}
+
+function updateAllTimers() {
+  const now = Date.now();
+  document.querySelectorAll('.timer-box').forEach(box => {
+    const endTime = parseInt(box.dataset.end);
+    const sisaMs = endTime - now;
+    const timerId = box.id;
+    const valEl = document.getElementById(timerId + '-val');
+    if (!valEl) return;
+    
+    if (sisaMs <= 0) {
+      valEl.textContent = 'HABIS';
+      box.classList.remove('warning', 'danger');
+      box.classList.add('expired');
+    } else {
+      const sisaDetik = Math.floor(sisaMs / 1000);
+      const jam = Math.floor(sisaDetik / 3600);
+      const menit = Math.floor((sisaDetik % 3600) / 60);
+      const detik = sisaDetik % 60;
+      valEl.textContent = 
+        String(jam).padStart(2,'0') + ':' +
+        String(menit).padStart(2,'0') + ':' +
+        String(detik).padStart(2,'0');
+      
+      box.classList.remove('warning', 'danger', 'expired');
+      if (sisaDetik <= 300) {
+        box.classList.add('danger');
+      } else if (sisaDetik <= 600) {
+        box.classList.add('warning');
+      }
+    }
+  });
+}
+setInterval(updateAllTimers, 1000);
+
+
+function renderOrders() {
+  const list = document.getElementById('ordersList');
+  
+  let filtered = orders;
+  if (filterMode === 'aktif') {
+    filtered = filtered.filter(o => o.status === 'pending');
+  }
+  if (metodeFilter !== 'semua') {
+    filtered = filtered.filter(o => o.payment_method === metodeFilter);
+  }
+  
+  const pendingCount = orders.filter(o => o.status === 'pending').length;
+  const paidCount = orders.filter(o => o.status === 'paid').length;
+  const revenue = orders
+    .filter(o => o.status === 'paid')
+    .filter(o => {
+      const today = new Date().toDateString();
+      return new Date(o.paid_at || o.created_at).toDateString() === today;
+    })
+    .reduce((sum, o) => sum + o.total, 0);
+  
+  document.getElementById('statPending').textContent = pendingCount;
+  document.getElementById('statPaid').textContent = paidCount;
+  document.getElementById('statRevenue').textContent = rupiah(revenue);
+  
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="empty">' + 
+      (filterMode === 'aktif' ? 'Tidak ada pesanan aktif 🎉' : 'Belum ada pesanan') + 
+      '</div>';
+    return;
+  }
+  
+  list.innerHTML = filtered.map(o => renderOrderCard(o)).join('');
+  
+  updateAllTimers();
+}
+
+function renderOrderCard(o) {
+  const isPaid = o.status === 'paid';
+  const isCancelled = o.status === 'cancelled';
+  const durasiSewa = getDurasiSewa(o);
+  const isSewa = durasiSewa !== null;
+  
+  const items = (o.items || []).map(it => `
+    <div class="item">
+      <span><span class="qty">${it.qty}x</span> ${it.nama}</span>
+      <span>${rupiah(it.harga * it.qty)}</span>
+    </div>
+  `).join('');
+  
+  const waktu = new Date(o.created_at).toLocaleTimeString('id-ID', { 
+    hour:'2-digit', minute:'2-digit' 
+  });
+  
+  const catatanHtml = o.catatan 
+    ? `<div class="order-catatan">📝 ${o.catatan}</div>` 
+    : '';
+  
+  const isCash = o.payment_method === 'cash';
+  const methodBadge = isCash 
+    ? '<span class="method-badge cash">💵 CASH</span>'
+    : '<span class="method-badge qris">📱 QRIS</span>';
+  
+  const timerHtml = (isSewa && !isCancelled) ? renderTimerBox(o) : '';
+  
+  let footerHtml;
+  if (isCancelled) {
+    footerHtml = `<div class="status-cancelled">❌ DIBATALKAN</div>`;
+  } else if (isPaid) {
+    footerHtml = `<div class="status-paid">✓ LUNAS — ${o.paid_at ? new Date(o.paid_at).toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'}) : ''}</div>`;
+  } else {
+    footerHtml = `
+      <div class="actions">
+        <button class="btn-lunas" onclick="tandaiLunas('${o.id}')">✓ Lunas</button>
+        <button class="btn-batal" onclick="batalkanPesanan('${o.id}')">❌ Batal</button>
+      </div>
+    `;
+  }
+  
+  const cardClass = `${isPaid ? 'paid' : ''} ${isCancelled ? 'cancelled' : ''} ${isSewa ? 'sewa' : ''}`;
+  
+  return `
+    <div class="order-card ${cardClass}">
+      <div class="order-header">
+        <div class="meja-badge">MEJA ${o.meja}${methodBadge}</div>
+        <div class="time">🕐 ${waktu}</div>
+      </div>
+      <div class="order-items">${items}</div>
+      ${timerHtml}
+      ${catatanHtml}
+      <div class="order-footer">
+        <div class="total">${rupiah(o.total)}</div>
+        ${footerHtml}
+      </div>
+    </div>
+  `;
+}
+
+function renderCalls() {
+  const section = document.getElementById('callsSection');
+  const list = document.getElementById('callsList');
+  
+  if (calls.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+  
+  section.style.display = 'block';
+  document.getElementById('callsCount').textContent = calls.length;
+  
+  const labelMap = {
+    asbak: '🚬 Minta Asbak',
+    tisu: '🧻 Minta Tisu',
+    sendok: '🥄 Minta Sendok',
+    kasir: '💳 Panggil Kasir'
+  };
+  
+  list.innerHTML = calls.map(c => {
+    const waktu = new Date(c.created_at).toLocaleTimeString('id-ID', { 
+      hour:'2-digit', minute:'2-digit' 
+    });
+    return `
+      <div class="call-item">
+        <div class="info">
+          <div><span class="meja-call">Meja ${c.meja}</span> — ${labelMap[c.jenis] || c.jenis}</div>
+          <div class="time-call">🕐 ${waktu}</div>
+        </div>
+        <button class="btn-selesai" onclick="selesaikanCall('${c.id}')">✓ Selesai</button>
+      </div>
+    `;
+  }).join('');
+}
+
+
+async function tandaiLunas(orderId) {
+  const { error } = await db
+    .from('orders')
+    .update({ status: 'paid', paid_at: new Date().toISOString() })
+    .eq('id', orderId);
+  
+  if (error) { alert('Gagal update: ' + error.message); return; }
+}
+
+async function batalkanPesanan(orderId) {
+  const order = orders.find(o => o.id === orderId);
+  const meja = order ? order.meja : '?';
+  const total = order ? rupiah(order.total) : '';
+  
+  const yakin = confirm(
+    `⚠️ YAKIN BATALKAN PESANAN?\n\n` +
+    `Meja: ${meja}\n` +
+    `Total: ${total}\n\n` +
+    `Pesanan akan hilang dari daftar aktif.\n` +
+    `Tindakan ini tidak bisa dibatalkan!`
+  );
+  if (!yakin) return;
+  
+  const { error } = await db
+    .from('orders')
+    .update({ status: 'cancelled' })
+    .eq('id', orderId);
+  
+  if (error) { alert('Gagal batalkan: ' + error.message); return; }
+}
+
+async function selesaikanCall(callId) {
+  calls = calls.filter(c => c.id !== callId);
+  renderCalls();
+  
+  db.from('calls')
+    .update({ status: 'selesai', selesai_at: new Date().toISOString() })
+    .eq('id', callId)
+    .then(({ error }) => {
+      if (error) {
+        console.error('Gagal update call:', error);
+        loadCalls();
+      }
+    });
+}
+
+function subscribeRealtime() {
+  db
+    .channel('orders-ch')
+    .on('postgres_changes', 
+      { event: 'INSERT', schema: 'public', table: 'orders' },
+      (payload) => {
+        if (knownOrderIds.has(payload.new.id)) return;
+        orders.unshift(payload.new);
+        knownOrderIds.add(payload.new.id);
+        playBeep(880, 1200);
+        renderOrders();
+        flashTitle('🔔 PESANAN BARU!');
+      }
+    )
+    .on('postgres_changes',
+      { event: 'UPDATE', schema: 'public', table: 'orders' },
+      (payload) => {
+        const idx = orders.findIndex(o => o.id === payload.new.id);
+        if (idx !== -1) { orders[idx] = payload.new; }
+        else { orders.unshift(payload.new); }
+        renderOrders();
+      }
+    )
+    .subscribe();
+  
+  db
+    .channel('calls-ch')
+    .on('postgres_changes',
+      { event: 'INSERT', schema: 'public', table: 'calls' },
+      (payload) => {
+        if (knownCallIds.has(payload.new.id)) return;
+        calls.push(payload.new);
+        knownCallIds.add(payload.new.id);
+        playBeep(660, 990);
+        renderCalls();
+        flashTitle('🔔 PANGGILAN!');
+      }
+    )
+    .on('postgres_changes',
+      { event: 'UPDATE', schema: 'public', table: 'calls' },
+      (payload) => {
+        if (payload.new.status === 'selesai') {
+          calls = calls.filter(c => c.id !== payload.new.id);
+        } else {
+          const idx = calls.findIndex(c => c.id === payload.new.id);
+          if (idx !== -1) { calls[idx] = payload.new; }
+        }
+        renderCalls();
+      }
+    )
+    .subscribe();
+}
+
+let flashInterval = null;
+function flashTitle(msg) {
+  if (flashInterval) return;
+  let on = false;
+  const original = document.title;
+  flashInterval = setInterval(() => {
+    document.title = on ? msg : original;
+    on = !on;
+  }, 800);
+  setTimeout(() => {
+    clearInterval(flashInterval);
+    flashInterval = null;
+    document.title = original;
+  }, 10000);
+}
+
+checkPinSession();
+</script>
+</body>
+</html>

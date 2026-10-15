@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Warkop Mahjong - Pesan Online</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Segoe UI',system-ui,sans-serif; }
+  html, body { overflow-x:hidden; }
+  body { background:#1a1a1a; color:#fff; padding-bottom:230px; font-size:14px; -webkit-font-smoothing:antialiased; }
+  
+  header {
+    background:linear-gradient(135deg,#c0392b,#8e1f13);
+    padding:12px 14px; position:sticky; top:0; z-index:100;
+    box-shadow:0 2px 10px rgba(0,0,0,.5);
+    display:flex; align-items:center; gap:10px;
+  }
+  header h1 { font-size:15px; letter-spacing:1px; }
+  header .meja { margin-left:auto; background:#f1c40f; color:#000;
+    padding:4px 10px; border-radius:16px; font-weight:bold; font-size:12px;
+    white-space:nowrap; }
+  header .logo { width:32px; height:32px; background:#f1c40f; border-radius:8px;
+    display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+  
+  .kategori-wrap {
+    position:sticky; top:56px; background:#1a1a1a; z-index:99;
+    border-bottom:1px solid #2a2a2a;
+    overflow:hidden;
+  }
+  .kategori {
+    display:flex; gap:6px; padding:10px 12px; overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .kategori::-webkit-scrollbar { display:none; }
+  .kategori button {
+    background:#242424; color:#ddd; border:1px solid #333; padding:7px 14px;
+    border-radius:18px; white-space:nowrap; cursor:pointer; font-size:12.5px;
+    transition:.15s;
+  }
+  .kategori button.active { background:#c0392b; border-color:#c0392b; color:#fff; font-weight:600; }
+  .kategori-wrap::after {
+    content:'';
+    position:absolute;
+    top:0; right:0; bottom:0;
+    width:44px;
+    background:linear-gradient(to right, rgba(26,26,26,0) 0%, rgba(26,26,26,.85) 60%, #1a1a1a 100%);
+    pointer-events:none;
+    z-index:1;
+  }
+  .kategori-wrap::before {
+    content:'›';
+    position:absolute;
+    top:50%; right:8px;
+    transform:translateY(-50%);
+    font-size:24px;
+    font-weight:bold;
+    color:#f1c40f;
+    pointer-events:none;
+    z-index:2;
+    animation:arrowSlide 1.5s infinite;
+  }
+  @keyframes arrowSlide {
+    0%,100% { opacity:.4; transform:translate(0, -50%); }
+    50% { opacity:1; transform:translate(3px, -50%); }
+  }
+  
+  .menu-grid { padding:10px 12px; display:grid; gap:8px; }
+  .card {
+    background:#242424; border-radius:10px; padding:10px; display:flex; gap:10px;
+    border:1px solid #2e2e2e;
+    transition:.15s;
+  }
+  .card:active { background:#2a2a2a; }
+  .card .img {
+    width:64px; height:64px; background:#2e2e2e; border-radius:8px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:28px;
+  }
+  .card .info { flex:1; display:flex; flex-direction:column; justify-content:space-between; min-width:0; }
+  .card h3 { font-size:13.5px; font-weight:600; margin-bottom:2px; line-height:1.3; }
+  .card .desc { font-size:11px; color:#888; line-height:1.3; overflow:hidden;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+  .card .bottom { display:flex; justify-content:space-between; align-items:center; margin-top:6px; }
+  .card .harga { color:#f1c40f; font-weight:700; font-size:13.5px; }
+  .card button {
+    background:#c0392b; color:#fff; border:none; width:34px; height:34px;
+    border-radius:50%; font-size:20px; cursor:pointer; font-weight:bold;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .card button:active { transform:scale(.9); background:#e74c3c; }
+  
+  .fab {
+    position:fixed; bottom:130px; right:14px;
+    width:54px; height:54px; border-radius:50%;
+    background:linear-gradient(135deg,#f39c12,#e67e22);
+    box-shadow:0 4px 14px rgba(243,156,18,.5);
+    font-size:24px; cursor:pointer; z-index:150;
+    display:flex; align-items:center; justify-content:center;
+    border:none; color:#fff;
+    animation:fabPulse 2.5s infinite;
+  }
+  .fab:active { transform:scale(.9); }
+  @keyframes fabPulse {
+    0%,100% { box-shadow:0 4px 14px rgba(243,156,18,.5); }
+    50% { box-shadow:0 4px 22px rgba(243,156,18,.8); }
+  }
+  
+  .cart-bar {
+    position:fixed; bottom:0; left:0; right:0; background:#c0392b;
+    padding:14px 16px; display:flex; justify-content:space-between; align-items:center;
+    cursor:pointer; box-shadow:0 -2px 10px rgba(0,0,0,.5);
+    z-index:140;
+  }
+  .cart-bar.hidden { display:none; }
+  .cart-bar .info { font-size:12px; opacity:.9; }
+  .cart-bar .total { font-weight:bold; font-size:16px; margin-top:2px; }
+  .cart-bar .cta { font-size:13px; font-weight:600; }
+  
+  .modal {
+    position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:200;
+    display:none; align-items:flex-end;
+    backdrop-filter:blur(2px);
+  }
+  .modal.show { display:flex; animation:fadeIn .2s; }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  .modal-content {
+    background:#1a1a1a; width:100%; max-height:92vh; border-radius:18px 18px 0 0;
+    padding:18px 16px 80px 16px; overflow-y:auto;
+    animation:slideUp .25s ease-out;
+  }
+  @keyframes slideUp { from { transform:translateY(30px); } to { transform:translateY(0); } }
+  .modal-content h2 { margin-bottom:14px; font-size:16px; }
+  .cart-item { display:flex; justify-content:space-between; align-items:center;
+    padding:10px 0; border-bottom:1px solid #2a2a2a; }
+  .cart-item .qty { display:flex; align-items:center; gap:6px; }
+  .cart-item .qty button { background:#2e2e2e; color:#fff; border:none;
+    width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:15px;
+    display:flex; align-items:center; justify-content:center; }
+  .cart-item .qty span { min-width:22px; text-align:center; font-size:14px; }
+  
+  textarea {
+    width:100%; background:#242424; border:1px solid #333; color:#fff;
+    padding:10px 12px; border-radius:8px; margin:10px 0; resize:none;
+    font-family:inherit; font-size:13px;
+  }
+  
+  .pay-method-section { margin-top:10px; padding-top:10px; border-top:1px solid #2a2a2a; }
+  .pay-method-label { font-size:12px; color:#888; margin-bottom:8px; }
+  .pay-method-options { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .pay-method-btn {
+    background:#242424; border:2px solid #333; border-radius:10px;
+    padding:10px 6px; cursor:pointer; color:#fff; text-align:center;
+    transition:.15s; display:flex; flex-direction:column; align-items:center; gap:3px;
+  }
+  .pay-method-btn.active { border-color:#f1c40f; background:#2a2a2a; }
+  .pay-method-btn .ico { font-size:22px; }
+  .pay-method-btn .title { font-weight:600; font-size:12.5px; }
+  .pay-method-btn .sub { font-size:10px; color:#888; }
+  .pay-method-btn.active .title { color:#f1c40f; }
+  
+  .total-row {
+    display:flex; justify-content:space-between; padding:14px 0;
+    border-top:1px solid #2a2a2a; margin-top:10px; font-size:16px;
+  }
+  .total-row .val { color:#f1c40f; font-weight:bold; }
+  
+  .btn-pesan {
+    width:100%; background:#27ae60; color:#fff; border:none; padding:14px;
+    border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; margin-top:8px;
+  }
+  .btn-pesan:disabled { background:#444; cursor:not-allowed; }
+  .btn-wa {
+    width:100%; background:#25D366; color:#fff; border:none; padding:16px;
+    border-radius:12px; font-size:15.5px; font-weight:700; cursor:pointer;
+    margin-top:10px;
+    animation:waPulse 2s infinite;
+  }
+  @keyframes waPulse {
+    0%,100% { box-shadow:0 0 0 0 rgba(37,211,102,.5); }
+    50% { box-shadow:0 0 0 10px rgba(37,211,102,0); }
+  }
+  .btn-close { background:#2e2e2e; color:#fff; border:none; padding:12px;
+    border-radius:10px; width:100%; margin-top:8px; cursor:pointer; font-size:14px; }
+  
+  .empty { text-align:center; color:#666; padding:50px 20px; font-size:13px; }
+  
+  .pay-content {
+    background:#242424; border:1px solid #2e2e2e; border-radius:10px;
+    padding:16px; text-align:center;
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+  }
+  .pay-content .qr-wrap { background:#fff; padding:8px; border-radius:10px; }
+  .pay-content img.qr { width:220px; height:220px; display:block; }
+  .pay-content .qr-fallback {
+    width:220px; height:220px; background:#2e2e2e; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    color:#888; font-size:11px; text-align:center; padding:16px;
+  }
+  .pay-content .pay-title { font-weight:600; font-size:14px; }
+  .pay-content .pay-sub { font-size:11.5px; color:#999; }
+  
+  .cash-box {
+    background:linear-gradient(135deg,#27ae60,#1e8449);
+    border-radius:10px; padding:22px 18px; text-align:center;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+  }
+  .cash-box .cash-icon { font-size:48px; }
+  .cash-box .cash-title { font-size:16px; font-weight:600; }
+  .cash-box .cash-sub { font-size:12px; opacity:.9; }
+  .cash-box .cash-total {
+    font-size:22px; font-weight:700; margin-top:6px;
+    background:rgba(0,0,0,.2); padding:8px 18px; border-radius:10px;
+  }
+  
+  .catatan-bayar {
+    background:#242424; border-left:3px solid #f1c40f; padding:10px 12px;
+    font-size:11.5px; color:#ccc; border-radius:6px; margin-top:10px;
+    text-align:left; line-height:1.5;
+  }
+  
+  .kode-unik-box {
+    background:linear-gradient(135deg,#f1c40f,#e67e22);
+    color:#000; border-radius:10px; padding:12px;
+    margin:10px 0; text-align:center;
+  }
+  .kode-unik-box .label { font-size:10.5px; font-weight:600; opacity:.7; }
+  .kode-unik-box .value { font-size:22px; font-weight:700; font-family:monospace; }
+  .kode-unik-box .hint { font-size:9.5px; margin-top:3px; opacity:.8; }
+  
+  .warning-wa {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: #000;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 12px 0;
+    font-size: 12.5px;
+    line-height: 1.5;
+    text-align: left;
+    border-left: 4px solid #c0392b;
+    font-weight: 500;
+  }
+  
+  .success-page { text-align:center; padding:16px 0 8px; }
+  .success-page .check { font-size:56px; margin-bottom:8px; }
+  .success-page .title { font-size:18px; font-weight:700; color:#27ae60; margin-bottom:6px; }
+  .success-page .subtitle { color:#999; font-size:12px; margin-bottom:14px; }
+  .success-page .order-id {
+    background:#242424; padding:10px; border-radius:8px;
+    font-family:monospace; font-size:13px; color:#f1c40f; margin-bottom:12px;
+  }
+  
+  .steps-guide {
+    background:#1e1e1e;
+    border:1px solid #2e2e2e;
+    border-radius:12px;
+    padding:14px;
+    margin:12px 0;
+  }
+  .steps-guide .step-title {
+    font-size:12px;
+    color:#f1c40f;
+    font-weight:700;
+    margin-bottom:12px;
+    text-align:center;
+    letter-spacing:1px;
+  }
+  .step-item {
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:8px 0;
+  }
+  .step-item:not(:last-child) { border-bottom:1px dashed #2e2e2e; }
+  .step-num {
+    width:28px; height:28px;
+    background:#f1c40f; color:#000;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:14px;
+    flex-shrink:0;
+  }
+  .step-text {
+    font-size:13px;
+    line-height:1.4;
+    padding-top:3px;
+    color:#eee;
+  }
+  .step-text b { color:#f1c40f; }
+  
+  .call-options {
+    display:grid; grid-template-columns:1fr 1fr; gap:10px;
+    margin-top:6px;
+  }
+  .call-opt {
+    background:#242424; border:2px solid #2e2e2e; border-radius:12px;
+    padding:16px 10px; cursor:pointer; color:#fff; text-align:center;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    transition:.15s;
+  }
+  .call-opt:active { transform:scale(.95); }
+  .call-opt:hover { border-color:#f39c12; background:#2a2a2a; }
+  .call-opt .ico { font-size:28px; }
+  .call-opt .label { font-size:13px; font-weight:600; }
+  
+  .toast {
+    position:fixed; bottom:200px; left:50%; transform:translateX(-50%);
+    background:#27ae60; color:#fff; padding:14px 22px; border-radius:24px;
+    font-size:13px; font-weight:600; z-index:300;
+    box-shadow:0 4px 16px rgba(0,0,0,.5);
+    display:none; max-width:90vw; text-align:center; line-height:1.4;
+  }
+  .toast.show { display:block; animation:toastIn .3s; }
+  @keyframes toastIn { from { opacity:0; transform:translate(-50%,10px); } to { opacity:1; transform:translate(-50%,0); } }
+  
+  .loading {
+    display:inline-block; width:14px; height:14px;
+    border:2px solid #fff; border-top-color:transparent;
+    border-radius:50%; animation:spin 0.8s linear infinite;
+    vertical-align:middle;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🀄</div>
+  <h1>WARKOP MAHJONG</h1>
+  <div class="meja" id="mejaLabel">Meja -</div>
+</header>
+
+<div class="kategori-wrap">
+  <div class="kategori" id="kategoriBar"></div>
+</div>
+<div class="menu-grid" id="menuGrid"></div>
+
+<button class="fab" onclick="openCallModal()" aria-label="Panggil Pelayan">🔔</button>
+
+<div class="cart-bar hidden" id="cartBar" onclick="openCart()">
+  <div>
+    <div class="info" id="cartCount">0 item</div>
+    <div class="total" id="cartTotal">Rp 0</div>
+  </div>
+  <div class="cta">Lihat Pesanan →</div>
+</div>
+
+<div class="modal" id="cartModal">
+  <div class="modal-content">
+    <h2>🛒 Pesanan Kamu</h2>
+    <div id="cartList"></div>
+    <textarea id="catatan" rows="2" placeholder="Catatan (opsional): kopi tanpa gula, mie level 5..."></textarea>
+    
+    <div class="pay-method-section">
+      <div class="pay-method-label">💳 Pilih Metode Pembayaran:</div>
+      <div class="pay-method-options">
+        <button type="button" class="pay-method-btn active" data-method="qris" onclick="pilihMetode('qris')">
+          <span class="ico">📱</span>
+          <div class="title">QRIS</div>
+          <div class="sub">Transfer / Scan</div>
+        </button>
+        <button type="button" class="pay-method-btn" data-method="cash" onclick="pilihMetode('cash')">
+          <span class="ico">💵</span>
+          <div class="title">Cash</div>
+          <div class="sub">Bayar di kasir</div>
+        </button>
+      </div>
+    </div>
+    
+    <div class="total-row">
+      <span>Subtotal</span>
+      <span class="val" id="totalCart">Rp 0</span>
+    </div>
+    <button class="btn-pesan" id="btnLanjut" onclick="kirimPesanan()">Pesan Sekarang →</button>
+    <button class="btn-close" onclick="closeCart()">Tambah Menu Lagi</button>
+  </div>
+</div>
+
+<div class="modal" id="successModal">
+  <div class="modal-content">
+    <div class="success-page">
+      <div class="check">✅</div>
+      <div class="title">Pesanan Diterima!</div>
+      <div class="subtitle">Pesananmu udah masuk ke kasir</div>
+      <div class="order-id" id="orderIdDisplay">#xxxxx</div>
+    </div>
+    
+    <div id="qrisArea">
+      <div class="steps-guide">
+        <div class="step-title">📋 IKUTI 3 LANGKAH INI</div>
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">Scan QR di bawah & <b>transfer sesuai nominal</b> (termasuk kode unik)</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">Klik tombol <b>hijau "Kabari Kasir"</b> di bawah</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">Tunggu pesanan diantar ke meja <b id="stepMeja">-</b> 🀄</div>
+        </div>
+      </div>
+      
+      <div class="pay-content">
+        <div class="pay-title">💳 Scan QRIS</div>
+        <div class="pay-sub">Bisa pakai GoPay, DANA, OVO, ShopeePay, m-banking</div>
+        <div class="qr-wrap">
+          <img src="qris.png" class="qr" alt="QRIS Warkop Mahjong"
+               onerror="this.outerHTML='<div class=&quot;qr-fallback&quot;>Gambar QR belum ada.<br><br>Taruh file <b>qris.png</b> di folder yang sama dengan index.html</div>'">
+        </div>
+        <div class="pay-sub">Transfer: <b style="color:#f1c40f;font-size:15px" id="totalTransfer">Rp 0</b></div>
+      </div>
+      
+      <div class="kode-unik-box">
+        <div class="label">KODE UNIK (3 DIGIT = NO. MEJA)</div>
+        <div class="value" id="kodeUnikDisplay">+000</div>
+        <div class="hint">Transfer harus PAS nominal ini ya</div>
+      </div>
+      
+      <div class="warning-wa">
+        ⚠️ <b>PENTING!</b> Setelah transfer, <b>WAJIB klik tombol hijau "Kabari Kasir" di bawah</b> biar kasir bisa proses pesananmu. Kalau ga diklik, pesanan tidak diproses!
+      </div>
+    </div>
+    
+    <div id="cashArea" style="display:none;">
+      <div class="cash-box">
+        <div class="cash-icon">💵</div>
+        <div class="cash-title">Bayar di Kasir</div>
+        <div class="cash-sub">Silakan ke kasir & bayar sesuai total</div>
+        <div class="cash-total" id="cashTotalDisplay">Rp 0</div>
+      </div>
+      
+      <div class="catatan-bayar">
+        💡 Pesananmu udah masuk ke kasir. Tinggal ke kasir & bayar cash.
+        Kasir bakal langsung proses pesananmu.
+      </div>
+    </div>
+    
+    <button class="btn-wa" id="btnWA" onclick="kabariKasir()">📱 Kabari Kasir via WhatsApp</button>
+    <button class="btn-close" onclick="closeSuccess()">Tutup</button>
+  </div>
+</div>
+
+<div class="modal" id="callModal">
+  <div class="modal-content">
+    <h2>🔔 Panggil Pelayan</h2>
+    <p style="font-size:13px; color:#999; margin-bottom:14px;">Pilih kebutuhanmu, pelayan akan datang ke meja <b id="callMejaLabel">-</b></p>
+    
+    <div class="call-options">
+      <button class="call-opt" onclick="panggilPelayan('asbak')">
+        <span class="ico">🚬</span>
+        <span class="label">Minta Asbak</span>
+      </button>
+      <button class="call-opt" onclick="panggilPelayan('tisu')">
+        <span class="ico">🧻</span>
+        <span class="label">Minta Tisu</span>
+      </button>
+      <button class="call-opt" onclick="panggilPelayan('sendok')">
+        <span class="ico">🥄</span>
+        <span class="label">Minta Sendok</span>
+      </button>
+      <button class="call-opt" onclick="panggilPelayan('kasir')">
+        <span class="ico">💳</span>
+        <span class="label">Panggil Kasir</span>
+      </button>
+    </div>
+    
+    <button class="btn-close" onclick="closeCall()" style="margin-top:14px;">Tutup</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">✅ Panggilan terkirim!</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+
+const WA_NUMBER = "6285177889565";
+const SUPABASE_URL = "https://fdxnjagtjirlylgdtlvj.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkeG5qYWd0amlybHlsZ2R0bHZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5NjI0NjEsImV4cCI6MjEwNzUzODQ2MX0.uFgD_vAVX8QuUrsOgM1on0pxYyW0KHkR5Wb0tTxaYOw";
+
+
+const MENU = [
+  { id:1,  nama:"Kopi Hitam Pahit",    desc:"Kopi tubruk pahit",         harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:2,  nama:"Kopi Kapal Api",      desc:"Kopi sachet Kapal Api",     harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:3,  nama:"Kopi Liong",          desc:"Kopi khas Liong",           harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:4,  nama:"Kopi Luwak Hot",      desc:"Kopi Luwak panas",          harga:6000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:5,  nama:"Indocafe Hot",        desc:"Kopi Indocafe panas",       harga:6000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:6,  nama:"ABC Susu Hot",        desc:"ABC susu panas",            harga:6000,  emoji:"🥛", kat:"Kopi & Teh" },
+  { id:7,  nama:"ABC Klepon",          desc:"ABC rasa klepon",           harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
+  { id:8,  nama:"Good Day Cappucino",  desc:"Good Day Cappucino",        harga:7000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:9,  nama:"Good Day Freeze",     desc:"Good Day Freeze dingin",    harga:7000,  emoji:"🧊", kat:"Kopi & Teh" },
+  { id:10, nama:"Good Day Series",     desc:"Pilih rasa favoritmu",      harga:7000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:11, nama:"Creamy Latte",        desc:"Latte creamy lembut",       harga:7000,  emoji:"☕", kat:"Kopi & Teh" },
+  { id:12, nama:"Teh Tarik",           desc:"Teh tarik creamy",          harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
+  { id:13, nama:"Bonteh Matcha",       desc:"Matcha creamy",             harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
+  { id:14, nama:"Bonteh Teh Tarik",    desc:"Teh tarik Bonteh",          harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
+  { id:15, nama:"Teh Hangat",          desc:"Teh tubruk hangat",         harga:5000,  emoji:"🍵", kat:"Kopi & Teh" },
+  { id:16, nama:"Es Batu",             desc:"Es batu gelas",             harga:2000,  emoji:"🧊", kat:"Minuman Dingin" },
+  { id:17, nama:"Air Mineral",         desc:"Aqua 600ml",                harga:5000,  emoji:"💧", kat:"Minuman Dingin" },
+  { id:18, nama:"Es Teh Manis",        desc:"Es teh manis segar",        harga:5000,  emoji:"🧊", kat:"Minuman Dingin" },
+  { id:19, nama:"Es Jeruk",            desc:"Jeruk peras asli",          harga:8000,  emoji:"🍊", kat:"Minuman Dingin" },
+  { id:20, nama:"Fanta",               desc:"Fanta dingin",              harga:9000,  emoji:"🥤", kat:"Minuman Dingin" },
+  { id:21, nama:"Soda Susu",           desc:"Soda + susu manis",         harga:12000, emoji:"🥤", kat:"Minuman Dingin" },
+  { id:22, nama:"Chocolatos",          desc:"Chocolatos hot/dingin",     harga:7000,  emoji:"🍫", kat:"Susu & Coklat" },
+  { id:23, nama:"Chocolatos Matcha",   desc:"Chocolatos rasa matcha",    harga:7000,  emoji:"🍫", kat:"Susu & Coklat" },
+  { id:24, nama:"Ovaltine",            desc:"Ovaltine hot/dingin",       harga:7000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:25, nama:"Adem Sari",           desc:"Adem Sari segar",           harga:7000,  emoji:"🍋", kat:"Susu & Coklat" },
+  { id:26, nama:"Nutrisari",           desc:"Nutrisari aneka rasa",      harga:6000,  emoji:"🍊", kat:"Susu & Coklat" },
+  { id:27, nama:"Drink Beng Beng",     desc:"Beng Beng drink",           harga:7000,  emoji:"🍫", kat:"Susu & Coklat" },
+  { id:28, nama:"Milo",                desc:"Milo hot/dingin",           harga:8000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:29, nama:"Dancow Coklat",       desc:"Susu Dancow coklat",        harga:9000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:30, nama:"Dancow Putih",        desc:"Susu Dancow putih",         harga:9000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:31, nama:"Energen Vanilla",     desc:"Energen vanilla",           harga:7000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:32, nama:"Energen Coklat",      desc:"Energen coklat",            harga:7000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:33, nama:"Kukubima",            desc:"Kukubima energi",           harga:6000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:34, nama:"Extrajoss",           desc:"Extrajoss susu",            harga:6000,  emoji:"🥛", kat:"Susu & Coklat" },
+  { id:35, nama:"Roti Blueberry",      desc:"Roti bakar selai blueberry",harga:10000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:36, nama:"Roti Tiramisu",       desc:"Roti bakar tiramisu",       harga:10000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:37, nama:"Roti Susu",           desc:"Roti bakar susu kental",    harga:10000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:38, nama:"Roti Coklat Meses",   desc:"Roti bakar meses coklat",   harga:10000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:39, nama:"Roti Strawberry",     desc:"Roti bakar selai strawberry",harga:10000,emoji:"🍞", kat:"Roti Bakar" },
+  { id:40, nama:"Roti Cappucino",      desc:"Roti bakar cappucino",      harga:12000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:41, nama:"Roti Green Tea",      desc:"Roti bakar green tea",      harga:12000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:42, nama:"Roti Keju",           desc:"Roti bakar keju",           harga:12000, emoji:"🧀", kat:"Roti Bakar" },
+  { id:43, nama:"Roti Keju Spread",    desc:"Roti bakar keju spread",    harga:12000, emoji:"🧀", kat:"Roti Bakar" },
+  { id:44, nama:"Roti Hazelnut",       desc:"Roti bakar hazelnut spread",harga:12000, emoji:"🍞", kat:"Roti Bakar" },
+  { id:45, nama:"Roti Coklat Klasik",  desc:"Roti bakar coklat klasik",  harga:12000, emoji:"🍫", kat:"Roti Bakar" },
+  { id:46, nama:"Roti Coklat Crunchy", desc:"Roti bakar coklat crunchy", harga:15000, emoji:"🍫", kat:"Roti Bakar" },
+  { id:47, nama:"Roti Keju Crunchy",   desc:"Roti bakar keju crunchy",   harga:15000, emoji:"🧀", kat:"Roti Bakar" },
+  { id:48, nama:"Roti Nutella",        desc:"Roti bakar Nutella premium",harga:17000, emoji:"🍫", kat:"Roti Bakar" },
+  { id:49, nama:"Pancong Original",    desc:"Pancong original",          harga:8000,  emoji:"🥮", kat:"Pancong" },
+  { id:50, nama:"Pancong Coklat",      desc:"Pancong isi coklat",        harga:10000, emoji:"🥮", kat:"Pancong" },
+  { id:51, nama:"Pancong Bluberi",     desc:"Pancong isi blueberry",     harga:10000, emoji:"🥮", kat:"Pancong" },
+  { id:52, nama:"Pancong Strawberry",  desc:"Pancong isi strawberry",    harga:10000, emoji:"🥮", kat:"Pancong" },
+  { id:53, nama:"Pancong Selai Susu",  desc:"Pancong selai susu",        harga:10000, emoji:"🥮", kat:"Pancong" },
+  { id:54, nama:"Pancong Oreo",        desc:"Pancong isi Oreo",          harga:10000, emoji:"🥮", kat:"Pancong" },
+  { id:55, nama:"Pancong Keju",        desc:"Pancong isi keju",          harga:12000, emoji:"🧀", kat:"Pancong" },
+  { id:56, nama:"Pancong Hazelnut",    desc:"Pancong isi hazelnut",      harga:12000, emoji:"🥮", kat:"Pancong" },
+  { id:57, nama:"Pancong Green Tea",   desc:"Pancong isi green tea",     harga:12000, emoji:"🥮", kat:"Pancong" },
+  { id:58, nama:"Baso Goreng",         desc:"Baso goreng gurih",         harga:10000, emoji:"🍢", kat:"Gorengan" },
+  { id:59, nama:"Kentang Goreng",      desc:"Kentang goreng crispy",     harga:10000, emoji:"🍟", kat:"Gorengan" },
+  { id:60, nama:"Otak Otak",           desc:"Otak-otak goreng",          harga:10000, emoji:"🍢", kat:"Gorengan" },
+  { id:61, nama:"Omlet",               desc:"Omlet telur spesial",       harga:12000, emoji:"🍳", kat:"Gorengan" },
+  { id:62, nama:"Nugget",              desc:"Nugget ayam goreng",        harga:15000, emoji:"🍗", kat:"Gorengan" },
+  { id:63, nama:"Sosis Goreng",        desc:"Sosis goreng gurih",        harga:15000, emoji:"🌭", kat:"Gorengan" },
+  { id:64, nama:"Chikenwings",         desc:"Sayap ayam goreng",         harga:20000, emoji:"🍗", kat:"Gorengan" },
+  { id:65, nama:"Mixplatter",          desc:"Aneka gorengan mix",        harga:20000, emoji:"🍽️", kat:"Gorengan" },
+  { id:66, nama:"Mahjong 1 Jam",       desc:"Sewa meja mahjong 1 jam",   harga:40000, emoji:"🀄", kat:"Sewa Meja", sewa:true },
+  { id:67, nama:"Mahjong 2 Jam",       desc:"Sewa meja mahjong 2 jam",   harga:75000, emoji:"🀄", kat:"Sewa Meja", sewa:true },
+  { id:68, nama:"Mahjong 3 Jam",       desc:"Sewa meja mahjong 3 jam",   harga:100000,emoji:"🀄", kat:"Sewa Meja", sewa:true },
+];
+
+
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const urlParams = new URLSearchParams(window.location.search);
+const nomorMeja = parseInt(urlParams.get('meja')) || 0;
+document.getElementById('mejaLabel').textContent = 'Meja ' + (nomorMeja || '?');
+document.getElementById('callMejaLabel').textContent = nomorMeja || '?';
+document.getElementById('stepMeja').textContent = nomorMeja || '?';
+
+let cart = {};
+let kategoriAktif = 'Semua';
+let kodeUnik = nomorMeja;
+let metodeBayar = 'qris';
+let lastOrderId = null;
+let lastOrderData = null;
+
+function rupiah(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
+
+function hitungTotal() {
+  return Object.entries(cart).reduce((sum,[id,qty]) => {
+    const m = MENU.find(x => x.id == id);
+    return sum + m.harga * qty;
+  }, 0);
+}
+
+
+function renderKategori() {
+  const kats = ['Semua', ...new Set(MENU.map(m => m.kat))];
+  document.getElementById('kategoriBar').innerHTML = kats.map(k =>
+    `<button class="${k===kategoriAktif?'active':''}" onclick="pilihKat('${k}')">${k}</button>`
+  ).join('');
+}
+function pilihKat(k) { kategoriAktif = k; renderKategori(); renderMenu(); }
+
+function renderMenu() {
+  const list = kategoriAktif === 'Semua' ? MENU : MENU.filter(m => m.kat === kategoriAktif);
+  document.getElementById('menuGrid').innerHTML = list.map(m => `
+    <div class="card">
+      <div class="img">${m.emoji}</div>
+      <div class="info">
+        <div>
+          <h3>${m.nama}</h3>
+          <div class="desc">${m.desc}</div>
+        </div>
+        <div class="bottom">
+          <div class="harga">${rupiah(m.harga)}</div>
+          <button onclick="addToCart(${m.id})">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+
+function addToCart(id) {
+  cart[id] = (cart[id] || 0) + 1;
+  updateCartBar();
+}
+
+function updateCartBar() {
+  const total = hitungTotal();
+  const count = Object.values(cart).reduce((a,b)=>a+b,0);
+  const bar = document.getElementById('cartBar');
+  if (count > 0) {
+    bar.classList.remove('hidden');
+    document.getElementById('cartCount').textContent = count + ' item';
+    document.getElementById('cartTotal').textContent = rupiah(total);
+  } else {
+    bar.classList.add('hidden');
+  }
+}
+
+function openCart() { renderCartList(); document.getElementById('cartModal').classList.add('show'); }
+function closeCart() { document.getElementById('cartModal').classList.remove('show'); }
+function closeSuccess() { document.getElementById('successModal').classList.remove('show'); }
+
+function renderCartList() {
+  const entries = Object.entries(cart);
+  if (entries.length === 0) {
+    document.getElementById('cartList').innerHTML = '<div class="empty">Keranjang kosong</div>';
+  } else {
+    document.getElementById('cartList').innerHTML = entries.map(([id,qty]) => {
+      const m = MENU.find(x => x.id == id);
+      return `
+        <div class="cart-item">
+          <div>
+            <div style="font-size:13.5px">${m.nama}</div>
+            <div style="color:#f1c40f;font-size:12.5px">${rupiah(m.harga*qty)}</div>
+          </div>
+          <div class="qty">
+            <button onclick="ubahQty(${id},-1)">−</button>
+            <span>${qty}</span>
+            <button onclick="ubahQty(${id},1)">+</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+  document.getElementById('totalCart').textContent = rupiah(hitungTotal());
+}
+
+function ubahQty(id, delta) {
+  cart[id] += delta;
+  if (cart[id] <= 0) delete cart[id];
+  renderCartList();
+  updateCartBar();
+}
+
+function pilihMetode(m) {
+  metodeBayar = m;
+  document.querySelectorAll('.pay-method-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.method === m);
+  });
+  const btn = document.getElementById('btnLanjut');
+  btn.textContent = m === 'cash' ? 'Pesan Sekarang (Cash) →' : 'Pesan Sekarang →';
+}
+
+
+async function kirimPesanan() {
+  if (Object.keys(cart).length === 0) return alert('Keranjang masih kosong');
+  if (!nomorMeja) return alert('Nomor meja tidak terdeteksi. Scan QR ulang di meja ya.');
+  
+  const btn = document.getElementById('btnLanjut');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span> Mengirim...';
+  
+  const items = Object.entries(cart).map(([id, qty]) => {
+    const m = MENU.find(x => x.id == id);
+    return { 
+      id: m.id, 
+      nama: m.nama, 
+      qty, 
+      harga: m.harga, 
+      emoji: m.emoji, 
+      kat: m.kat,
+      sewa: m.sewa || false
+    };
+  });
+  
+  const catatan = document.getElementById('catatan').value.trim();
+  const subtotal = hitungTotal();
+  
+  const { data, error } = await db
+    .from('orders')
+    .insert({
+      meja: nomorMeja,
+      items: items,
+      subtotal: subtotal,
+      total: subtotal,
+      status: 'pending',
+      catatan: catatan || null,
+      payment_method: metodeBayar
+    })
+    .select()
+    .single();
+  
+  btn.disabled = false;
+  btn.textContent = metodeBayar === 'cash' ? 'Pesan Sekarang (Cash) →' : 'Pesan Sekarang →';
+  
+  if (error) {
+    console.error('Error insert:', error);
+    alert('Gagal kirim pesanan: ' + error.message);
+    return;
+  }
+  
+  lastOrderId = data.id;
+  closeCart();
+  showSuccess(data);
+}
+
+
+function showSuccess(order) {
+  const isCash = metodeBayar === 'cash';
+  
+  lastOrderData = {
+    orderId: order.id,
+    meja: order.meja,
+    subtotal: order.subtotal,
+    total: order.total,
+    kodeUnik: isCash ? 0 : kodeUnik,
+    totalTransfer: isCash ? order.total : order.total + kodeUnik,
+    items: order.items,
+    metodeBayar: metodeBayar
+  };
+  
+  cart = {};
+  updateCartBar();
+  document.getElementById('catatan').value = '';
+  
+  document.getElementById('orderIdDisplay').textContent = '#' + order.id.slice(0, 8).toUpperCase();
+  
+  const btnWA = document.getElementById('btnWA');
+  
+  if (isCash) {
+    document.getElementById('qrisArea').style.display = 'none';
+    document.getElementById('cashArea').style.display = 'block';
+    document.getElementById('cashTotalDisplay').textContent = rupiah(order.total);
+    btnWA.style.display = 'none';
+  } else {
+    document.getElementById('qrisArea').style.display = 'block';
+    document.getElementById('cashArea').style.display = 'none';
+    document.getElementById('kodeUnikDisplay').textContent = '+' + String(kodeUnik).padStart(3, '0');
+    document.getElementById('totalTransfer').textContent = rupiah(lastOrderData.totalTransfer);
+    btnWA.style.display = 'block';
+  }
+  
+  document.getElementById('successModal').classList.add('show');
+}
+
+
+function kabariKasir() {
+  if (!lastOrderData) { alert('Data pesanan tidak ditemukan.'); return; }
+  
+  const d = lastOrderData;
+  let itemLines = '';
+  d.items.forEach(it => {
+    itemLines += `- ${it.qty}x ${it.nama} = ${rupiah(it.harga * it.qty)}\n`;
+  });
+  
+  const pesan =
+`*KONFIRMASI PEMBAYARAN*
+WARKOP MAHJONG
+=====================
+Meja: ${d.meja}
+Order ID: #${d.orderId.slice(0,8).toUpperCase()}
+=====================
+${itemLines}=====================
+Subtotal: ${rupiah(d.subtotal)}
+Kode Unik: +${String(d.kodeUnik).padStart(3,'0')}
+*TOTAL TRANSFER: ${rupiah(d.totalTransfer)}*
+=====================
+Metode: *QRIS*
+Saya sudah transfer via QRIS.
+Mohon dicek & pesanan diproses.
+Terima kasih!`;
+  
+  const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pesan)}`;
+  window.open(url, '_blank');
+}
+
+
+function openCallModal() {
+  if (!nomorMeja) {
+    alert('Nomor meja tidak terdeteksi. Scan QR ulang ya.');
+    return;
+  }
+  document.getElementById('callModal').classList.add('show');
+}
+function closeCall() {
+  document.getElementById('callModal').classList.remove('show');
+}
+
+async function panggilPelayan(jenis) {
+  if (!nomorMeja) return alert('Nomor meja tidak terdeteksi.');
+  
+  const labelMap = {
+    asbak: '🚬 Minta Asbak',
+    tisu: '🧻 Minta Tisu',
+    sendok: '🥄 Minta Sendok',
+    kasir: '💳 Panggil Kasir'
+  };
+  
+  closeCall();
+  showToast(`✅ ${labelMap[jenis]} terkirim! Pelayan sedang menuju Meja ${nomorMeja}`, 'success');
+  
+  db.from('calls').insert({
+    meja: nomorMeja,
+    jenis: jenis,
+    status: 'pending'
+  }).then(({ error }) => {
+    if (error) {
+      console.error('Error panggil:', error);
+      showToast('❌ Gagal kirim panggilan. Coba lagi.', 'error');
+    }
+  });
+}
+
+let toastTimeout = null;
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = type === 'error' ? '#e74c3c' : '#27ae60';
+  t.classList.add('show');
+  
+  if (toastTimeout) clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    t.classList.remove('show');
+  }, 3500);
+}
+
+
+renderKategori();
+renderMenu();
+updateCartBar();
+</script>
+</body>
+</html>
