@@ -350,15 +350,25 @@
     backdrop-filter:blur(3px);
   }
   .addon-modal.show { display:flex; animation:fadeIn .2s; }
-.addon-content {
+  .addon-content {
     background:#1a1a1a; width:100%; max-height:90vh;
-    border-radius:18px 18px 0 0; padding:18px 16px 190px 16px;
-    overflow-y:auto; animation:slideUp .25s ease-out;
+    border-radius:18px 18px 0 0;
+    padding:18px 16px 0 16px;
+    display:flex; flex-direction:column;
+    animation:slideUp .25s ease-out;
+    overflow:hidden;
+  }
+  .addon-body {
+    flex:1;
+    overflow-y:auto;
+    padding-bottom:16px;
+    min-height:0;
   }
   .addon-header {
     display:flex; align-items:center; gap:12px;
     padding-bottom:14px; border-bottom:1px solid #2a2a2a;
     margin-bottom:14px;
+    flex-shrink:0;
   }
   .addon-header .emoji-box {
     width:52px; height:52px; background:#2e2e2e; border-radius:10px;
@@ -432,10 +442,14 @@
   }
   
   .addon-footer {
-    position:fixed; bottom:0; left:0; right:0;
-    background:#1a1a1a; padding:12px 16px 16px;
+    background:#1a1a1a;
+    padding:12px 0 16px 0;
     border-top:1px solid #2e2e2e;
     box-shadow:0 -2px 12px rgba(0,0,0,.5);
+    margin:0 -16px;
+    padding-left:16px;
+    padding-right:16px;
+    flex-shrink:0;
   }
   .addon-footer .row {
     display:flex; justify-content:space-between; align-items:center;
@@ -517,20 +531,21 @@
       </div>
     </div>
     
-    <div id="addonGroups"></div>
-    
-    <div class="addon-error" id="addonError"></div>
-  </div>
-  
-  <div class="addon-footer">
-    <div class="row">
-      <div class="label">Total</div>
-      <div class="total" id="addonTotal">Rp 0</div>
+    <div class="addon-body">
+      <div id="addonGroups"></div>
+      <div class="addon-error" id="addonError"></div>
     </div>
-    <button class="btn-add-cart" id="btnAddCart" onclick="confirmAddon()">
-      Tambah ke Keranjang
-    </button>
-    <button class="btn-cancel-cart" onclick="closeAddonModal()">Batal</button>
+    
+    <div class="addon-footer">
+      <div class="row">
+        <div class="label">Total</div>
+        <div class="total" id="addonTotal">Rp 0</div>
+      </div>
+      <button class="btn-add-cart" id="btnAddCart" onclick="confirmAddon()">
+        Tambah ke Keranjang
+      </button>
+      <button class="btn-cancel-cart" onclick="closeAddonModal()">Batal</button>
+    </div>
   </div>
 </div>
 
@@ -560,8 +575,8 @@
       <span>Subtotal</span>
       <span class="val" id="totalCart">Rp 0</span>
     </div>
-    <button class="btn-pesan" id="btnLanjut" onclick="kirimPesanan()">Pesan Sekarang</button>
-    <button class="btn-close" onclick="closeCart()"> Tambah Menu Lagi</button>
+    <button class="btn-pesan" id="btnLanjut" onclick="kirimPesanan()">Pesan Sekarang →</button>
+    <button class="btn-close" onclick="closeCart()">← Tambah Menu Lagi</button>
     <button class="btn-clear-cart" onclick="kosongkanKeranjang()">🗑️ Kosongkan Keranjang</button>
   </div>
 </div>
@@ -668,6 +683,7 @@ const WA_NUMBER = "6285177889565";
 const SUPABASE_URL = "https://fdxnjagtjirlylgdtlvj.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkeG5qYWd0amlybHlsZ2R0bHZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5NjI0NjEsImV4cCI6MjEwNzUzODQ2MX0.uFgD_vAVX8QuUrsOgM1on0pxYyW0KHkR5Wb0tTxaYOw";
 
+
 const ADDONS_CHOCOLATOS = [
   {
     grup: "Suhu",
@@ -688,6 +704,7 @@ const ADDONS_CHOCOLATOS = [
     ]
   }
 ];
+
 
 
 const MENU = [
@@ -1242,6 +1259,7 @@ async function kirimPesanan() {
   showSuccess(data);
 }
 
+
 function showSuccess(order) {
   const isCash = metodeBayar === 'cash';
   
@@ -1279,6 +1297,7 @@ function showSuccess(order) {
   
   document.getElementById('successModal').classList.add('show');
 }
+
 
 function kabariKasir() {
   if (!lastOrderData) { alert('Data pesanan tidak ditemukan.'); return; }
