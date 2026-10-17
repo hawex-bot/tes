@@ -27,131 +27,54 @@ body {
   background-attachment: fixed;
 }
 
-/* PIN */
-.pin-screen {
-  position: fixed; inset: 0;
-  background: radial-gradient(circle at 50% 0%, #2A211B, #14100D 70%);
-  z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
-}
+.pin-screen { position: fixed; inset: 0; background: radial-gradient(circle at 50% 0%, #2A211B, #14100D 70%); z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
 .pin-screen.show { display: flex; }
-.pin-box {
-  background: var(--surface); border-radius: 22px; padding: 36px 28px;
-  width: 100%; max-width: 360px; text-align: center;
-  border: 1px solid var(--border); box-shadow: var(--shadow-lg);
-}
+.pin-box { background: var(--surface); border-radius: 22px; padding: 36px 28px; width: 100%; max-width: 360px; text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow-lg); }
 .pin-box .pin-icon { font-size: 52px; margin-bottom: 16px; filter: drop-shadow(0 6px 16px rgba(212,168,67,.35)); }
 .pin-box h2 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 6px; font-weight: 700; }
 .pin-box .pin-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
-.pin-box input {
-  width: 100%; background: var(--surface-2); border: 2px solid var(--border);
-  color: var(--text); padding: 16px; border-radius: 12px; font-size: 24px;
-  text-align: center; font-family: monospace; letter-spacing: 14px; font-weight: 700; margin-bottom: 14px; transition: .2s;
-}
+.pin-box input { width: 100%; background: var(--surface-2); border: 2px solid var(--border); color: var(--text); padding: 16px; border-radius: 12px; font-size: 24px; text-align: center; font-family: monospace; letter-spacing: 14px; font-weight: 700; margin-bottom: 14px; transition: .2s; }
 .pin-box input:focus { outline: none; border-color: var(--accent); background: var(--surface-3); }
-.pin-box button {
-  width: 100%; background: linear-gradient(135deg, var(--accent), #B8882A); color: var(--primary);
-  border: none; padding: 15px; border-radius: 12px; font-size: 15px; font-weight: 700;
-  cursor: pointer; font-family: inherit; transition: .15s;
-  box-shadow: 0 6px 18px rgba(212,168,67,.3);
-}
+.pin-box button { width: 100%; background: linear-gradient(135deg, var(--accent), #B8882A); color: var(--primary); border: none; padding: 15px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: .15s; box-shadow: 0 6px 18px rgba(212,168,67,.3); }
 .pin-box button:active { transform: scale(.97); }
 .pin-box .pin-error { color: var(--danger); font-size: 12px; margin-bottom: 10px; min-height: 16px; }
 .pin-box .pin-hint { font-size: 11px; color: var(--text-dim); margin-top: 16px; }
 
-/* DASHBOARD WRAPPER */
 .dashboard { display: none; min-height: 100vh; }
 .dashboard.show { display: block; }
 
-/* HEADER */
-header {
-  background: linear-gradient(135deg, #2C1F17, #1A1210);
-  padding: 0 16px; height: 56px; display: flex; align-items: center; gap: 10px;
-  border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10;
-  box-shadow: 0 2px 12px rgba(0,0,0,.4);
-}
-header .header-inner {
-  max-width: 1100px; margin: 0 auto; width: 100%;
-  display: flex; align-items: center; gap: 10px;
-}
-header .brand {
-  width: 34px; height: 34px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--accent), #B8882A); color: var(--primary);
-  display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
-  box-shadow: 0 3px 8px rgba(212,168,67,.3);
-}
+header { background: linear-gradient(135deg, #2C1F17, #1A1210); padding: 0 16px; height: 56px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 12px rgba(0,0,0,.4); }
+header .header-inner { max-width: 1100px; margin: 0 auto; width: 100%; display: flex; align-items: center; gap: 10px; }
+header .brand { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), #B8882A); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; box-shadow: 0 3px 8px rgba(212,168,67,.3); }
 header h1 { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; }
-header .live {
-  background: rgba(123,168,106,.15); color: var(--success);
-  padding: 5px 12px; border-radius: 999px; font-size: 10.5px; font-weight: 700;
-  display: flex; align-items: center; gap: 6px;
-  border: 1px solid rgba(123,168,106,.3); letter-spacing: .5px;
-}
-header .live::before {
-  content: ''; width: 7px; height: 7px; background: var(--success); border-radius: 50%;
-  animation: pulse 1.5s infinite; box-shadow: 0 0 0 0 rgba(123,168,106,.7);
-}
+header .live { background: rgba(123,168,106,.15); color: var(--success); padding: 5px 12px; border-radius: 999px; font-size: 10.5px; font-weight: 700; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(123,168,106,.3); letter-spacing: .5px; }
+header .live::before { content: ''; width: 7px; height: 7px; background: var(--success); border-radius: 50%; animation: pulse 1.5s infinite; box-shadow: 0 0 0 0 rgba(123,168,106,.7); }
 @keyframes pulse { 0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(123,168,106,.6); } 50% { opacity: .6; box-shadow: 0 0 0 6px rgba(123,168,106,0); } }
-header .bell-btn {
-  margin-left: auto; background: var(--surface-2); color: var(--text-muted);
-  border: 1px solid var(--border); padding: 7px 12px; border-radius: 999px;
-  font-size: 11.5px; cursor: pointer; font-weight: 600; font-family: inherit;
-  transition: .15s; position: relative;
-}
+header .bell-btn { margin-left: auto; background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); padding: 7px 12px; border-radius: 999px; font-size: 11.5px; cursor: pointer; font-weight: 600; font-family: inherit; transition: .15s; position: relative; }
 header .bell-btn.has { background: rgba(212,168,67,.15); color: var(--accent); border-color: rgba(212,168,67,.4); }
 header .bell-btn .cnt { background: var(--danger); color: #fff; font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 999px; margin-left: 4px; }
-header .logout-btn {
-  background: var(--surface-2); color: var(--text-muted);
-  border: 1px solid var(--border); padding: 7px 14px; border-radius: 999px;
-  font-size: 11.5px; cursor: pointer; font-weight: 600; font-family: inherit; transition: .15s;
-}
+header .logout-btn { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); padding: 7px 14px; border-radius: 999px; font-size: 11.5px; cursor: pointer; font-weight: 600; font-family: inherit; transition: .15s; }
 
-.toolbar {
-  padding: 0 14px; height: 48px; display: flex; gap: 8px; align-items: center;
-  background: var(--surface); position: sticky; top: 56px; z-index: 9;
-  border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none;
-}
+.toolbar { padding: 0 14px; height: 48px; display: flex; gap: 8px; align-items: center; background: var(--surface); position: sticky; top: 56px; z-index: 9; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
 .toolbar::-webkit-scrollbar { display: none; }
 .toolbar-inner { max-width: 1100px; margin: 0 auto; width: 100%; display: flex; gap: 8px; align-items: center; }
-.toolbar button {
-  background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border);
-  padding: 7px 14px; border-radius: 999px; cursor: pointer; font-size: 12px;
-  font-family: inherit; font-weight: 500; white-space: nowrap; transition: .15s;
-}
-.toolbar button.active {
-  background: var(--accent); border-color: var(--accent); color: var(--primary);
-  font-weight: 700; box-shadow: 0 3px 10px rgba(212,168,67,.3);
-}
+.toolbar button { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); padding: 7px 14px; border-radius: 999px; cursor: pointer; font-size: 12px; font-family: inherit; font-weight: 500; white-space: nowrap; transition: .15s; }
+.toolbar button.active { background: var(--accent); border-color: var(--accent); color: var(--primary); font-weight: 700; box-shadow: 0 3px 10px rgba(212,168,67,.3); }
 .toolbar .sound-btn { margin-left: auto; font-size: 11.5px; }
 .toolbar .sound-btn.on { background: rgba(123,168,106,.2); border-color: var(--success); color: var(--success); font-weight: 600; }
 .toolbar .kelola-btn { background: rgba(123,160,200,.15); border-color: rgba(123,160,200,.3); color: var(--info); font-weight: 600; }
 .toolbar .kelola-btn.active { background: var(--info); border-color: var(--info); color: var(--bg); }
 
-.main-content {
-  max-width: 1100px; margin: 0 auto; width: 100%; padding-bottom: 40px;
-}
+.main-content { max-width: 1100px; margin: 0 auto; width: 100%; padding-bottom: 40px; }
 
-.toolbar-2 {
-  padding: 0 14px; height: 44px; display: flex; gap: 8px; align-items: center;
-  background: var(--surface); position: sticky; top: 104px; z-index: 9;
-  border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none;
-}
+.toolbar-2 { padding: 0 14px; height: 44px; display: flex; gap: 8px; align-items: center; background: var(--surface); position: sticky; top: 104px; z-index: 9; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
 .toolbar-2::-webkit-scrollbar { display: none; }
-.toolbar-2 button {
-  background: transparent; color: var(--text-muted); border: 1px solid var(--border);
-  padding: 5px 12px; border-radius: 999px; cursor: pointer; font-size: 11.5px;
-  font-family: inherit; font-weight: 500; white-space: nowrap; transition: .15s;
-}
+.toolbar-2 button { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 5px 12px; border-radius: 999px; cursor: pointer; font-size: 11.5px; font-family: inherit; font-weight: 500; white-space: nowrap; transition: .15s; }
 .toolbar-2 button.active { background: var(--surface-3); border-color: var(--border-light); color: var(--text); font-weight: 600; }
 .toolbar-2 .sep { width: 1px; height: 18px; background: var(--border); margin: 0 2px; flex-shrink: 0; }
 
-.stats {
-  padding: 12px 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-  background: var(--surface); border-bottom: 1px solid var(--border);
-}
-.stat {
-  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 12px 14px; position: relative; overflow: hidden;
-}
+.stats { padding: 12px 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.stat { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; position: relative; overflow: hidden; }
 .stat .label { font-size: 10.5px; color: var(--text-muted); margin-bottom: 4px; font-weight: 500; }
 .stat .val { font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text); }
 .stat .val.yellow { color: var(--warning); }
@@ -241,9 +164,28 @@ header .logout-btn {
 .kelola-search { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 12px 16px; border-radius: var(--radius); margin-bottom: 14px; font-size: 13px; font-family: inherit; transition: .15s; }
 .kelola-search:focus { outline: none; border-color: var(--info); background: var(--surface-2); }
 .kelola-list { display: grid; gap: 8px; }
+
+.btn-add-menu {
+  width: 100%;
+  background: var(--info);
+  color: var(--bg);
+  border: none;
+  padding: 14px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 14px;
+  font-family: inherit;
+  transition: .15s;
+  box-shadow: 0 4px 12px rgba(123,160,200,.2);
+}
+.btn-add-menu:active { transform: scale(.98); }
+
 .kelola-item { background: var(--surface); border-radius: var(--radius); padding: 12px 14px; display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); transition: .15s; }
 .kelola-item.habis { opacity: .55; background: var(--bg); }
-.kelola-item .emoji-box { width: 44px; height: 44px; background: var(--surface-2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.kelola-item .emoji-box { width: 44px; height: 44px; background: var(--surface-2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; overflow: hidden; }
+.kelola-item .emoji-box img { width: 100%; height: 100%; object-fit: cover; }
 .kelola-item .info { flex: 1; min-width: 0; }
 .kelola-item .info h4 { font-size: 13px; font-weight: 600; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .kelola-item .info .kat { font-size: 10.5px; color: var(--text-muted); }
@@ -326,21 +268,11 @@ header .logout-btn {
 }
 
 .print-only-cash { display: none; }
-
 @media print {
   body * { visibility: hidden; }
   #detailBackdrop, #detailPanel, #detailPanel * { visibility: visible; }
-  #detailBackdrop {
-    position: absolute !important; left: 0 !important; top: 0 !important;
-    width: 100% !important; height: auto !important; background: transparent !important;
-    display: block !important; padding: 0 !important; margin: 0 !important; backdrop-filter: none !important;
-  }
-  #detailPanel {
-    position: absolute; left: 0; top: 0; width: 100%; max-width: 100% !important;
-    margin: 0 !important; padding: 15px !important; box-shadow: none !important;
-    border: none !important; border-radius: 0 !important; max-height: none !important;
-    overflow: visible !important; background: #fff !important; color: #000 !important;
-  }
+  #detailBackdrop { position: absolute !important; left: 0 !important; top: 0 !important; width: 100% !important; height: auto !important; background: transparent !important; display: block !important; padding: 0 !important; margin: 0 !important; backdrop-filter: none !important; }
+  #detailPanel { position: absolute; left: 0; top: 0; width: 100%; max-width: 100% !important; margin: 0 !important; padding: 15px !important; box-shadow: none !important; border: none !important; border-radius: 0 !important; max-height: none !important; overflow: visible !important; background: #fff !important; color: #000 !important; }
   .detail-actions, .cash-detail-calc, h2 .close-x { display: none !important; }
   .print-only-cash { display: block !important; }
   .detail-panel * { color: #000 !important; border-color: #ddd !important; }
@@ -425,12 +357,69 @@ header .logout-btn {
 
   <div class="kelola-view" id="viewKelola">
     <div class="kelola-header">
-      <h2>⚙️ Kelola Ketersediaan Menu</h2>
-      <p>Geser tombol ON/OFF untuk menandai menu habis atau tersedia kembali.</p>
+      <h2>⚙️ Kelola Menu</h2>
+      <p>Tambah menu baru, edit harga, upload foto, atau hapus menu yang sudah tidak dijual.</p>
     </div>
     <input type="text" class="kelola-search" id="kelolaSearch" placeholder="🔍 Cari menu..." oninput="renderKelolaMenu()">
     <div class="kelola-list" id="kelolaList"></div>
-    <div class="kelola-footer">✅ Perubahan tersimpan otomatis</div>
+    <div class="kelola-footer">✅ Data tersimpan otomatis di database</div>
+  </div>
+</div>
+
+<div class="detail-backdrop" id="menuFormBackdrop" style="z-index: 1000;">
+  <div class="detail-panel">
+    <h2><span id="menuFormTitle">Tambah Menu</span><button class="close-x" onclick="closeMenuForm()">✕</button></h2>
+    <input type="hidden" id="mFormId">
+    <input type="hidden" id="mFormOldImg">
+    
+    <div class="detail-section">
+      <div class="dsec-title">INFO MENU</div>
+      <div style="margin-bottom: 10px;">
+        <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Nama Menu *</label>
+        <input type="text" id="mFormNama" class="kelola-search" style="margin-bottom:0;" placeholder="Contoh: Kopi Susu">
+      </div>
+      <div style="margin-bottom: 10px;">
+        <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Deskripsi</label>
+        <input type="text" id="mFormDesc" class="kelola-search" style="margin-bottom:0;" placeholder="Contoh: Kopi + susu manis">
+      </div>
+      <div style="display:flex; gap:10px; margin-bottom: 10px;">
+        <div style="flex:1;">
+          <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Harga *</label>
+          <input type="number" id="mFormHarga" class="kelola-search" style="margin-bottom:0;" placeholder="10000">
+        </div>
+        <div style="flex:1;">
+          <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Kategori *</label>
+          <input type="text" id="mFormKat" class="kelola-search" style="margin-bottom:0;" placeholder="Kopi / Minuman">
+        </div>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <div style="flex:1;">
+          <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">Emoji (Opsional)</label>
+          <input type="text" id="mFormEmoji" class="kelola-search" style="margin-bottom:0;" placeholder="☕" maxlength="2">
+        </div>
+        <div style="flex:1; display:flex; align-items:center; padding-top:20px;">
+          <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;">
+            <input type="checkbox" id="mFormSewa" style="width:18px; height:18px;"> Sewa Meja?
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <div class="dsec-title">FOTO MENU</div>
+      <input type="file" id="mFormFile" accept="image/*" style="width:100%; font-size:12px; color:var(--text-muted);">
+      <div style="font-size:11px; color:var(--text-muted); margin-top:6px;">Maks 2MB. Biarkan kosong jika tidak ingin ganti foto.</div>
+    </div>
+
+    <div class="detail-section">
+      <div class="dsec-title">ADD-ONS (OPSIONAL)</div>
+      <div id="addonsBuilder"></div>
+      <button type="button" onclick="addAddonGroup()" style="margin-top:10px; background:var(--info); color:var(--bg); border:none; padding:8px 12px; border-radius:8px; font-weight:700; cursor:pointer; font-size:12px;">+ Tambah Grup Add-on</button>
+    </div>
+
+    <div class="detail-actions">
+      <button class="da-lunas" onclick="saveMenuForm()" id="btnSaveMenu">Simpan Menu</button>
+    </div>
   </div>
 </div>
 
@@ -453,81 +442,12 @@ header .logout-btn {
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = "https://fdxnjagtjirlylgdtlvj.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkeG5qYWd0amlybHlsZ2R0bHZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5NjI0NjEsImV4cCI6MjEwNzUzODQ2MX0.uFgD_vAVX8QuUrsOgM1on0pxYyW0KHkR5Wb0tTxaYOw";
+const SUPABASE_URL = "https://gcyhxmfyaafpqowauhrw.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjeWh4bWZ5YWFmcHFvd2F1aHJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyNTUwNDEsImV4cCI6MjEwNzgzMTA0MX0.7d1bpbYj-Q_yEj2k5VeK6szJHjKsCry6hYTGPEPKawA";
 const KASIR_PIN = "1234";
 
-const MENU = [
-  { id:1,  nama:"Kopi Hitam Pahit",    harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
-  { id:2,  nama:"Kopi Kapal Api",      harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
-  { id:3,  nama:"Kopi Liong",          harga:5000,  emoji:"☕", kat:"Kopi & Teh" },
-  { id:4,  nama:"Kopi Luwak Hot",      harga:6000,  emoji:"☕", kat:"Kopi & Teh" },
-  { id:5,  nama:"Indocafe Hot",        harga:6000,  emoji:"☕", kat:"Kopi & Teh" },
-  { id:6,  nama:"ABC Susu Hot",        harga:6000,  emoji:"🥛", kat:"Kopi & Teh" },
-  { id:7,  nama:"ABC Klepon",          harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
-  { id:8,  nama:"Good Day Cappucino",  harga:7000,  emoji:"☕", kat:"Kopi & Teh" },
-  { id:9,  nama:"Good Day Freeze",     harga:7000,  emoji:"🧊", kat:"Kopi & Teh" },
-  { id:10, nama:"Good Day Series",     harga:7000,  emoji:"☕", kat:"Kopi & Teh" },
-  { id:11, nama:"Creamy Latte",        harga:7000,  emoji:"☕", kat:"Kopi & Teh" },
-  { id:12, nama:"Teh Tarik",           harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
-  { id:13, nama:"Bonteh Matcha",       harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
-  { id:14, nama:"Bonteh Teh Tarik",    harga:7000,  emoji:"🍵", kat:"Kopi & Teh" },
-  { id:15, nama:"Teh Hangat",          harga:5000,  emoji:"🍵", kat:"Kopi & Teh" },
-  { id:16, nama:"Es Batu",             harga:2000,  emoji:"🧊", kat:"Minuman Dingin" },
-  { id:17, nama:"Air Mineral",         harga:5000,  emoji:"💧", kat:"Minuman Dingin" },
-  { id:18, nama:"Es Teh Manis",        harga:5000,  emoji:"🧊", kat:"Minuman Dingin" },
-  { id:19, nama:"Es Jeruk",            harga:8000,  emoji:"🍊", kat:"Minuman Dingin" },
-  { id:20, nama:"Fanta",               harga:9000,  emoji:"🥤", kat:"Minuman Dingin" },
-  { id:21, nama:"Soda Susu",           harga:12000, emoji:"🥤", kat:"Minuman Dingin" },
-  { id:22, nama:"Chocolatos",          harga:7000,  emoji:"🍫", kat:"Susu & Coklat" },
-  { id:23, nama:"Chocolatos Matcha",   harga:7000,  emoji:"🍫", kat:"Susu & Coklat" },
-  { id:24, nama:"Ovaltine",            harga:7000,  emoji:"🥛", kat:"Susu & Coklat" },
-  { id:25, nama:"Adem Sari",           harga:7000,  emoji:"🍋", kat:"Susu & Coklat" },
-  { id:26, nama:"Nutrisari",           harga:6000,  emoji:"🍊", kat:"Susu & Coklat" },
-  { id:27, nama:"Drink Beng Beng",     harga:7000,  emoji:"🍫", kat:"Susu & Coklat" },
-  { id:28, nama:"Milo",                harga:8000,  emoji:"🥛", kat:"Susu & Coklat" },
-  { id:29, nama:"Dancow Coklat",       harga:9000,  emoji:"🥛", kat:"Susu & Coklat" },
-  { id:30, nama:"Dancow Putih",        harga:9000,  emoji:"🥛", kat:"Susu & Coklat" },
-  { id:31, nama:"Energen Vanilla",     harga:7000,  emoji:"🥛", kat:"Susu & Coklat" },
-  { id:32, nama:"Energen Coklat",      harga:7000,  emoji:"🥛", kat:"Susu & Coklat" },
-  { id:33, nama:"Kukubima",            harga:6000,  emoji:"🥛", kat:"Susu & Coklat" },
-  { id:34, nama:"Extrajoss",           harga:6000,  emoji:"🥛", kat:"Susu & Coklat" },
-  { id:35, nama:"Roti Blueberry",      harga:10000, emoji:"🍞", kat:"Roti Bakar" },
-  { id:36, nama:"Roti Tiramisu",       harga:10000, emoji:"🍞", kat:"Roti Bakar" },
-  { id:37, nama:"Roti Susu",           harga:10000, emoji:"🍞", kat:"Roti Bakar" },
-  { id:38, nama:"Roti Coklat Meses",   harga:10000, emoji:"🍞", kat:"Roti Bakar" },
-  { id:39, nama:"Roti Strawberry",     harga:10000, emoji:"🍞", kat:"Roti Bakar" },
-  { id:40, nama:"Roti Cappucino",      harga:12000, emoji:"🍞", kat:"Roti Bakar" },
-  { id:41, nama:"Roti Green Tea",      harga:12000, emoji:"🍞", kat:"Roti Bakar" },
-  { id:42, nama:"Roti Keju",           harga:12000, emoji:"🧀", kat:"Roti Bakar" },
-  { id:43, nama:"Roti Keju Spread",    harga:12000, emoji:"🧀", kat:"Roti Bakar" },
-  { id:44, nama:"Roti Hazelnut",       harga:12000, emoji:"🍞", kat:"Roti Bakar" },
-  { id:45, nama:"Roti Coklat Klasik",  harga:12000, emoji:"🍫", kat:"Roti Bakar" },
-  { id:46, nama:"Roti Coklat Crunchy", harga:15000, emoji:"🍫", kat:"Roti Bakar" },
-  { id:47, nama:"Roti Keju Crunchy",   harga:15000, emoji:"🧀", kat:"Roti Bakar" },
-  { id:48, nama:"Roti Nutella",        harga:17000, emoji:"🍫", kat:"Roti Bakar" },
-  { id:49, nama:"Pancong Original",    harga:8000,  emoji:"🥮", kat:"Pancong" },
-  { id:50, nama:"Pancong Coklat",      harga:10000, emoji:"🥮", kat:"Pancong" },
-  { id:51, nama:"Pancong Bluberi",     harga:10000, emoji:"🥮", kat:"Pancong" },
-  { id:52, nama:"Pancong Strawberry",  harga:10000, emoji:"🥮", kat:"Pancong" },
-  { id:53, nama:"Pancong Selai Susu",  harga:10000, emoji:"🥮", kat:"Pancong" },
-  { id:54, nama:"Pancong Oreo",        harga:10000, emoji:"🥮", kat:"Pancong" },
-  { id:55, nama:"Pancong Keju",        harga:12000, emoji:"🧀", kat:"Pancong" },
-  { id:56, nama:"Pancong Hazelnut",    harga:12000, emoji:"🥮", kat:"Pancong" },
-  { id:57, nama:"Pancong Green Tea",   harga:12000, emoji:"🥮", kat:"Pancong" },
-  { id:58, nama:"Baso Goreng",         harga:10000, emoji:"🍢", kat:"Gorengan" },
-  { id:59, nama:"Kentang Goreng",      harga:10000, emoji:"🍟", kat:"Gorengan" },
-  { id:60, nama:"Otak Otak",           harga:10000, emoji:"🍢", kat:"Gorengan" },
-  { id:61, nama:"Omlet",               harga:12000, emoji:"🍳", kat:"Gorengan" },
-  { id:62, nama:"Nugget",              harga:15000, emoji:"🍗", kat:"Gorengan" },
-  { id:63, nama:"Sosis Goreng",        harga:15000, emoji:"🌭", kat:"Gorengan" },
-  { id:64, nama:"Chikenwings",         harga:20000, emoji:"🍗", kat:"Gorengan" },
-  { id:65, nama:"Mixplatter",          harga:20000, emoji:"🍽️", kat:"Gorengan" },
-  { id:66, nama:"Mahjong 1 Jam",       harga:40000, emoji:"🀄", kat:"Sewa Meja", sewa:true },
-  { id:67, nama:"Mahjong 2 Jam",       harga:75000, emoji:"🀄", kat:"Sewa Meja", sewa:true },
-  { id:68, nama:"Mahjong 3 Jam",       harga:100000,emoji:"🀄", kat:"Sewa Meja", sewa:true },
-];
-
+let MENU = [];
+let currentAddons = [];
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let orders = [];
@@ -538,7 +458,6 @@ let dateRange = 'today';
 let soundOn = true; 
 let knownOrderIds = new Set();
 let knownCallIds = new Set();
-let menuStatus = {};
 let viewKelola = false;
 let currentDetailOrder = null; 
 
@@ -597,9 +516,9 @@ function showDashboard() {
   soundOn = true;
   document.getElementById('soundBtn').classList.add('on');
   document.getElementById('soundBtn').textContent = '🔔 ON';
+  loadMenu();
   loadOrders();
   loadCalls();
-  loadMenuStatus();
   subscribeRealtime();
   setInterval(loadOrders, 15000);
   setInterval(loadCalls, 3000);
@@ -647,6 +566,15 @@ function playBeep(f1 = 880, f2 = 1200) {
   }, 200);
 }
 
+async function loadMenu() {
+  const { data, error } = await db.from('menu').select('*').order('id', { ascending: true });
+  if (error) { console.error('Error load menu:', error); return; }
+  MENU = data.map(m => ({
+    ...m, desc: m.deskripsi, img: m.img_url
+  }));
+  renderKelolaMenu();
+}
+
 async function loadOrders() {
   const { data, error } = await db.from('orders').select('*').order('created_at', { ascending: false }).limit(200);
   if (error) { console.error(error); return; }
@@ -662,13 +590,6 @@ async function loadCalls() {
   knownCallIds = new Set(calls.map(c => c.id));
   renderCalls();
   updateBell();
-}
-async function loadMenuStatus() {
-  const { data, error } = await db.from('menu_status').select('*');
-  if (error) return;
-  menuStatus = {};
-  (data || []).forEach(row => { menuStatus[row.menu_id] = row.tersedia; });
-  renderKelolaMenu();
 }
 
 function toggleKelola() {
@@ -689,42 +610,206 @@ function renderKelolaMenu() {
   const search = (document.getElementById('kelolaSearch').value || '').toLowerCase();
   const list = document.getElementById('kelolaList');
   const filtered = MENU.filter(m => m.nama.toLowerCase().includes(search) || m.kat.toLowerCase().includes(search));
-  if (filtered.length === 0) { list.innerHTML = '<div class="empty">Menu tidak ditemukan</div>'; return; }
-  list.innerHTML = filtered.map(m => {
-    const tersedia = menuStatus[m.id] !== false;
-    return `<div class="kelola-item ${tersedia ? '' : 'habis'}">
-      <div class="emoji-box">${m.emoji || '🍽️'}</div>
+  
+  if (filtered.length === 0) { 
+    list.innerHTML = '<div class="empty">Menu tidak ditemukan</div>'; 
+    return; 
+  }
+  
+  list.innerHTML = `
+    <button class="btn-add-menu" onclick="openMenuForm()">+ Tambah Menu Baru</button>
+  ` + filtered.map(m => {
+    const tersedia = m.tersedia !== false;
+    return `
+    <div class="kelola-item ${tersedia ? '' : 'habis'}">
+      <div class="emoji-box">
+        ${m.img ? `<img src="${m.img}" style="width:100%; height:100%; object-fit:cover; border-radius:10px;" onerror="this.outerHTML='${m.emoji || '🍽️'}'">` : (m.emoji || '🍽️')}
+      </div>
       <div class="info">
         <h4>${m.nama}</h4>
         <div class="kat">${m.kat}</div>
         <div class="harga">${rupiah(m.harga)}</div>
       </div>
-      <div class="toggle-switch">
-        <input type="checkbox" id="toggle-${m.id}" ${tersedia ? 'checked' : ''} onchange="toggleMenuStatus(${m.id}, this)">
-        <label for="toggle-${m.id}"></label>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <button onclick="editMenu(${m.id})" style="background:none; border:none; font-size:16px; cursor:pointer;">✏️</button>
+        <button onclick="deleteMenu(${m.id})" style="background:none; border:none; font-size:16px; cursor:pointer;">🗑️</button>
+        <div class="toggle-switch" style="margin-left:6px;">
+          <input type="checkbox" id="toggle-${m.id}" ${tersedia ? 'checked' : ''} onchange="toggleMenuStatus(${m.id}, this)">
+          <label for="toggle-${m.id}"></label>
+        </div>
       </div>
     </div>`;
   }).join('');
 }
+
 async function toggleMenuStatus(menuId, checkbox) {
   const baru = checkbox.checked;
   const label = document.querySelector(`label[for="toggle-${menuId}"]`);
-  menuStatus[menuId] = baru;
   label.classList.add('busy');
   const item = checkbox.closest('.kelola-item');
   if (item) item.classList.toggle('habis', !baru);
-  const { error } = await db.from('menu_status')
-    .update({ tersedia: baru, updated_at: new Date().toISOString() })
-    .eq('menu_id', menuId);
+  
+  const { error } = await db.from('menu').update({ tersedia: baru }).eq('id', menuId);
   label.classList.remove('busy');
   if (error) {
-    menuStatus[menuId] = !baru; checkbox.checked = !baru;
+    checkbox.checked = !baru;
     if (item) item.classList.toggle('habis', baru);
     showToast('Gagal update menu', 'error');
   } else {
     showToast(`${baru ? 'Tersedia' : 'Habis'}: ${MENU.find(m => m.id === menuId).nama}`, 'info');
+    loadMenu(); 
   }
 }
+
+function openMenuForm() {
+  document.getElementById('menuFormTitle').textContent = 'Tambah Menu Baru';
+  document.getElementById('mFormId').value = '';
+  document.getElementById('mFormNama').value = '';
+  document.getElementById('mFormDesc').value = '';
+  document.getElementById('mFormHarga').value = '';
+  document.getElementById('mFormKat').value = '';
+  document.getElementById('mFormEmoji').value = '';
+  document.getElementById('mFormSewa').checked = false;
+  document.getElementById('mFormFile').value = '';
+  document.getElementById('mFormOldImg').value = '';
+  
+  currentAddons = [];
+  renderAddonsUI();
+  
+  document.getElementById('menuFormBackdrop').classList.add('show');
+}
+
+function editMenu(id) {
+  const m = MENU.find(x => x.id === id);
+  if (!m) return;
+  document.getElementById('menuFormTitle').textContent = 'Edit Menu';
+  document.getElementById('mFormId').value = m.id;
+  document.getElementById('mFormNama').value = m.nama;
+  document.getElementById('mFormDesc').value = m.deskripsi || '';
+  document.getElementById('mFormHarga').value = m.harga;
+  document.getElementById('mFormKat').value = m.kat;
+  document.getElementById('mFormEmoji').value = m.emoji || '';
+  document.getElementById('mFormSewa').checked = m.sewa || false;
+  document.getElementById('mFormFile').value = '';
+  document.getElementById('mFormOldImg').value = m.img || '';
+  
+  let addonsData = m.addons || [];
+  if (typeof addonsData === 'string') {
+    try { addonsData = JSON.parse(addonsData); } catch(e) { addonsData = []; }
+  }
+  currentAddons = addonsData;
+  renderAddonsUI();
+  
+  document.getElementById('menuFormBackdrop').classList.add('show');
+}
+
+function closeMenuForm() { document.getElementById('menuFormBackdrop').classList.remove('show'); }
+
+async function saveMenuForm() {
+  const id = document.getElementById('mFormId').value;
+  const nama = document.getElementById('mFormNama').value.trim();
+  const desc = document.getElementById('mFormDesc').value.trim();
+  const harga = parseInt(document.getElementById('mFormHarga').value);
+  const kat = document.getElementById('mFormKat').value.trim();
+  const emoji = document.getElementById('mFormEmoji').value.trim();
+  const sewa = document.getElementById('mFormSewa').checked;
+  
+  if (!nama || isNaN(harga) || !kat) { showToast('Isi Nama, Harga, dan Kategori!', 'error'); return; }
+
+  const btn = document.getElementById('btnSaveMenu');
+  btn.disabled = true; btn.textContent = 'Menyimpan...';
+
+  let imgUrl = document.getElementById('mFormOldImg').value;
+  const fileInput = document.getElementById('mFormFile');
+
+  if (fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+    const fileName = `${Date.now()}-${file.name.replace(/\s/g, '_')}`;
+    const { data: uploadData, error: uploadError } = await db.storage.from('menu-images').upload(fileName, file);
+    
+    if (uploadError) { showToast('Gagal upload foto: ' + uploadError.message, 'error'); btn.disabled = false; btn.textContent = 'Simpan Menu'; return; }
+    
+    const { data: urlData } = db.storage.from('menu-images').getPublicUrl(fileName);
+    imgUrl = urlData.publicUrl;
+  }
+
+  const payload = { nama, deskripsi: desc, harga, kat, emoji, sewa, addons: currentAddons, img_url: imgUrl, tersedia: true };
+
+  let error;
+  if (id) {
+    const res = await db.from('menu').update(payload).eq('id', id);
+    error = res.error;
+  } else {
+    const res = await db.from('menu').insert(payload);
+    error = res.error;
+  }
+
+  btn.disabled = false; btn.textContent = 'Simpan Menu';
+
+  if (error) { showToast('Gagal simpan: ' + error.message, 'error'); }
+  else {
+    showToast('✓ Menu berhasil disimpan!', 'success');
+    closeMenuForm();
+    loadMenu();
+  }
+}
+
+async function deleteMenu(id) {
+  const m = MENU.find(x => x.id === id);
+  if (!m) return;
+  const ok = await confirmDialog('Hapus Menu?', `Yakin hapus "${m.nama}"? Menu akan hilang dari web customer.`, 'Ya, Hapus');
+  if (!ok) return;
+
+  const { error } = await db.from('menu').delete().eq('id', id);
+  if (error) showToast('Gagal hapus: ' + error.message, 'error');
+  else { showToast('🗑️ Menu dihapus', 'success'); loadMenu(); }
+}
+
+function renderAddonsUI() {
+  const container = document.getElementById('addonsBuilder');
+  if (currentAddons.length === 0) {
+    container.innerHTML = '<div style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Belum ada add-on.</div>';
+    return;
+  }
+  
+  container.innerHTML = currentAddons.map((grp, gIdx) => `
+    <div style="background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:10px; margin-bottom:10px;">
+       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+         <input type="text" value="${grp.grup || ''}" onchange="updateAddonGroup(${gIdx}, 'grup', this.value)" placeholder="Nama Grup (cth: Suhu)" style="background:var(--bg); color:var(--text); border:1px solid var(--border); padding:6px; border-radius:6px; flex:1; font-size:12px;">
+         <button type="button" onclick="removeAddonGroup(${gIdx})" style="background:none; border:none; color:var(--danger); font-size:16px; cursor:pointer; margin-left:8px;">🗑️</button>
+       </div>
+       <div style="display:flex; gap:10px; margin-bottom:8px;">
+         <select onchange="updateAddonGroup(${gIdx}, 'tipe', this.value)" style="background:var(--bg); color:var(--text); border:1px solid var(--border); padding:6px; border-radius:6px; font-size:12px; flex:1;">
+           <option value="radio" ${grp.tipe === 'radio' ? 'selected' : ''}>Pilih 1 (Radio)</option>
+           <option value="checkbox" ${grp.tipe === 'checkbox' ? 'selected' : ''}>Pilih Banyak (Checkbox)</option>
+         </select>
+         <label style="display:flex; align-items:center; gap:4px; font-size:12px;">
+           <input type="checkbox" ${grp.wajib ? 'checked' : ''} onchange="updateAddonGroup(${gIdx}, 'wajib', this.checked)"> Wajib?
+         </label>
+       </div>
+       <div style="padding-left:10px; border-left:2px solid var(--border);">
+         ${(grp.opsi || []).map((opt, oIdx) => `
+           <div style="display:flex; gap:6px; margin-bottom:6px;">
+             <input type="text" value="${opt.nama || ''}" onchange="updateAddonOption(${gIdx}, ${oIdx}, 'nama', this.value)" placeholder="Nama Pilihan" style="background:var(--bg); color:var(--text); border:1px solid var(--border); padding:6px; border-radius:6px; font-size:12px; flex:1;">
+             <input type="number" value="${opt.harga || 0}" onchange="updateAddonOption(${gIdx}, ${oIdx}, 'harga', parseInt(this.value)||0)" placeholder="Harga" style="background:var(--bg); color:var(--text); border:1px solid var(--border); padding:6px; border-radius:6px; font-size:12px; width:80px;">
+             <button type="button" onclick="removeAddonOption(${gIdx}, ${oIdx})" style="background:none; border:none; color:var(--danger); font-size:14px; cursor:pointer;">✕</button>
+           </div>
+         `).join('')}
+         <button type="button" onclick="addAddonOption(${gIdx})" style="background:var(--surface-3); color:var(--text); border:1px solid var(--border); padding:4px 8px; border-radius:6px; font-size:11px; cursor:pointer;">+ Tambah Pilihan</button>
+       </div>
+    </div>
+  `).join('');
+}
+
+function addAddonGroup() {
+  currentAddons.push({ grup: '', tipe: 'radio', wajib: true, opsi: [{ nama: '', harga: 0 }] });
+  renderAddonsUI();
+}
+function removeAddonGroup(idx) { currentAddons.splice(idx, 1); renderAddonsUI(); }
+function updateAddonGroup(idx, field, val) { currentAddons[idx][field] = val; }
+function addAddonOption(gIdx) { currentAddons[gIdx].opsi.push({ nama: '', harga: 0 }); renderAddonsUI(); }
+function removeAddonOption(gIdx, oIdx) { currentAddons[gIdx].opsi.splice(oIdx, 1); renderAddonsUI(); }
+function updateAddonOption(gIdx, oIdx, field, val) { currentAddons[gIdx].opsi[oIdx][field] = val; }
 
 function setFilter(mode) {
   filterMode = mode;
@@ -968,8 +1053,8 @@ function openDetail(orderId) {
       <div class="detail-row"><span class="k">Subtotal</span><span class="v">${rupiah(o.subtotal)}</span></div>
       <div class="detail-row total-row-d"><span class="k" style="font-weight:700">Total</span><span class="v">${rupiah(o.total)}</span></div>
     </div>
-    ${printOnlyCash}  <!-- 🆕 Tampil di print -->
-    ${cashCalc}       <!-- Kalkulator di layar -->
+    ${printOnlyCash}
+    ${cashCalc}
     ${actions}
   `;
   document.getElementById('detailBackdrop').classList.add('show');
@@ -994,17 +1079,14 @@ function printOrder() {
     const uangInput = document.getElementById('detailUang');
     const uang = uangInput ? parseFloat(uangInput.value) || 0 : 0;
     const kembalian = uang - currentDetailOrder.total;
-    
     const elUang = document.getElementById('printUangDiterima');
     const elKembali = document.getElementById('printKembalian');
-
     if (elUang && elKembali) {
       if (uang > 0) {
         elUang.textContent = rupiah(uang);
         elKembali.textContent = (kembalian < 0 ? '-' : '') + rupiah(Math.abs(kembalian));
       } else {
-        elUang.textContent = "-";
-        elKembali.textContent = "-";
+        elUang.textContent = "-"; elKembali.textContent = "-";
       }
     }
   }
@@ -1033,11 +1115,9 @@ function updateBell() {
   const btn = document.getElementById('bellBtn');
   const cnt = document.getElementById('bellCnt');
   if (calls.length > 0) {
-    btn.classList.add('has');
-    cnt.textContent = `(${calls.length})`;
+    btn.classList.add('has'); cnt.textContent = `(${calls.length})`;
   } else {
-    btn.classList.remove('has');
-    cnt.textContent = '';
+    btn.classList.remove('has'); cnt.textContent = '';
   }
 }
 function scrollToCalls() {
@@ -1102,12 +1182,10 @@ function subscribeRealtime() {
       renderCalls(); updateBell();
     })
     .subscribe();
-  db.channel('menu-status-ch')
-    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'menu_status' }, (payload) => {
-      menuStatus[payload.new.menu_id] = payload.new.tersedia;
-      renderKelolaMenu();
-    })
-    .subscribe();
+  db.channel('menu-ch-kasir')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'menu' }, () => {
+      loadMenu(); 
+    }).subscribe();
 }
 
 let flashInterval = null;
@@ -1122,7 +1200,7 @@ function flashTitle(msg) {
 document.addEventListener('keydown', e => {
   if (e.target.matches('input, textarea')) return;
   const k = e.key.toLowerCase();
-  if (k === 'escape') { closeDetail(); document.getElementById('confirmBackdrop').classList.remove('show'); }
+  if (k === 'escape') { closeDetail(); document.getElementById('confirmBackdrop').classList.remove('show'); closeMenuForm(); }
   else if (k === '1') setFilter('aktif');
   else if (k === '2') setFilter('semua');
   else if (k === 'l') {
